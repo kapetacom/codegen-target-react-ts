@@ -1,0 +1,5 @@
+kind: core.blockware.com/v1/LanguageTarget
+metadata:
+  id: targets.blockware.com/v1/React-TS
+  name: ReactJS / Typescript
+  description: Generate block frontend code in ReactJS using Typescript

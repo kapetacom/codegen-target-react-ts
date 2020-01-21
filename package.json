@@ -1,0 +1,50 @@
+{
+    "name": "@blockware/codegen-target-react-ts",
+    "version": "0.0.1",
+    "main": "index.js",
+    "description": "Provides code generation support for ReactJS + Typescript",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/blockwarecom/codegen-target-react-ts.git"
+    },
+    "private": false,
+    "publishConfig": {
+        "access": "public"
+    },
+    "keywords": [
+        "blockware"
+    ],
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/blockwarecom/codegen-target-react-ts/issues"
+    },
+    "homepage": "https://github.com/blockwarecom/codegen-target-react-ts#readme",
+    "dependencies": {
+        "@blockware/codegen-target": "0.0.7",
+        "prettier": "1.17.1",
+        "snake-case": "^3.0.3"
+    },
+    "peerDependencies": {
+        "@blockware/ui-web-types": "^0.0.10"
+    },
+    "devDependencies": {
+        "@blockware/ui-web-types": "^0.0.10",
+        "@babel/cli": "^7.7.7",
+        "@babel/core": "^7.7.7",
+        "@babel/plugin-proposal-class-properties": "^7.5.0",
+        "@babel/plugin-proposal-decorators": "^7.4.4",
+        "@babel/preset-env": "^7.5.0",
+        "@babel/preset-react": "^7.7.4",
+        "@babel/preset-typescript": "^7.3.3",
+        "babel-loader": "^8.0.6",
+        "json-loader": "^0.5.7",
+        "webpack": "^4.41.5",
+        "webpack-cli": "^3.3.10",
+        "yaml-loader": "^0.5.0",
+        "typescript": "^3.4.5"
+    },
+    "scripts": {
+        "prepublishOnly": "npm run build",
+        "build": "webpack"
+    }
+}

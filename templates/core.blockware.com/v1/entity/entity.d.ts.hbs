@@ -1,0 +1,12 @@
+//#FILENAME:src/browser/entities/{{type data.name}}.ts:write-always
+//
+// GENERATED SOURCE - DO NOT EDIT
+//
+
+export interface {{type data.name}} {
+
+{{#eachProperty data.properties}}
+    {{propertyId}}:{{type ./type}};
+{{/eachProperty}}
+
+}

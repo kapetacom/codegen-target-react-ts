@@ -1,0 +1,52 @@
+//#FILENAME:src/server/api/{{type data.metadata.name}}ClientRoute.js:write-always
+//
+// GENERATED SOURCE - DO NOT EDIT
+//
+const RESTRoute = require('@blockware/sdk-rest-route');
+const client = require('../clients/{{type data.metadata.name}}Client');
+
+class {{type data.metadata.name}}ClientRoute extends RESTRoute {
+
+    constructor() {
+        super();
+        this._initRoutes();
+    }
+
+    _initRoutes() {
+    {{#methods data.spec.methods}}
+        //{{method methodName}}: Verify the method is available
+        if (!client.{{method methodName}}) {
+            throw new Error('REST resource client for "{{type ../data.metadata.name}}" is missing method: "{{method methodName}}"');
+        }
+
+        //{{method methodName}}: Verify the method is implemented correctly
+        this.validateMethod(client.{{method methodName}}, '{{method methodName}}', [
+        {{#arguments arguments}}
+            '{{variable argumentName}}'
+        {{/arguments}}
+        ]);
+
+        //{{method methodName}}: Add route to server
+        this.addEndpoint(
+        {
+        method: '{{string method}}',
+        path: '/api{{string path}}',
+        description: '{{string description}}',
+        arguments: [
+        {{#arguments arguments}}
+            {
+            name: '{{string argumentName}}',
+            transport: '{{string transport}}'
+            }
+        {{/arguments}}
+        ],
+        handler: client.{{method methodName}}.bind(client)
+        }
+        );
+
+    {{/methods}}
+
+    }
+}
+
+module.exports = {{type data.metadata.name}}ClientRoute;

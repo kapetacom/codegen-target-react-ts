@@ -1,0 +1,50 @@
+//#FILENAME:src/browser/clients/{{type data.metadata.name}}Client.ts:write-always
+//
+// GENERATED SOURCE - DO NOT EDIT
+//
+
+import RESTClient from '@blockware/sdk-web-rest-client';
+
+export class {{type data.metadata.name}}Client {
+
+    client:RESTClient;
+
+    constructor() {
+        this.client = new RESTClient('/api/');
+    }
+
+{{#methods data.spec.methods}}
+
+
+    /**
+    * {{comment description}}
+    * HTTP: {{./method}} /api{{path}}
+    *
+    {{#eachProperty arguments}}
+        * @param {{curly 1}}{{type type}}{{curly}} {{variable propertyId}}
+    {{/eachProperty}}
+    * @return {{curly 1}}Promise<{{returnType responseType}}>{{curly}}
+    */
+    {{method methodName}}(
+    {{#arguments arguments}}
+        {{variable argumentName}}
+    {{/arguments}}
+    ) {
+
+    return this.client.execute(
+    '{{string method}}',
+    '{{string path}}',
+    [
+    {{#arguments arguments}}
+        {
+        name: '{{string argumentName}}',
+        value: {{variable argumentName}},
+        transport: '{{string transport}}'
+        }
+    {{/arguments}}
+    ]
+    );
+    }
+
+{{/methods}}
+}
