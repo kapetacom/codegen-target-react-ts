@@ -7,7 +7,7 @@ const targetConfig : TargetConfig =  {
     kind: blockwareDefinition.metadata.id,
     name: blockwareDefinition.metadata.name,
     blockKinds:[
-        'blocks.blockware.com/v1/Service'
+        'blocks.blockware.com/v1/Frontend'
     ]
 };
 
