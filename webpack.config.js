@@ -3,7 +3,7 @@ const Path = require('path');
 module.exports = {
     mode: 'development',
     entry: {
-        'web.blockware.com/v1/Site': Path.resolve(__dirname, "./src/web")
+        'targets.blockware.com/v1/React-TS': Path.resolve(__dirname, "./src/web")
     },
     output: {
         path: Path.join(process.cwd(), 'web'),

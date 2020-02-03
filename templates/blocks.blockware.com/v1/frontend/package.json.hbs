@@ -17,10 +17,14 @@
     ]
   },
   "dependencies": {
-    "@blockware/sdk-server": "0.0.4"
+    "@blockware/sdk-config": "0.0.5",
+    "@blockware/sdk-server": "0.0.5"
+    {{#consumes 'web.blockware.com/v1/Fragment'}},
+        "@blockware/sdk-proxy-route": "0.0.2"
+    {{/consumes}}
     {{#consumes 'rest.blockware.com/v1/Client'}},
-        "@blockware/sdk-rest-client": "0.0.3",
-        "@blockware/sdk-rest-route": "0.0.3",
+        "@blockware/sdk-rest-client": "0.0.4",
+        "@blockware/sdk-rest-route": "0.0.4",
         "@blockware/sdk-web-rest-client": "0.0.2"
     {{/consumes}}
   },

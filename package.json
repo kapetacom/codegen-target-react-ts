@@ -45,6 +45,7 @@
     },
     "scripts": {
         "prepublishOnly": "npm run build",
-        "build": "webpack"
+        "build": "webpack",
+        "watch": "webpack --watch"
     }
 }

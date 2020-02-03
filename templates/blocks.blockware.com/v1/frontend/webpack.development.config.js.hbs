@@ -11,10 +11,10 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserJSPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
-const SITES = [];
+const PAGES = [];
 
-{{#providers-of-type 'web.blockware.com/v1/Site'}}
-    SITES.push({
+{{#providers-of-type 'web.blockware.com/v1/Page'}}
+    PAGES.push({
         name: "{{string metadata.name}}",
         path: "{{string spec.path}}",
         localPath: "{{snakecase metadata.name}}"
@@ -44,24 +44,24 @@ const makeEntry = (localPath) => {
 const entries = {};
 const htmlPlugins = [];
 
-SITES.forEach((site) => {
-    while(site.path.startsWith('/')) {
-        site.path = site.path.substr(1);
+PAGES.forEach((page) => {
+    while(page.path.startsWith('/')) {
+        page.path = page.path.substr(1);
     }
 
-    if (site.localPath) {
-        const chunk = site.path + '/main';
-        entries[chunk] = makeEntry(site.localPath)
+    if (page.path) {
+        const chunk = page.path + '/main';
+        entries[chunk] = makeEntry(page.localPath);
         htmlPlugins.push(new HtmlWebpackPlugin({
-            title: site.name,
-            filename: site.path + '/index.html',
+            title: page.name,
+            filename: page.path + '/index.html',
             chunks: [chunk]
         }));
     } else {
         const chunk = 'main';
-        entries[chunk] = makeEntry('main')
+        entries[chunk] = makeEntry(page.localPath);
         htmlPlugins.push(new HtmlWebpackPlugin({
-            title: site.name,
+            title: page.name,
             filename: 'index.html',
             chunks: [chunk]
         }));

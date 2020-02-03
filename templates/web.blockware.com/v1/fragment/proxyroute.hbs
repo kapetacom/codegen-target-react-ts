@@ -1,0 +1,14 @@
+//#FILENAME:src/server/proxies/fragments/{{type data.metadata.name}}ProxyRoute.js:write-always
+//
+// GENERATED SOURCE - DO NOT EDIT
+//
+const ProxyRoute = require('@blockware/sdk-proxy-route');
+
+class {{type data.metadata.name}}ProxyRoute extends ProxyRoute {
+
+    constructor() {
+        super("{{string data.metadata.name}}", "/fragments{{string data.spec.path}}");
+    }
+}
+
+module.exports = {{type data.metadata.name}}ProxyRoute;

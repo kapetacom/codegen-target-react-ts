@@ -11,6 +11,9 @@ const express = require('express');
 {{#consumers-of-type 'rest.blockware.com/v1/Client'}}
 const {{type metadata.name}}ClientRoute = require('./api/{{type metadata.name}}ClientRoute');
 {{/consumers-of-type}}
+{{#consumers-of-type 'web.blockware.com/v1/Fragment'}}
+    const {{type metadata.name}}ProxyRoute = require('./proxies/fragments/{{type metadata.name}}ProxyRoute');
+{{/consumers-of-type}}
 
 const devMode = process.env.NODE_ENV &&
                 process.env.NODE_ENV.toLowerCase() === 'development';
@@ -39,10 +42,16 @@ if (devMode) {
     server.express().use(express.static(BASE_DIR));
 }
 
+{{#consumers-of-type 'web.blockware.com/v1/Fragment'}}
+    server.addRoute(
+        new {{type metadata.name}}ProxyRoute()
+    );
+{{/consumers-of-type}}
+
 {{#consumers-of-type 'rest.blockware.com/v1/Client'}}
-    server.addRESTRoute(
+    server.addRoute(
         new {{type metadata.name}}ClientRoute()
     );
 {{/consumers-of-type}}
 
-server.start();
+server.start('web');
