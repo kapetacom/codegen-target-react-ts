@@ -31,12 +31,12 @@ module.exports = {
             },
             {
                 test: /\.less$/,
-                loaders: ["style-loader", "css-loader", "less-loader"],
+                use: ["style-loader", "css-loader", "less-loader"],
                 include: Path.resolve(__dirname, "./src")
             },
             {
                 test: /\.ya?ml$/,
-                loaders: ['json-loader', 'yaml-loader'],
+                use: ['yaml-loader'],
                 include: Path.resolve(__dirname, "./")
             }
         ]

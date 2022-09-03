@@ -20,28 +20,28 @@
     },
     "homepage": "https://github.com/blockwarecom/codegen-target-react-ts#readme",
     "dependencies": {
-        "@blockware/codegen-target": "0.0.7",
-        "prettier": "1.17.1",
-        "snake-case": "^3.0.3"
+        "@blockware/codegen-target": "0.0.9",
+        "prettier": "2.7.1",
+        "snake-case": "^3.0.4"
     },
     "peerDependencies": {
-        "@blockware/ui-web-types": "^0.0.10"
+        "@blockware/ui-web-types": "^0.0.22"
     },
     "devDependencies": {
-        "@blockware/ui-web-types": "^0.0.10",
-        "@babel/cli": "^7.7.7",
-        "@babel/core": "^7.7.7",
-        "@babel/plugin-proposal-class-properties": "^7.5.0",
-        "@babel/plugin-proposal-decorators": "^7.4.4",
-        "@babel/preset-env": "^7.5.0",
-        "@babel/preset-react": "^7.7.4",
-        "@babel/preset-typescript": "^7.3.3",
-        "babel-loader": "^8.0.6",
+        "@blockware/ui-web-types": "^0.0.22",
+        "@babel/cli": "^7.18.10",
+        "@babel/core": "^7.18.13",
+        "@babel/plugin-proposal-class-properties": "^7.18.6",
+        "@babel/plugin-proposal-decorators": "^7.18.10",
+        "@babel/preset-env": "^7.18.10",
+        "@babel/preset-react": "^7.18.6",
+        "@babel/preset-typescript": "^7.18.6",
+        "babel-loader": "^8.2.5",
         "json-loader": "^0.5.7",
-        "webpack": "^4.41.5",
-        "webpack-cli": "^3.3.10",
-        "yaml-loader": "^0.5.0",
-        "typescript": "^3.4.5"
+        "webpack": "^5.74.0",
+        "webpack-cli": "^4.10.0",
+        "yaml-loader": "^0.8.0",
+        "typescript": "^4.8.2"
     },
     "scripts": {
         "prepublishOnly": "npm run build",
