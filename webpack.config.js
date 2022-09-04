@@ -36,7 +36,7 @@ module.exports = {
             },
             {
                 test: /\.ya?ml$/,
-                use: ['yaml-loader'],
+                use: ['json-loader', 'yaml-loader'],
                 include: Path.resolve(__dirname, "./")
             }
         ]
