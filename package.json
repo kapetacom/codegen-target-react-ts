@@ -1,6 +1,6 @@
 {
     "name": "@blockware/codegen-target-react-ts",
-    "version": "0.0.9",
+    "version": "0.0.10",
     "main": "index.js",
     "description": "Provides code generation support for ReactJS + Typescript",
     "repository": {
