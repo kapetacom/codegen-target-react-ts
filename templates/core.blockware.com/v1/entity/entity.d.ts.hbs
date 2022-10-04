@@ -2,11 +2,23 @@
 //
 // GENERATED SOURCE - DO NOT EDIT
 //
+{{#eachTypeReference data all=true}}
+import { {{name}} } from "./{{name}}";
+{{/eachTypeReference}}
 
+{{#switch data.type}}
+    {{#case 'dto'}}
 export interface {{type data.name}} {
 
 {{#eachProperty data.properties}}
-    {{propertyId}}:{{type ./type}};
+    {{propertyId}}:{{fieldtype ./type}};
 {{/eachProperty}}
 
 }
+    {{/case}}
+    {{#case 'enum'}}
+export enum {{type data.name}} {
+{{enumValues data.values}}
+}
+    {{/case}}
+{{/switch}}

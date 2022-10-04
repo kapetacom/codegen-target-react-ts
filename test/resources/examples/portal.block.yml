@@ -1,0 +1,83 @@
+kind: blocks.blockware.com/v1/frontend
+metadata:
+  name: Portal
+  version: 0.0.1
+spec:
+  target:
+    kind: targets.blockware.com/v1/react-ts
+  type: service
+  providers:
+    - kind: web.blockware.com/v1/Page
+      metadata:
+        name: MyPage
+      spec:
+        path: /
+  consumers:
+    - kind: rest.blockware.com/v1/Client
+      metadata:
+        name: tasks
+      spec:
+        methods:
+          addTask:
+            description: Add task for user
+            method: POST
+            path: /tasks/{userId}/{id}
+            arguments:
+              userId:
+                type: string
+                transport: path
+              id:
+                type: string
+                transport: path
+              task:
+                type: {$ref: Task}
+                transport: body
+          markAsDone:
+            description: Mark task as done
+            method: POST
+            path: /tasks/{id}/done
+            arguments:
+              id:
+                type: string
+                transport: path
+          removeTask:
+            description: Delete task
+            method: DELETE
+            path: /tasks/{id}
+            arguments:
+              id:
+                type: string
+                transport: path
+  entities:
+    types:
+      - type: enum
+        name: TaskState
+        description: null
+        values:
+          - PENDING
+          - DONE
+      - type: dto
+        name: Task
+        description: null
+        properties:
+          id:
+            description: null
+            type: string
+            properties: null
+          state:
+            description: null
+            type:
+              $ref: TaskState
+            properties: null
+    source:
+      type: blockware-dsl
+      value: |-
+        enum TestState {
+            OK,TWO
+        }
+
+        MyType {
+            id:string
+
+            state:TestState
+        }

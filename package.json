@@ -20,7 +20,7 @@
     },
     "homepage": "https://github.com/blockwarecom/codegen-target-react-ts#readme",
     "dependencies": {
-        "@blockware/codegen-target": "0.0.9",
+        "@blockware/codegen-target": "<2",
         "prettier": "2.7.1",
         "snake-case": "^3.0.4"
     },
@@ -28,7 +28,8 @@
         "@blockware/ui-web-types": "^0.0.22"
     },
     "devDependencies": {
-        "@blockware/ui-web-types": "^0.0.22",
+        "@blockware/codegen": "<2",
+        "@blockware/ui-web-types": "<2",
         "@babel/cli": "^7.18.10",
         "@babel/core": "^7.18.13",
         "@babel/plugin-proposal-class-properties": "^7.18.6",
@@ -36,16 +37,19 @@
         "@babel/preset-env": "^7.18.10",
         "@babel/preset-react": "^7.18.6",
         "@babel/preset-typescript": "^7.18.6",
+        "@jest/globals": "^29.1.2",
         "babel-loader": "^8.2.5",
+        "jest": "^29.1.2",
+        "json-loader": "^0.5.7",
+        "typescript": "^4.8.2",
         "webpack": "^5.74.0",
         "webpack-cli": "^4.10.0",
-        "json-loader": "^0.5.7",
-        "yaml-loader": "^0.5.0",
-        "typescript": "^4.8.2"
+        "yaml-loader": "^0.5.0"
     },
     "scripts": {
-        "prepublishOnly": "npm run build",
+        "prepublishOnly": "npm run test && npm run build",
         "build": "webpack",
-        "watch": "webpack --watch"
+        "watch": "webpack --watch",
+        "test": "jest"
     }
 }

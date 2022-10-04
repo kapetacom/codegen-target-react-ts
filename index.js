@@ -1,4 +1,4 @@
-const {Target} = require('@blockware/codegen-target');
+const {Target,Template} = require('@blockware/codegen-target');
 const prettier = require("prettier");
 const {snakeCase} = require("snake-case");
 
@@ -15,6 +15,30 @@ class ReactTSTarget extends Target {
             return snakeCase(name);
         });
 
+        engine.registerHelper('enumValues', (values) => {
+            return Template.SafeString('\t' + values.map(value => `${value} = ${JSON.stringify(value)}`).join(',\n\t'));
+        });
+
+        const $fieldType = (value) => {
+            if (!value) {
+                return value;
+            }
+
+            if (value.$ref) {
+                value = value.$ref.substring(0,1).toUpperCase() + value.$ref.substring(1);
+            }
+
+            return Template.SafeString(value);
+        };
+        engine.registerHelper('fieldtype', $fieldType);
+        engine.registerHelper('returnType', (value) => {
+            if (!value) {
+                return 'void';
+            }
+
+            return $fieldType(value);
+        });
+
         return engine
     }
 
@@ -27,10 +51,13 @@ class ReactTSTarget extends Target {
         }
 
         if (filename.endsWith('.js') ||
-            filename.endsWith('.jsx') ||
-            filename.endsWith('.ts') ||
-            filename.endsWith('.tsx')) {
+            filename.endsWith('.jsx')) {
             parser = 'babel';
+        }
+
+        if (filename.endsWith('.ts') ||
+            filename.endsWith('.tsx')) {
+            parser = 'babel-ts';
         }
 
         if (filename.endsWith('.yaml') ||

@@ -1,0 +1,1 @@
+module.exports = require('@blockware/codegen-target').JestConfig
