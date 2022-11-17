@@ -5,7 +5,7 @@ const blockwareDefinition = require('../../blockware.yml');
 
 const targetConfig : TargetConfig =  {
     kind: blockwareDefinition.metadata.name,
-    name: blockwareDefinition.metadata.title,
+    title: blockwareDefinition.metadata.title,
     blockKinds:[
         'blockware/block-type-frontend'
     ]
