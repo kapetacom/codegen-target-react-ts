@@ -1,19 +1,19 @@
-kind: blocks.blockware.com/v1/frontend
+kind: blockware/block-type-frontend
 metadata:
   name: Portal
   version: 0.0.1
 spec:
   target:
-    kind: targets.blockware.com/v1/react-ts
+    kind: blockware/language-target-react-ts
   type: service
   providers:
-    - kind: web.blockware.com/v1/Page
+    - kind: blockware/resource-type-web-page
       metadata:
         name: MyPage
       spec:
         path: /
   consumers:
-    - kind: rest.blockware.com/v1/Client
+    - kind: blockware/resource-type-rest-client
       metadata:
         name: tasks
       spec:

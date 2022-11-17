@@ -8,10 +8,10 @@ const Server = require('@blockware/sdk-server');
 const server = new Server('{{type data.metadata.name}}', Path.resolve(__dirname, '../..'));
 const express = require('express');
 
-{{#consumers-of-type 'rest.blockware.com/v1/Client'}}
+{{#consumers-of-type 'blockware/resource-type-rest-client'}}
 const {{type metadata.name}}ClientRoute = require('./api/{{type metadata.name}}ClientRoute');
 {{/consumers-of-type}}
-{{#consumers-of-type 'web.blockware.com/v1/Fragment'}}
+{{#consumers-of-type 'blockware/resource-type-web-fragment'}}
     const {{type metadata.name}}ProxyRoute = require('./proxies/fragments/{{type metadata.name}}ProxyRoute');
 {{/consumers-of-type}}
 
@@ -42,13 +42,13 @@ if (devMode) {
     server.express().use(express.static(BASE_DIR));
 }
 
-{{#consumers-of-type 'web.blockware.com/v1/Fragment'}}
+{{#consumers-of-type 'blockware/resource-type-web-fragment'}}
     server.addRoute(
         new {{type metadata.name}}ProxyRoute()
     );
 {{/consumers-of-type}}
 
-{{#consumers-of-type 'rest.blockware.com/v1/Client'}}
+{{#consumers-of-type 'blockware/resource-type-rest-client'}}
     server.addRoute(
         new {{type metadata.name}}ClientRoute()
     );

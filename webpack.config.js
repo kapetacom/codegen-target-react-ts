@@ -3,7 +3,7 @@ const Path = require('path');
 module.exports = {
     mode: 'development',
     entry: {
-        'targets.blockware.com/v1/React-TS': Path.resolve(__dirname, "./src/web")
+        'blockware/language-target-react-ts': Path.resolve(__dirname, "./src/web")
     },
     output: {
         path: Path.join(process.cwd(), 'web'),

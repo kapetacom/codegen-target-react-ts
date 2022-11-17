@@ -4,10 +4,10 @@ import {TargetConfig} from "@blockware/ui-web-types";
 const blockwareDefinition = require('../../blockware.yml');
 
 const targetConfig : TargetConfig =  {
-    kind: blockwareDefinition.metadata.id,
-    name: blockwareDefinition.metadata.name,
+    kind: blockwareDefinition.metadata.name,
+    name: blockwareDefinition.metadata.title,
     blockKinds:[
-        'blocks.blockware.com/v1/Frontend'
+        'blockware/block-type-frontend'
     ]
 };
 

@@ -13,7 +13,7 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 const PAGES = [];
 
-{{#providers-of-type 'web.blockware.com/v1/Page'}}
+{{#providers-of-type 'blockware/resource-type-web-page'}}
     PAGES.push({
         name: "{{string metadata.name}}",
         path: "{{string spec.path}}",
