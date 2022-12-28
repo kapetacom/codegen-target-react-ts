@@ -1,7 +1,6 @@
 {
-    "name": "@blockware/codegen-target-react-ts",
-    "version": "0.0.16",
-    "main": "index.js",
+    "name": "@blockware/language-target-react-ts",
+    "version": "local",
     "description": "Provides code generation support for ReactJS + Typescript",
     "repository": {
         "type": "git",
@@ -48,8 +47,9 @@
     },
     "scripts": {
         "prepublishOnly": "npm run test && npm run build",
-        "build": "webpack",
-        "watch": "webpack --watch",
+        "build": "webpack --mode production",
+        "start": "npm run watch",
+        "watch": "webpack --mode development --watch",
         "test": "jest"
     }
 }
