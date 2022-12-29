@@ -1,5 +1,5 @@
 ##FILENAME:Dockerfile:merge
-FROM node:13.12
+FROM node:18.7
 
 ADD package.json /application/package.json
 
