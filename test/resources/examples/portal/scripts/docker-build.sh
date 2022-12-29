@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
 echo "Building docker image";
-docker build . -t portal || exit 1
+docker build . -t blockware/portal || exit 1
 
-echo "Done. Image ready: portal";
+echo "Done. Image ready: blockware/portal";
