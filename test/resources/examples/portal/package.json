@@ -1,6 +1,6 @@
 {
-    "name": "block-frontend-portal",
-    "version": "0.0.1",
+    "name": "@blockware/portal",
+    "version": "local",
     "main": "src/server/index.js",
     "scripts": {
         "start": "NODE_ENV=development nodemon",

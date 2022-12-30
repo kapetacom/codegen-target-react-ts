@@ -5,7 +5,7 @@
 const Path = require('path');
 const FS = require('fs');
 const Server = require('@blockware/sdk-server');
-const server = new Server('{{type data.metadata.name}}', Path.resolve(__dirname, '../..'));
+const server = new Server('{{data.metadata.name}}', Path.resolve(__dirname, '../..'));
 const express = require('express');
 
 {{#consumers-of-type 'blockware/resource-type-rest-client'}}
