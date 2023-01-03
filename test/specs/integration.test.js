@@ -1,7 +1,7 @@
 const {describe, test, beforeEach} =  require("@jest/globals");
 
 const Target = require('../../index');
-const {CodegenHelpers} = require('@blockware/codegen');
+const {CodegenHelpers,BlockCodeGenerator} = require('@blockware/codegen');
 const Path = require("path");
 
 describe('blocks', () => {
@@ -14,9 +14,9 @@ describe('blocks', () => {
     test('portal', async () => {
 
         const basedir = Path.resolve(__dirname, '../resources/examples/portal');
-        const data = require('../resources/examples/portal.block.yml');
+        const data = require('../resources/examples/portal.blockware.yml');
 
-        return CodegenHelpers.testCodeGenFor(target, data, basedir);
+        return CodegenHelpers.testCodeGenFor(target, new BlockCodeGenerator(data), basedir);
     });
 
 })

@@ -1,4 +1,4 @@
-FROM node:13.12
+FROM node:18.7
 
 ADD package.json /application/package.json
 
@@ -11,7 +11,7 @@ ADD webpack.*.js /application/
 ADD src/browser /application/src/browser
 RUN npm run build
 
-ADD block.yml /application/block.yml
+ADD blockware.yml /application/blockware.yml
 
 ADD src/server /application/src/server
 

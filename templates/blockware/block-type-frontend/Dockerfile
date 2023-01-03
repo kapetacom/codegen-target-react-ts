@@ -12,7 +12,7 @@ ADD webpack.*.js /application/
 ADD src/browser /application/src/browser
 RUN npm run build
 
-ADD block.yml /application/block.yml
+ADD blockware.yml /application/blockware.yml
 
 ADD src/server /application/src/server
 

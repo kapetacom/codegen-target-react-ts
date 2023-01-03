@@ -9,7 +9,7 @@ const HotMiddlewareScript =
     "webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true";
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const TerserJSPlugin = require("terser-webpack-plugin");
-const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const OptimizeCSSAssetsPlugin = require("css-minimizer-webpack-plugin");
 
 const PAGES = [];
 
@@ -100,6 +100,14 @@ const config = {
                         "react-hot-loader/babel",
                         ["@babel/plugin-proposal-decorators", { legacy: true }],
                         [
+                            "@babel/plugin-proposal-private-methods",
+                            { loose: true },
+                        ],
+                        [
+                            "@babel/plugin-proposal-private-property-in-object",
+                            { loose: true },
+                        ],
+                        [
                             "@babel/plugin-proposal-class-properties",
                             { loose: true },
                         ],
@@ -109,7 +117,7 @@ const config = {
             },
             {
                 test: /\.less$/,
-                loaders: [styleLoader, "css-loader", "less-loader"],
+                use: [styleLoader, "css-loader", "less-loader"],
                 include: Path.resolve(__dirname, "./"),
             },
             {
@@ -119,7 +127,7 @@ const config = {
             },
             {
                 test: /\.ya?ml$/,
-                loaders: ["json-loader", "yaml-loader"],
+                use: ["json-loader", "yaml-loader"],
                 include: Path.resolve(__dirname, "./"),
             },
         ],
