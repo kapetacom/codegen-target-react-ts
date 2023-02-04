@@ -9,7 +9,8 @@ const HotMiddlewareScript =
     "webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true";
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const TerserJSPlugin = require("terser-webpack-plugin");
-const OptimizeCSSAssetsPlugin = require("css-minimizer-webpack-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
 
 const PAGES = [];
 
@@ -21,11 +22,7 @@ PAGES.push({
 
 const devMode = process.env.NODE_ENV === "development";
 
-const styleLoader = devMode
-    ? "style-loader"
-    : {
-          loader: MiniCssExtractPlugin.loader,
-      };
+const styleLoader = devMode ? "style-loader" : MiniCssExtractPlugin.loader;
 
 const makeEntry = (localPath) => {
     const path = "./" + Path.join("./src/browser/pages/", localPath);
@@ -34,7 +31,7 @@ const makeEntry = (localPath) => {
         return [path];
     }
 
-    return ["react-hot-loader/patch", HotMiddlewareScript, path];
+    return [HotMiddlewareScript, path];
 };
 
 const entries = {};
@@ -73,10 +70,7 @@ const config = {
     optimization: devMode
         ? {}
         : {
-              minimizer: [
-                  new TerserJSPlugin({}),
-                  new OptimizeCSSAssetsPlugin({}),
-              ],
+              minimizer: [new TerserJSPlugin({}), new CssMinimizerPlugin()],
           },
     output: {
         path: Path.join(__dirname, "dist"),
@@ -97,7 +91,7 @@ const config = {
                         "@babel/react",
                     ],
                     plugins: [
-                        "react-hot-loader/babel",
+                        ...(devMode ? ["react-refresh/babel"] : []),
                         ["@babel/plugin-proposal-decorators", { legacy: true }],
                         [
                             "@babel/plugin-proposal-private-methods",
@@ -144,18 +138,16 @@ const config = {
             ".yml",
             ".yaml",
         ],
-        alias: devMode
-            ? {
-                  "react-dom": "@hot-loader/react-dom",
-              }
-            : {},
     },
     plugins: htmlPlugins,
     externals: {},
 };
 
 if (devMode) {
-    config.plugins.unshift(new webpack.HotModuleReplacementPlugin());
+    config.plugins.unshift(
+        new webpack.HotModuleReplacementPlugin(),
+        new ReactRefreshWebpackPlugin()
+    );
 } else {
     config.plugins.unshift(
         new MiniCssExtractPlugin({

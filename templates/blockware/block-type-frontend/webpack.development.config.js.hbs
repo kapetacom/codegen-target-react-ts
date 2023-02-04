@@ -7,18 +7,19 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const webpack = require("webpack");
 const HotMiddlewareScript =
-"webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true";
+    "webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true";
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const TerserJSPlugin = require("terser-webpack-plugin");
-const OptimizeCSSAssetsPlugin = require("css-minimizer-webpack-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
 const PAGES = [];
 
 {{#providers-of-type 'blockware/resource-type-web-page'}}
     PAGES.push({
-        name: "{{string metadata.name}}",
-        path: "{{string spec.path}}",
-        localPath: "{{snakecase metadata.name}}"
+    name: "{{string metadata.name}}",
+    path: "{{string spec.path}}",
+    localPath: "{{snakecase metadata.name}}"
     });
 {{/providers-of-type}}
 
@@ -26,9 +27,7 @@ const devMode = process.env.NODE_ENV === "development";
 
 const styleLoader = devMode
     ? "style-loader"
-    : {
-          loader: MiniCssExtractPlugin.loader,
-      };
+    : MiniCssExtractPlugin.loader;
 
 const makeEntry = (localPath) => {
     const path = "./" + Path.join("./src/browser/pages/", localPath);
@@ -37,7 +36,7 @@ const makeEntry = (localPath) => {
         return [path];
     }
 
-    return ["react-hot-loader/patch", HotMiddlewareScript, path];
+    return [HotMiddlewareScript, path];
 };
 
 const entries = {};
@@ -78,8 +77,8 @@ const config = {
         : {
               minimizer: [
                   new TerserJSPlugin({}),
-                  new OptimizeCSSAssetsPlugin({}),
-              ],
+                  new CssMinimizerPlugin(),
+              ]
           },
     output: {
         path: Path.join(__dirname, "dist"),
@@ -100,7 +99,7 @@ const config = {
                         "@babel/react",
                     ],
                     plugins: [
-                        "react-hot-loader/babel",
+                        ...(devMode ? ['react-refresh/babel',] : []),
                         ["@babel/plugin-proposal-decorators", {legacy: true}],
                         ["@babel/plugin-proposal-private-methods", {"loose": true}],
                         ["@babel/plugin-proposal-private-property-in-object", {"loose": true}],
@@ -123,7 +122,7 @@ const config = {
                 test: /\.ya?ml$/,
                 use: ["json-loader", "yaml-loader"],
                 include: Path.resolve(__dirname, "./"),
-            },
+            }
         ],
     },
     resolve: {
@@ -137,19 +136,17 @@ const config = {
             ".scss",
             ".yml",
             ".yaml",
-        ],
-        alias: devMode
-            ? {
-                  "react-dom": "@hot-loader/react-dom",
-              }
-            : {},
+        ]
     },
     plugins: htmlPlugins,
     externals: {},
 };
 
 if (devMode) {
-    config.plugins.unshift(new webpack.HotModuleReplacementPlugin());
+    config.plugins.unshift(
+        new webpack.HotModuleReplacementPlugin(),
+        new ReactRefreshWebpackPlugin()
+    );
 } else {
     config.plugins.unshift(
         new MiniCssExtractPlugin({
