@@ -4,6 +4,7 @@ ADD package.json /application/package.json
 
 WORKDIR /application
 
+RUN npm config set @blockware:registry "https://europe-npm.pkg.dev/blockware-cloud/blockware-npm-public/"
 RUN npm install
 
 ADD tsconfig.json /application/
