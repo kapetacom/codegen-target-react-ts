@@ -24,8 +24,26 @@ class ReactTSTarget extends Target {
                 return value;
             }
 
+
+
             if (value.$ref) {
                 value = value.$ref.substring(0,1).toUpperCase() + value.$ref.substring(1);
+            }
+
+            let type = value;
+            let array = false;
+            if (type.endsWith('[]')) {
+                type = type.substring(0, type.length - 2);
+                array = true;
+            }
+            switch (type) {
+                case 'integer':
+                case 'int':
+                case 'float':
+                case 'double':
+                case 'short':
+                    value = `number${array ? '[]' : ''}`;
+                    break;
             }
 
             return Template.SafeString(value);
