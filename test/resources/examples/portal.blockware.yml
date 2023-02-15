@@ -68,6 +68,14 @@ spec:
             type:
               $ref: TaskState
             properties: null
+          created:
+            type: Date
+          views:
+            type: integer
+          stars:
+            type: float
+          numberList:
+            type: double[]
     source:
       type: blockware-dsl
       value: |-
