@@ -1,7 +1,7 @@
 //
 // GENERATED SOURCE - DO NOT EDIT
 //
-const RESTRoute = require("@blockware/sdk-rest-route");
+const RESTRoute = require("@kapeta/sdk-rest-route");
 const client = require("../clients/TasksClient");
 
 class TasksClientRoute extends RESTRoute {

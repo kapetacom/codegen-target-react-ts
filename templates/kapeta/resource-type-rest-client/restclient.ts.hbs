@@ -1,21 +1,28 @@
-//#FILENAME:src/server/clients/{{type data.metadata.name}}Client.js:write-always
+//#FILENAME:src/browser/clients/{{type data.metadata.name}}Client.ts:write-always
 //
 // GENERATED SOURCE - DO NOT EDIT
 //
-const RestClient = require('@blockware/sdk-rest-client');
 
-class {{type data.metadata.name}}Client {
+import RESTClient from '@kapeta/sdk-web-rest-client';
+{{#eachTypeReference data.spec.methods all=true}}
+    import { {{name}} } from "../entities/{{name}}";
+{{/eachTypeReference}}
 
-constructor() {
-this._client = new RestClient('{{string data.metadata.name}}');
-}
+
+export class {{type data.metadata.name}}Client {
+
+    client:RESTClient;
+
+    constructor() {
+        this.client = new RESTClient('/api/');
+    }
 
 {{#methods data.spec.methods}}
 
 
     /**
     * {{comment description}}
-    * HTTP: {{./method}} {{path}}
+    * HTTP: {{./method}} /api{{path}}
     *
     {{#eachProperty arguments}}
         * @param {{curly 1}}{{fieldtype type}}{{curly}} {{variable propertyId}}
@@ -24,11 +31,11 @@ this._client = new RestClient('{{string data.metadata.name}}');
     */
     {{method methodName}}(
     {{#arguments arguments}}
-        {{variable argumentName}}
+        {{variable argumentName}}:{{fieldtype type}}
     {{/arguments}}
-    ) {
+    ):Promise<{{returnType responseType}}> {
 
-    return this._client.execute(
+    return this.client.execute(
     '{{string method}}',
     '{{string path}}',
     [
@@ -45,5 +52,3 @@ this._client = new RestClient('{{string data.metadata.name}}');
 
 {{/methods}}
 }
-
-module.exports = new {{type data.metadata.name}}Client();

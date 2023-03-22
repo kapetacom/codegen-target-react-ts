@@ -1,18 +1,18 @@
-kind: blockware/block-type-frontend:0.0.3
+kind: kapeta/block-type-frontend:0.0.3
 metadata:
-  name: blockware/portal
+  name: kapeta/portal
 spec:
   target:
-    kind: blockware/language-target-react-ts:local
+    kind: kapeta/language-target-react-ts:local
   type: service
   providers:
-    - kind: blockware/resource-type-web-page:0.0.3
+    - kind: kapeta/resource-type-web-page:0.0.3
       metadata:
         name: MyPage
       spec:
         path: /
   consumers:
-    - kind: blockware/resource-type-rest-client:0.0.4
+    - kind: kapeta/resource-type-rest-client:0.0.4
       metadata:
         name: tasks
       spec:
@@ -77,7 +77,7 @@ spec:
           numberList:
             type: double[]
     source:
-      type: blockware-dsl
+      type: kapeta-dsl
       value: |-
         enum TestState {
             OK,TWO

@@ -1,15 +1,15 @@
-import {TargetConfig} from "@blockware/ui-web-types";
+import {TargetConfig} from "@kapeta/ui-web-types";
 
 // @ts-ignore
-const blockwareDefinition = require('../../blockware.yml');
+const kapetaDefinition = require('../../kapeta.yml');
 const packageJson = require('../../package.json');
 
 const targetConfig : TargetConfig =  {
-    kind: blockwareDefinition.metadata.name,
+    kind: kapetaDefinition.metadata.name,
     version: packageJson.version,
-    title: blockwareDefinition.metadata.title,
+    title: kapetaDefinition.metadata.title,
     blockKinds:[
-        'blockware/block-type-frontend'
+        'kapeta/block-type-frontend'
     ]
 };
 

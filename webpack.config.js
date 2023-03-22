@@ -2,7 +2,7 @@ const Path = require('path');
 const FS = require('fs');
 const YAML = require('yaml');
 
-const blockInfo = YAML.parse(FS.readFileSync(Path.resolve(__dirname, './blockware.yml')).toString());
+const blockInfo = YAML.parse(FS.readFileSync(Path.resolve(__dirname, './kapeta.yml')).toString());
 const packageJson = require('./package.json');
 
 module.exports = {
@@ -16,7 +16,7 @@ module.exports = {
         path: Path.join(process.cwd(), 'web'),
         filename: '[name].js',
         library: {
-            name: `Blockware.languageTargets["[name]"]`,
+            name: `Kapeta.languageTargets["[name]"]`,
             type: 'assign',
             export: 'default'
         }
@@ -65,7 +65,7 @@ module.exports = {
     },
     externals: {
         react: 'React',
-        '@blockware/ui-web-components': 'Blockware.Components',
-        '@blockware/ui-web-types': 'Blockware.Types'
+        '@kapeta/ui-web-components': 'Kapeta.Components',
+        '@kapeta/ui-web-types': 'Kapeta.Types'
     }
 };

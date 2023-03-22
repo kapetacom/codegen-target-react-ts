@@ -1,5 +1,5 @@
 {
-    "name": "@blockware/portal",
+    "name": "@kapeta/portal",
     "version": "local",
     "main": "src/server/index.js",
     "scripts": {
@@ -12,11 +12,11 @@
         "ignore": ["test/*", "docs/*", "src/browser/*"]
     },
     "dependencies": {
-        "@blockware/sdk-config": "<2",
-        "@blockware/sdk-server": "<2",
-        "@blockware/sdk-rest-client": "<2",
-        "@blockware/sdk-rest-route": "<2",
-        "@blockware/sdk-web-rest-client": "<2"
+        "@kapeta/sdk-config": "<2",
+        "@kapeta/sdk-server": "<2",
+        "@kapeta/sdk-rest-client": "<2",
+        "@kapeta/sdk-rest-route": "<2",
+        "@kapeta/sdk-web-rest-client": "<2"
     },
     "devDependencies": {
         "@babel/cli": "^7.20.7",

@@ -1,5 +1,5 @@
 kind: core/language-target
 metadata:
-  name: blockware/language-target-react-ts
+  name: kapeta/language-target-react-ts
   title: ReactJS / Typescript
   description: Generate block frontend code in ReactJS using Typescript

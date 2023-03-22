@@ -1,5 +1,5 @@
 {
-    "name": "@blockware/language-target-react-ts",
+    "name": "@kapeta/language-target-react-ts",
     "version": "local",
     "description": "Provides code generation support for ReactJS + Typescript",
     "repository": {
@@ -11,7 +11,7 @@
         "access": "public"
     },
     "keywords": [
-        "blockware"
+        "kapeta"
     ],
     "license": "MIT",
     "bugs": {
@@ -19,16 +19,16 @@
     },
     "homepage": "https://github.com/blockwarecom/codegen-target-react-ts#readme",
     "dependencies": {
-        "@blockware/codegen-target": "<2",
+        "@kapeta/codegen-target": "<2",
         "prettier": "2.7.1",
         "snake-case": "^3.0.4"
     },
     "peerDependencies": {
-        "@blockware/ui-web-types": "^0.0.22"
+        "@kapeta/ui-web-types": "^0.0.22"
     },
     "devDependencies": {
-        "@blockware/codegen": "<2",
-        "@blockware/ui-web-types": "<2",
+        "@kapeta/codegen": "<2",
+        "@kapeta/ui-web-types": "<2",
         "@babel/cli": "^7.18.10",
         "@babel/core": "^7.18.13",
         "@babel/plugin-proposal-class-properties": "^7.18.6",

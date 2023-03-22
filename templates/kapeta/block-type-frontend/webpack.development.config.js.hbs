@@ -15,7 +15,7 @@ const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin'
 
 const PAGES = [];
 
-{{#providers-of-type 'blockware/resource-type-web-page'}}
+{{#providers-of-type 'kapeta/resource-type-web-page'}}
     PAGES.push({
     name: "{{string metadata.name}}",
     path: "{{string spec.path}}",

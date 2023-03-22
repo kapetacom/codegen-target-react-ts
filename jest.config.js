@@ -1,1 +1,1 @@
-module.exports = require('@blockware/codegen-target').JestConfig
+module.exports = require('@kapeta/codegen-target').JestConfig

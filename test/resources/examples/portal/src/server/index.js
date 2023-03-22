@@ -3,8 +3,8 @@
 //
 const Path = require("path");
 const FS = require("fs");
-const Server = require("@blockware/sdk-server");
-const server = new Server("blockware/portal", Path.resolve(__dirname, "../.."));
+const Server = require("@kapeta/sdk-server");
+const server = new Server("kapeta/portal", Path.resolve(__dirname, "../.."));
 const express = require("express");
 
 const TasksClientRoute = require("./api/TasksClientRoute");

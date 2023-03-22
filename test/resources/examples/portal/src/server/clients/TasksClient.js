@@ -1,7 +1,7 @@
 //
 // GENERATED SOURCE - DO NOT EDIT
 //
-const RestClient = require("@blockware/sdk-rest-client");
+const RestClient = require("@kapeta/sdk-rest-client");
 
 class TasksClient {
     constructor() {

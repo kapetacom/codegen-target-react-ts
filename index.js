@@ -1,4 +1,4 @@
-const {Target,Template} = require('@blockware/codegen-target');
+const {Target,Template} = require('@kapeta/codegen-target');
 const prettier = require("prettier");
 const {snakeCase} = require("snake-case");
 
