@@ -4,7 +4,7 @@
     "description": "Provides code generation support for ReactJS + Typescript",
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/blockwarecom/codegen-target-react-ts.git"
+        "url": "git+https://github.com/kapetacom/codegen-target-react-ts.git"
     },
     "private": false,
     "publishConfig": {
@@ -15,9 +15,9 @@
     ],
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/blockwarecom/codegen-target-react-ts/issues"
+        "url": "https://github.com/kapetacom/codegen-target-react-ts/issues"
     },
-    "homepage": "https://github.com/blockwarecom/codegen-target-react-ts#readme",
+    "homepage": "https://github.com/kapetacom/codegen-target-react-ts#readme",
     "dependencies": {
         "@kapeta/codegen-target": "<2",
         "prettier": "2.7.1",
