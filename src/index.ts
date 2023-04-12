@@ -1,33 +1,32 @@
-const {Target,Template} = require('@kapeta/codegen-target');
-const prettier = require("prettier");
-const {snakeCase} = require("snake-case");
+import {Target, Template} from '@kapeta/codegen-target';
+import prettier from "prettier";
+import {snakeCase} from "snake-case";
+import Path from "path";
 
-class ReactTSTarget extends Target {
+export default class ReactTSTarget extends Target {
 
-    constructor(options) {
-        super(options, __dirname);
+    constructor(options?:any) {
+        super(options, Path.resolve(__dirname,'../'));
     }
 
-    _createTemplateEngine(data, context) {
+    protected _createTemplateEngine(data:any, context:any) {
         const engine = super._createTemplateEngine(data, context);
 
-        engine.registerHelper('snakecase', (name) => {
+        engine.registerHelper('snakecase', (name:string) => {
             return snakeCase(name);
         });
 
-        engine.registerHelper('enumValues', (values) => {
+        engine.registerHelper('enumValues', (values:any[]) => {
             return Template.SafeString('\t' + values.map(value => `${value} = ${JSON.stringify(value)}`).join(',\n\t'));
         });
 
-        const $fieldType = (value) => {
+        const $fieldType = (value:any) => {
             if (!value) {
                 return value;
             }
 
-
-
-            if (value.$ref) {
-                value = value.$ref.substring(0,1).toUpperCase() + value.$ref.substring(1);
+            if (value.ref) {
+                value = value.ref.substring(0,1).toUpperCase() + value.ref.substring(1);
             }
 
             let type = value;
@@ -36,6 +35,7 @@ class ReactTSTarget extends Target {
                 type = type.substring(0, type.length - 2);
                 array = true;
             }
+
             switch (type) {
                 case 'integer':
                 case 'int':
@@ -59,8 +59,7 @@ class ReactTSTarget extends Target {
 
         return engine
     }
-
-    _postProcessCode(filename, code) {
+    protected _postProcessCode(filename:string, code:string):string {
         let parser = null;
         let tabWidth = 4;
 
@@ -100,5 +99,3 @@ class ReactTSTarget extends Target {
     }
 
 }
-
-module.exports = ReactTSTarget;
