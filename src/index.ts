@@ -1,4 +1,4 @@
-import {Target, Template} from '@kapeta/codegen-target';
+import {Target, Template, TypeLike} from '@kapeta/codegen-target';
 import prettier from "prettier";
 import {snakeCase} from "snake-case";
 import Path from "path";
@@ -20,16 +20,20 @@ export default class ReactTSTarget extends Target {
             return Template.SafeString('\t' + values.map(value => `${value} = ${JSON.stringify(value)}`).join(',\n\t'));
         });
 
-        const $fieldType = (value:any) => {
+        const $fieldType = (value:TypeLike) => {
             if (!value) {
                 return value;
             }
 
-            if (value.ref) {
-                value = value.ref.substring(0,1).toUpperCase() + value.ref.substring(1);
+            if (typeof value !== 'string') {
+                if (value.ref) {
+                    value = value.ref.substring(0,1).toUpperCase() + value.ref.substring(1);
+                } else if (value.type) {
+                    value = value.type;
+                }
             }
 
-            let type = value;
+            let type = value as string;
             let array = false;
             if (type.endsWith('[]')) {
                 type = type.substring(0, type.length - 2);
@@ -46,7 +50,7 @@ export default class ReactTSTarget extends Target {
                     break;
             }
 
-            return Template.SafeString(value);
+            return Template.SafeString(value as string);
         };
         engine.registerHelper('fieldtype', $fieldType);
         engine.registerHelper('returnType', (value) => {
