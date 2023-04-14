@@ -18,7 +18,7 @@ this._client = new RestClient('{{string data.metadata.name}}');
     * HTTP: {{./method}} {{path}}
     *
     {{#eachProperty arguments}}
-        * @param {{curly 1}}{{fieldtype type}}{{curly}} {{variable propertyId}}
+        * @param {{curly 1}}{{fieldtype this}}{{curly}} {{variable propertyId}}
     {{/eachProperty}}
     * @return {{curly 1}}Promise<{{returnType responseType}}>{{curly}}
     */

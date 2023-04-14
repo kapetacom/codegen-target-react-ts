@@ -29,7 +29,7 @@ spec:
                 type: string
                 transport: path
               task:
-                type: {ref: Task}
+                ref: Task
                 transport: body
           markAsDone:
             description: Mark task as done
@@ -65,8 +65,7 @@ spec:
             properties: null
           state:
             description: null
-            type:
-              ref: TaskState
+            ref: TaskState
             properties: null
           created:
             type: Date
