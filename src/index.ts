@@ -2,6 +2,8 @@ import {Target, Template, TypeLike} from '@kapeta/codegen-target';
 import prettier from "prettier";
 import {snakeCase} from "snake-case";
 import Path from "path";
+import {spawnSync} from "child_process";
+import {GeneratedAsset} from "@kapeta/codegen";
 
 export default class ReactTSTarget extends Target {
 
@@ -102,4 +104,13 @@ export default class ReactTSTarget extends Target {
         }
     }
 
+    async postprocess(targetDir:string, files: GeneratedAsset[]): Promise<void> {
+        const packageJsonChanged = files.some(file => file.filename === 'package.json');
+
+        if (packageJsonChanged) {
+            spawnSync('npm', ['install'], {
+                cwd: targetDir,
+            });
+        }
+    }
 }
