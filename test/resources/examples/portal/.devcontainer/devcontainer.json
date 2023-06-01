@@ -6,7 +6,7 @@
         "KAPETA_LOCAL_CLUSTER_HOST": "host.docker.internal",
         "KAPETA_ENVIRONMENT_TYPE": "docker",
         "KAPETA_BLOCK_REF": "kapeta/portal:local",
-        "KAPETA_LOCAL_SERVER_PORT_REST": "80"
+        "KAPETA_LOCAL_SERVER_PORT_WEB": "80"
     },
     "forwardPorts": [80],
     "postCreateCommand": "npm install"
