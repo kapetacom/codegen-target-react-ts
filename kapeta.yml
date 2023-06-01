@@ -3,3 +3,10 @@ metadata:
   name: kapeta/language-target-react-ts
   title: ReactJS / Typescript
   description: Generate block frontend code in ReactJS using Typescript
+spec:
+  local:
+    image: node:20
+    workingDir: /workspace
+    healthcheck: curl --fail http://localhost:80/__kapeta/health || exit 1
+    handlers:
+      onCreate: /workspace/scripts/start-dev.sh
