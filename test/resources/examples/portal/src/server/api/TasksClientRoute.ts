@@ -1,10 +1,10 @@
 //
 // GENERATED SOURCE - DO NOT EDIT
 //
-const RESTRoute = require("@kapeta/sdk-rest-route");
-const client = require("../clients/TasksClient");
+import { RestRoute } from "@kapeta/sdk-rest-route";
+import client from "../clients/TasksClient";
 
-class TasksClientRoute extends RESTRoute {
+export class TasksClientRoute extends RestRoute {
     constructor() {
         super();
         this._initRoutes();
@@ -77,5 +77,3 @@ class TasksClientRoute extends RESTRoute {
         });
     }
 }
-
-module.exports = TasksClientRoute;

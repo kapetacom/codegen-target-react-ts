@@ -1,19 +1,21 @@
 //
 // GENERATED SOURCE - DO NOT EDIT
 //
-const Path = require("path");
-const FS = require("fs");
-const Server = require("@kapeta/sdk-server");
+import Path from "path";
+import FS from "fs";
+import { Server } from "@kapeta/sdk-server";
 const server = new Server("kapeta/portal", Path.resolve(__dirname, "../.."));
-const express = require("express");
+import express from "express";
 
-const TasksClientRoute = require("./api/TasksClientRoute");
+import { TasksClientRoute } from "./api/TasksClientRoute";
+import { SubpageProxyRoute } from "./proxies/fragments/SubpageProxyRoute";
 
 const devMode =
     process.env.NODE_ENV &&
     process.env.NODE_ENV.toLowerCase() === "development";
 
 if (devMode) {
+    /* eslint-disable */
     console.log("Serving development version");
     const webpack = require("webpack");
     const webpackDevMiddleware = require("webpack-dev-middleware");
@@ -28,6 +30,7 @@ if (devMode) {
     );
 
     server.express().use(require("webpack-hot-middleware")(compiler));
+    /* eslint-enable */
 } else {
     console.log("Serving production version");
 
@@ -42,6 +45,8 @@ if (devMode) {
 
     server.express().use(express.static(BASE_DIR));
 }
+
+server.addRoute(new SubpageProxyRoute());
 
 server.addRoute(new TasksClientRoute());
 

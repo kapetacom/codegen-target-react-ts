@@ -1,14 +1,12 @@
-//#FILENAME:src/server/proxies/fragments/{{type data.metadata.name}}ProxyRoute.js:write-always
+//#FILENAME:src/server/proxies/fragments/{{type data.metadata.name}}ProxyRoute.ts:write-always
 //
 // GENERATED SOURCE - DO NOT EDIT
 //
-const ProxyRoute = require('@kapeta/sdk-proxy-route');
+import { ProxyRoute } from "@kapeta/sdk-proxy-route";
 
-class {{type data.metadata.name}}ProxyRoute extends ProxyRoute {
+export class {{type data.metadata.name}}ProxyRoute extends ProxyRoute {
 
     constructor() {
-        super("{{string data.metadata.name}}", "/fragments{{string data.spec.path}}");
+        super("{{string data.metadata.name}}", "/fragments{{string data.spec.path}}", 'web');
     }
 }
-
-module.exports = {{type data.metadata.name}}ProxyRoute;

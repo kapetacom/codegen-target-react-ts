@@ -1,24 +1,25 @@
-//#FILENAME:src/server/index.js:write-always
+//#FILENAME:src/server/index.ts:write-always
 //
 // GENERATED SOURCE - DO NOT EDIT
 //
-const Path = require('path');
-const FS = require('fs');
-const Server = require('@kapeta/sdk-server');
+import Path from 'path';
+import FS from 'fs';
+import {Server} from "@kapeta/sdk-server";
 const server = new Server('{{data.metadata.name}}', Path.resolve(__dirname, '../..'));
-const express = require('express');
+import express from 'express';
 
 {{#consumers-of-type 'kapeta/resource-type-rest-client'}}
-const {{type metadata.name}}ClientRoute = require('./api/{{type metadata.name}}ClientRoute');
+import { {{type metadata.name}}ClientRoute } from './api/{{type metadata.name}}ClientRoute';
 {{/consumers-of-type}}
 {{#consumers-of-type 'kapeta/resource-type-web-fragment'}}
-    const {{type metadata.name}}ProxyRoute = require('./proxies/fragments/{{type metadata.name}}ProxyRoute');
+import { {{type metadata.name}}ProxyRoute } from './proxies/fragments/{{type metadata.name}}ProxyRoute';
 {{/consumers-of-type}}
 
 const devMode = process.env.NODE_ENV &&
                 process.env.NODE_ENV.toLowerCase() === 'development';
 
 if (devMode) {
+    /* eslint-disable */
     console.log('Serving development version');
     const webpack = require('webpack');
     const webpackDevMiddleware = require('webpack-dev-middleware');
@@ -30,6 +31,7 @@ if (devMode) {
     }));
 
     server.express().use(require("webpack-hot-middleware")(compiler));
+    /* eslint-enable */
 } else {
     console.log('Serving production version');
 

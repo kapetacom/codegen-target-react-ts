@@ -63,6 +63,13 @@ export default class ReactTSTarget extends Target {
             return $fieldType(value);
         });
 
+        engine.registerHelper('ifValueType', (type, options) => {
+            if ((type?.type || type?.ref) && type?.type?.toLowerCase() !== 'void') {
+                return Template.SafeString(options.fn());
+            }
+            return Template.SafeString('');
+        });
+
         return engine
     }
     protected _postProcessCode(filename:string, code:string):string {

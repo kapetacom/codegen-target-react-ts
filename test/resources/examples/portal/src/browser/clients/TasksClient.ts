@@ -2,24 +2,19 @@
 // GENERATED SOURCE - DO NOT EDIT
 //
 
-import RESTClient from "@kapeta/sdk-web-rest-client";
-import { Task } from "../entities/Task";
+import { RestClient } from "@kapeta/sdk-web-rest-client";
+import { Task } from "../../entities/Task";
 
 export class TasksClient {
-    client: RESTClient;
+    client: RestClient;
 
     constructor() {
-        this.client = new RESTClient("/api/");
+        this.client = new RestClient("/api/");
     }
 
     /**
      * Add task for user
      * HTTP: POST /api/tasks/{userId}/{id}
-     *
-     * @param {string} userId
-     * @param {string} id
-     * @param {Task} task
-     * @return {Promise<void>}
      */
     addTask(userId: string, id: string, task: Task): Promise<void> {
         return this.client.execute("POST", "/tasks/{userId}/{id}", [
@@ -32,9 +27,6 @@ export class TasksClient {
     /**
      * Mark task as done
      * HTTP: POST /api/tasks/{id}/done
-     *
-     * @param {string} id
-     * @return {Promise<void>}
      */
     markAsDone(id: string): Promise<void> {
         return this.client.execute("POST", "/tasks/{id}/done", [
@@ -45,9 +37,6 @@ export class TasksClient {
     /**
      * Delete task
      * HTTP: DELETE /api/tasks/{id}
-     *
-     * @param {string} id
-     * @return {Promise<void>}
      */
     removeTask(id: string): Promise<void> {
         return this.client.execute("DELETE", "/tasks/{id}", [

@@ -12,6 +12,11 @@ spec:
       spec:
         path: /
   consumers:
+    - kind: kapeta/resource-type-web-fragment:0.0.3
+      metadata:
+        name: subpage
+      spec:
+        path: /subpage
     - kind: kapeta/resource-type-rest-client:0.0.4
       metadata:
         name: tasks
