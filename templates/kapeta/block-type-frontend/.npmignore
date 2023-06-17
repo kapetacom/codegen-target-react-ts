@@ -1,0 +1,6 @@
+#FILENAME:.npmignore:create-only
+.github
+*.iml
+.kapeta
+.devcontainer
+scripts

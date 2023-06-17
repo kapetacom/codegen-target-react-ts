@@ -1,30 +1,26 @@
 {
     "compilerOptions": {
-        "target": "es5",
-        "lib": ["dom", "dom.iterable", "esnext", "es5", "es6", "es7", "es2017"],
+        "target": "ES2021",
+        "lib": ["es6", "es7", "ES2021", "dom", "dom.iterable"],
         "skipLibCheck": true,
         "esModuleInterop": true,
         "strict": true,
-        "module": "esnext",
+        "module": "Node16",
         "resolveJsonModule": true,
-        "noEmit": true,
-        "sourceMap": true,
         "experimentalDecorators": true,
         "allowJs": true,
         "jsx": "react",
-        "moduleResolution": "node",
-        "rootDirs": ["src/browser", "definitions"],
+        "moduleResolution": "Node16",
         "forceConsistentCasingInFileNames": true,
         "noImplicitReturns": true,
         "noImplicitThis": true,
         "noImplicitAny": true,
         "strictNullChecks": true,
-        "suppressImplicitAnyIndexErrors": true,
         "noUnusedLocals": false,
         "allowSyntheticDefaultImports": true,
         "emitDecoratorMetadata": true,
         "isolatedModules": true
     },
-    "include": ["definitions", "src/browser/**/*"],
-    "exclude": ["node_modules", "build", "scripts", "src/server"]
+    "include": ["src/**/*.ts", "src/**/*.tsx"],
+    "exclude": ["node_modules", "dist"]
 }

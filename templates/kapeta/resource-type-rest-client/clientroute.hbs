@@ -1,11 +1,11 @@
-//#FILENAME:src/server/api/{{type data.metadata.name}}ClientRoute.js:write-always
+//#FILENAME:src/server/api/{{type data.metadata.name}}ClientRoute.ts:write-always
 //
 // GENERATED SOURCE - DO NOT EDIT
 //
-const RESTRoute = require('@kapeta/sdk-rest-route');
-const client = require('../clients/{{type data.metadata.name}}Client');
+import { RestRoute } from '@kapeta/sdk-rest-route';
+import client from '../clients/{{type data.metadata.name}}Client';
 
-class {{type data.metadata.name}}ClientRoute extends RESTRoute {
+export class {{type data.metadata.name}}ClientRoute extends RestRoute {
 
     constructor() {
         super();
@@ -48,5 +48,3 @@ class {{type data.metadata.name}}ClientRoute extends RESTRoute {
 
     }
 }
-
-module.exports = {{type data.metadata.name}}ClientRoute;

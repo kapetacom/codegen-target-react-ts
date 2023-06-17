@@ -1,4 +1,4 @@
 #!/bin/sh
 npm update
 npm install
-npm start
+npm run start:dev
