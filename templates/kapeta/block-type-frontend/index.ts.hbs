@@ -7,7 +7,7 @@ import FS from 'fs';
 import {Server} from "@kapeta/sdk-server";
 const server = new Server('{{data.metadata.name}}', Path.resolve(__dirname, '../..'));
 import express from 'express';
-
+import history from 'connect-history-api-fallback';
 {{#consumers-of-type 'kapeta/resource-type-rest-client'}}
 import { {{type metadata.name}}ClientRoute } from './api/{{type metadata.name}}ClientRoute';
 {{/consumers-of-type}}
@@ -18,6 +18,18 @@ import { {{type metadata.name}}ProxyRoute } from './proxies/fragments/{{type met
 const devMode = process.env.NODE_ENV &&
                 process.env.NODE_ENV.toLowerCase() === 'development';
 
+{{#consumers-of-type 'kapeta/resource-type-web-fragment'}}
+server.addRoute(
+    new {{type metadata.name}}ProxyRoute()
+);
+{{/consumers-of-type}}
+{{#consumers-of-type 'kapeta/resource-type-rest-client'}}
+server.addRoute(
+    new {{type metadata.name}}ClientRoute()
+);
+{{/consumers-of-type}}
+
+server.express().use(history());
 if (devMode) {
     /* eslint-disable */
     console.log('Serving development version');
@@ -43,17 +55,4 @@ if (devMode) {
 
     server.express().use(express.static(BASE_DIR));
 }
-
-{{#consumers-of-type 'kapeta/resource-type-web-fragment'}}
-    server.addRoute(
-        new {{type metadata.name}}ProxyRoute()
-    );
-{{/consumers-of-type}}
-
-{{#consumers-of-type 'kapeta/resource-type-rest-client'}}
-    server.addRoute(
-        new {{type metadata.name}}ClientRoute()
-    );
-{{/consumers-of-type}}
-
 server.start('web');
