@@ -7,5 +7,5 @@
         "module": "CommonJS"
     },
     "exclude": ["node_modules", "web", "node"],
-    "include": ["src/**/*.ts", "test/specs/**/*.ts"]
+    "include": ["src/index.ts"]
 }

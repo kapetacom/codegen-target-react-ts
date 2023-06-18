@@ -6,8 +6,8 @@
         "type": "git",
         "url": "git+https://github.com/kapetacom/codegen-target-react-ts.git"
     },
-    "main": "node/src/index.js",
-    "types": "node/src/index.d.ts",
+    "main": "node/index.js",
+    "types": "node/index.d.ts",
     "private": false,
     "publishConfig": {
         "access": "public"
@@ -58,8 +58,7 @@
         "@kapeta/eslint-config": "^0.6.0",
         "@kapeta/prettier-config": "^0.6.0",
         "eslint": "^8.42.0",
-        "eslint-config-prettier": "^8.8.0",
-        "prettier": "^2.8.8"
+        "eslint-config-prettier": "^8.8.0"
     },
     "scripts": {
         "prepublishOnly": "npm run test && npm run build",

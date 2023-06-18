@@ -1,6 +1,5 @@
 import { ILanguageTargetProvider } from '@kapeta/ui-web-types';
 
-// @ts-ignore
 const kapetaDefinition = require('../../kapeta.yml');
 const packageJson = require('../../package.json');
 
