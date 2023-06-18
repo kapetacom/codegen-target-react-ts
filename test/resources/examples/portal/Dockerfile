@@ -1,4 +1,4 @@
-FROM node:18.7
+FROM node:20
 
 ADD package.json /application/package.json
 
@@ -15,4 +15,4 @@ ADD kapeta.yml /application/kapeta.yml
 
 ADD src/server /application/src/server
 
-CMD [ "npm", "run", "start-prod" ]
+CMD [ "npm", "start" ]

@@ -8,9 +8,9 @@ const packageJson = require('./package.json');
 module.exports = {
     entry: {
         [`${blockInfo.metadata.name}:${packageJson.version}`]: {
-            import: Path.resolve(__dirname, "./src/web"),
-            filename: `${blockInfo.metadata.name}.js`
-        }
+            import: Path.resolve(__dirname, './src/web'),
+            filename: `${blockInfo.metadata.name}.js`,
+        },
     },
     output: {
         path: Path.join(process.cwd(), 'web'),
@@ -18,8 +18,8 @@ module.exports = {
         library: {
             name: `Kapeta.languageTargets["[name]"]`,
             type: 'assign',
-            export: 'default'
-        }
+            export: 'default',
+        },
     },
     module: {
         rules: [
@@ -27,47 +27,35 @@ module.exports = {
                 test: /\.(ts|tsx)$/,
                 loader: 'babel-loader',
                 options: {
-                    presets: [
-                        "@babel/env",
-                        "@babel/typescript",
-                        "@babel/react"
-                    ],
+                    presets: ['@babel/env', '@babel/typescript', '@babel/react'],
                     plugins: [
-                        ["@babel/plugin-proposal-decorators", {legacy: true} ],
-                        ["@babel/plugin-proposal-private-methods", {"loose": true}],
-                        ["@babel/plugin-proposal-private-property-in-object", {"loose": true}],
-                        ["@babel/plugin-proposal-class-properties", {loose: true}],
-                        "@babel/proposal-object-rest-spread"
-                    ]
-                }
+                        ['@babel/plugin-proposal-decorators', { legacy: true }],
+                        ['@babel/plugin-proposal-private-methods', { loose: true }],
+                        ['@babel/plugin-proposal-private-property-in-object', { loose: true }],
+                        ['@babel/plugin-proposal-class-properties', { loose: true }],
+                        '@babel/proposal-object-rest-spread',
+                    ],
+                },
             },
             {
                 test: /\.less$/,
-                use: ["style-loader", "css-loader", "less-loader"],
-                include: Path.resolve(__dirname, "./src")
+                use: ['style-loader', 'css-loader', 'less-loader'],
+                include: Path.resolve(__dirname, './src'),
             },
             {
                 test: /\.ya?ml$/,
                 use: ['json-loader', 'yaml-loader'],
-                include: Path.resolve(__dirname, "./")
-            }
-        ]
+                include: Path.resolve(__dirname, './'),
+            },
+        ],
     },
-    devtool: process.env.NODE_ENV === 'production' ?
-        'source-map' : 'inline-source-map',
+    devtool: process.env.NODE_ENV === 'production' ? 'source-map' : 'inline-source-map',
     resolve: {
-        extensions: [
-            '.js',
-            '.ts',
-            '.tsx',
-            '.less',
-            '.yml',
-            '.yaml'
-        ]
+        extensions: ['.js', '.ts', '.tsx', '.less', '.yml', '.yaml'],
     },
     externals: {
         react: 'React',
         '@kapeta/ui-web-components': 'Kapeta.Components',
-        '@kapeta/ui-web-types': 'Kapeta.Types'
-    }
+        '@kapeta/ui-web-types': 'Kapeta.Types',
+    },
 };
