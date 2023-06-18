@@ -68,7 +68,7 @@
         "build": "npm run build:dist && npm run build:web",
         "start": "npm run watch",
         "watch": "NODE_ENV=development webpack --watch",
-        "test": "jest",
+        "test": "jest --testMatch '<rootDir>/test/**/*.test.ts'",
         "format": "prettier --write .",
         "lint": "tsc --noEmit && eslint src/**/*.ts"
     }
