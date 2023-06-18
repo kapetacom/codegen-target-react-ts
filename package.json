@@ -6,8 +6,8 @@
         "type": "git",
         "url": "git+https://github.com/kapetacom/codegen-target-react-ts.git"
     },
-    "main": "node/index.js",
-    "types": "node/index.d.ts",
+    "main": "node/src/index.js",
+    "types": "node/src/index.d.ts",
     "private": false,
     "publishConfig": {
         "access": "public"
