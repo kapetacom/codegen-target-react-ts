@@ -3,7 +3,17 @@ import prettier from 'prettier';
 import { snakeCase } from 'snake-case';
 import Path from 'path';
 import { execSync } from 'child_process';
-import { GeneratedAsset } from '@kapeta/codegen';
+import { GeneratedAsset, GeneratedFile, SourceFile } from '@kapeta/codegen';
+
+type MapUnknown = { [key: string]: any };
+function copyUnknown(from: MapUnknown, to: MapUnknown): MapUnknown {
+    Object.entries(from).forEach(([key, value]) => {
+        if (!(key in to)) {
+            to[key] = value;
+        }
+    });
+    return to;
+}
 
 export default class ReactTSTarget extends Target {
     constructor(options?: any) {
@@ -107,6 +117,65 @@ export default class ReactTSTarget extends Target {
             console.log('Failed to prettify source: ' + filename + '. ' + e);
             return code;
         }
+    }
+
+    mergeFile(sourceFile: SourceFile, newFile: GeneratedFile): GeneratedFile {
+        if (sourceFile.filename === 'package.json') {
+            // We can merge the dependencies and scripts into existing package.json without overwriting
+            // the existing user adjusted content
+
+            const target = JSON.parse(sourceFile.content);
+            const newContent = JSON.parse(newFile.content);
+            if (!target.dependencies) {
+                target.dependencies = {};
+            }
+
+            if (!target.devDependencies) {
+                target.devDependencies = {};
+            }
+
+            Object.assign(target.devDependencies, newContent.devDependencies);
+            Object.assign(target.dependencies, newContent.dependencies);
+
+            if (!target.scripts) {
+                target.scripts = {};
+            }
+            copyUnknown(newContent.scripts, target.scripts);
+            copyUnknown(newContent, target);
+
+            return {
+                ...newFile,
+                content: JSON.stringify(target, null, 4),
+            };
+        }
+
+        if (sourceFile.filename === '.devcontainer/devcontainer.json') {
+            // We can merge the environment variables prefixed with KAPETA_ into the containerEnv
+            const target = JSON.parse(sourceFile.content);
+            const newContent = JSON.parse(newFile.content);
+            if (!target.containerEnv) {
+                target.containerEnv = {};
+            }
+
+            const containerEnv: MapUnknown = {
+                ...(newContent.containerEnv ?? {}),
+            };
+            Object.entries(target.containerEnv).forEach(([key, value]) => {
+                if (key.toLowerCase().startsWith('kapeta_')) {
+                    return;
+                }
+                containerEnv[key] = value;
+            });
+
+            target.containerEnv = containerEnv;
+
+            return {
+                ...newFile,
+                content: JSON.stringify(target, null, 4),
+            };
+        }
+
+        return super.mergeFile(sourceFile, newFile);
     }
 
     async postprocess(targetDir: string, files: GeneratedAsset[]): Promise<void> {
