@@ -7,7 +7,7 @@ import { Server } from "@kapeta/sdk-server";
 const server = new Server("kapeta/portal", Path.resolve(__dirname, "../.."));
 import express from "express";
 import history from "connect-history-api-fallback";
-import { TasksClientRoute } from "./api/TasksClientRoute";
+import { TasksProxyRoute } from "./proxies/rest/TasksProxyRoute";
 import { SubpageProxyRoute } from "./proxies/fragments/SubpageProxyRoute";
 
 const devMode =
@@ -15,7 +15,7 @@ const devMode =
     process.env.NODE_ENV.toLowerCase() === "development";
 
 server.addRoute(new SubpageProxyRoute());
-server.addRoute(new TasksClientRoute());
+server.addRoute(new TasksProxyRoute());
 
 server.express().use(history());
 if (devMode) {

@@ -9,7 +9,7 @@ const server = new Server('{{data.metadata.name}}', Path.resolve(__dirname, '../
 import express from 'express';
 import history from 'connect-history-api-fallback';
 {{#consumers-of-type 'kapeta/resource-type-rest-client'}}
-import { {{type metadata.name}}ClientRoute } from './api/{{type metadata.name}}ClientRoute';
+import { {{type metadata.name}}ProxyRoute } from './proxies/rest/{{type metadata.name}}ProxyRoute';
 {{/consumers-of-type}}
 {{#consumers-of-type 'kapeta/resource-type-web-fragment'}}
 import { {{type metadata.name}}ProxyRoute } from './proxies/fragments/{{type metadata.name}}ProxyRoute';
@@ -25,7 +25,7 @@ server.addRoute(
 {{/consumers-of-type}}
 {{#consumers-of-type 'kapeta/resource-type-rest-client'}}
 server.addRoute(
-    new {{type metadata.name}}ClientRoute()
+    new {{type metadata.name}}ProxyRoute()
 );
 {{/consumers-of-type}}
 
