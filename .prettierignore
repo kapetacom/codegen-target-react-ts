@@ -1,0 +1,4 @@
+dist/*
+web/*
+test/resources/examples/*
+templates/*
