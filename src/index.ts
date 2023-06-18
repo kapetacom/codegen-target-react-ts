@@ -4,6 +4,7 @@ import { snakeCase } from 'snake-case';
 import Path from 'path';
 import { execSync } from 'child_process';
 import { GeneratedAsset, GeneratedFile, SourceFile } from '@kapeta/codegen';
+import {HelperOptions} from "handlebars";
 
 type MapUnknown = { [key: string]: any };
 function copyUnknown(from: MapUnknown, to: MapUnknown): MapUnknown {
@@ -79,6 +80,21 @@ export default class ReactTSTarget extends Target {
                 return Template.SafeString(options.fn());
             }
             return Template.SafeString('');
+        });
+
+        engine.registerHelper('include-proxy-route', function (this: any, options: HelperOptions) {
+            if (!context.spec.consumers) {
+                return '';
+            }
+
+            const checker = (consumer:any) => {
+                return consumer.kind.toLowerCase().startsWith('kapeta/resource-type-rest-client:') ||
+                    consumer.kind.toLowerCase().startsWith('kapeta/resource-type-web-fragment:')
+            };
+
+            if (context.spec.consumers.some(checker)) {
+                return options.fn(this);
+            }
         });
 
         return engine;

@@ -26,9 +26,9 @@
         "connect-history-api-fallback": "^2.0.0",
         "ts-node": "^10.9.1",
         "typescript": "^5.0.4"
-        {{#consumes 'kapeta/resource-type-web-fragment'}},
+        {{#include-proxy-route}},
             "@kapeta/sdk-proxy-route": "<2"
-        {{/consumes}}
+        {{/include-proxy-route}}
         {{#consumes 'kapeta/resource-type-rest-client'}},
             "@kapeta/sdk-rest-client": "<2",
             "@kapeta/sdk-rest-route": "<2",
