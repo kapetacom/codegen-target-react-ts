@@ -6,7 +6,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const webpack = require("webpack");
 const HotMiddlewareScript =
-    "webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true";
+    "webpack-hot-middleware/client?path=__webpack_hmr&timeout=20000&dynamicPublicPath=true&reload=true";
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const TerserJSPlugin = require("terser-webpack-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
@@ -24,14 +24,14 @@ const devMode = process.env.NODE_ENV === "development";
 
 const styleLoader = devMode ? "style-loader" : MiniCssExtractPlugin.loader;
 
-const makeEntry = (localPath) => {
+const makeEntry = (name, localPath) => {
     const path = "./" + Path.join("./src/browser/pages/", localPath);
 
     if (!devMode) {
         return [path];
     }
 
-    return [HotMiddlewareScript, path];
+    return [HotMiddlewareScript + "&name=" + encodeURIComponent(name), path];
 };
 
 const entries = {};
@@ -39,25 +39,27 @@ const htmlPlugins = [];
 
 PAGES.forEach((page) => {
     while (page.path.startsWith("/")) {
-        page.path = page.path.substr(1);
+        page.path = page.path.substring(1);
     }
 
     if (page.path) {
         const chunk = page.path + "/main";
-        entries[chunk] = makeEntry(page.localPath);
+        entries[chunk] = makeEntry(chunk, page.localPath);
         htmlPlugins.push(
             new HtmlWebpackPlugin({
                 title: page.name,
+                publicPath: "",
                 filename: page.path + "/index.html",
                 chunks: [chunk],
             })
         );
     } else {
         const chunk = "main";
-        entries[chunk] = makeEntry(page.localPath);
+        entries[chunk] = makeEntry(chunk, page.localPath);
         htmlPlugins.push(
             new HtmlWebpackPlugin({
                 title: page.name,
+                publicPath: "",
                 filename: "index.html",
                 chunks: [chunk],
             })
@@ -75,7 +77,7 @@ const config = {
     output: {
         path: Path.join(__dirname, "dist"),
         filename: "[name].[hash].bundle.js",
-        publicPath: "/",
+        publicPath: "",
     },
     entry: entries,
     devtool: devMode ? "inline-source-map" : false,
