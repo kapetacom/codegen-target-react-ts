@@ -6,10 +6,10 @@ import { RestClient } from "@kapeta/sdk-web-rest-client";
 import { Task } from "../../entities/Task";
 
 export class TasksClient {
-    client: RestClient;
+    private client: RestClient;
 
     constructor() {
-        this.client = new RestClient("/api/rest/tasks");
+        this.client = new RestClient("api/rest/tasks");
     }
 
     /**
