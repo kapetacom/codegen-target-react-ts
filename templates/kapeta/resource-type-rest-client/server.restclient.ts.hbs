@@ -46,10 +46,10 @@ this.client = new RestClient('{{string data.metadata.name}}');
     );
 
     {{#ifValueType responseType}}
-        if (result.body === null) {
-        return null;
+        if (result === null) {
+            return null;
         }
-        return result.body as {{returnType ../responseType}};
+        return result as {{returnType ../responseType}};
     {{/ifValueType}}
     }
 
