@@ -11,7 +11,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const TerserJSPlugin = require("terser-webpack-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
-
+const AssetsPlugin = require("assets-webpack-plugin");
 const PAGES = [];
 
 PAGES.push({
@@ -45,25 +45,9 @@ PAGES.forEach((page) => {
     if (page.path) {
         const chunk = page.path + "/main";
         entries[chunk] = makeEntry(chunk, page.localPath);
-        htmlPlugins.push(
-            new HtmlWebpackPlugin({
-                title: page.name,
-                publicPath: "",
-                filename: page.path + "/index.html",
-                chunks: [chunk],
-            })
-        );
     } else {
         const chunk = "main";
         entries[chunk] = makeEntry(chunk, page.localPath);
-        htmlPlugins.push(
-            new HtmlWebpackPlugin({
-                title: page.name,
-                publicPath: "",
-                filename: "index.html",
-                chunks: [chunk],
-            })
-        );
     }
 });
 
@@ -129,6 +113,7 @@ const config = {
         ],
     },
     resolve: {
+        mainFields: ["main"],
         extensions: [
             ".js",
             ".jsx",
@@ -140,6 +125,10 @@ const config = {
             ".yml",
             ".yaml",
         ],
+        alias: {
+            react: Path.resolve(__dirname, "./node_modules/react"),
+            "react-dom": Path.resolve(__dirname, "./node_modules/react-dom"),
+        },
     },
     plugins: htmlPlugins,
     externals: {},
@@ -159,6 +148,12 @@ if (devMode) {
     );
 
     config.plugins.unshift(new CleanWebpackPlugin());
+    config.plugins.push(
+        new AssetsPlugin({
+            filename: "assets.json",
+            useCompilerPath: true,
+        })
+    );
 }
 
 module.exports = config;
