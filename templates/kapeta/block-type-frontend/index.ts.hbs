@@ -55,4 +55,9 @@ if (devMode) {
 
     server.express().use(express.static(BASE_DIR));
 }
+
+server.express().use(function(req, res) {
+    res.status(400).send({error: 'Invalid path received'});
+});
+
 server.start('web');
