@@ -1,7 +1,4 @@
-//#FILENAME:src/browser/pages/{{snakecase data.metadata.name}}/index.tsx:write-always
-//
-// GENERATED SOURCE - DO NOT EDIT
-//
+//#FILENAME:src/browser/pages/{{snakecase data.metadata.name}}/index.tsx:create-only
 import {createRoot} from 'react-dom/client';
 import React from 'react';
 import { {{type data.metadata.name}}Page } from "./{{type data.metadata.name}}Page";

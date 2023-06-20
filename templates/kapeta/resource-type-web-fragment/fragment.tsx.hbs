@@ -1,9 +1,7 @@
-//#FILENAME:src/browser/fragments/{{type data.metadata.name}}Fragment.tsx:write-always
-//
-// GENERATED SOURCE - DO NOT EDIT
-//
+//#FILENAME:src/browser/fragments/{{type data.metadata.name}}Fragment.tsx:create-only
 
 import React from "react";
+import {FragmentFrame, FragmentProps} from "@kapeta/sdk-web-microfrontend-frame";
 
 let BASE_PATH = "fragments{{string data.spec.path}}";
 if (!BASE_PATH.endsWith("/")) {
@@ -11,9 +9,9 @@ if (!BASE_PATH.endsWith("/")) {
     BASE_PATH += "/";
 }
 
-export const {{type data.metadata.name}}Fragment = (props:any) => {
+export const {{type data.metadata.name}}Fragment = (props: Omit<FragmentProps,'basePath'> ) => {
 
     return (
-        <iframe src={BASE_PATH} {...props}></iframe>
+        <FragmentFrame basePath={BASE_PATH} {...props}></FragmentFrame>
     );
 };

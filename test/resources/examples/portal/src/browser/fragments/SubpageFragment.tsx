@@ -1,8 +1,8 @@
-//
-// GENERATED SOURCE - DO NOT EDIT
-//
-
 import React from "react";
+import {
+    FragmentFrame,
+    FragmentProps,
+} from "@kapeta/sdk-web-microfrontend-frame";
 
 let BASE_PATH = "fragments/subpage";
 if (!BASE_PATH.endsWith("/")) {
@@ -10,6 +10,6 @@ if (!BASE_PATH.endsWith("/")) {
     BASE_PATH += "/";
 }
 
-export const SubpageFragment = (props: any) => {
-    return <iframe src={BASE_PATH} {...props}></iframe>;
+export const SubpageFragment = (props: Omit<FragmentProps, "basePath">) => {
+    return <FragmentFrame basePath={BASE_PATH} {...props}></FragmentFrame>;
 };
