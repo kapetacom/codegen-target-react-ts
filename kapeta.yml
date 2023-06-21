@@ -5,7 +5,7 @@ metadata:
   description: Generate block frontend code in ReactJS using Typescript
 spec:
   local:
-    image: node:20
+    image: node:19
     workingDir: /workspace
     healthcheck: curl --fail http://localhost:80/__kapeta/health || exit 1
     handlers:
