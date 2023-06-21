@@ -1,7 +1,8 @@
 ##FILENAME:Dockerfile:create-only
-FROM node:20
+FROM node:19
 
 ADD package.json /application/package.json
+ADD package-lock.json /application/package-lock.json
 
 WORKDIR /application
 
