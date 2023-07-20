@@ -4,6 +4,9 @@ metadata:
   title: ReactJS / Typescript
   description: Generate block frontend code in ReactJS using Typescript
 spec:
+  icon:
+    type: url
+    value: https://storage.googleapis.com/kapeta-public-cdn/icons/react.svg
   local:
     image: node:19
     workingDir: /workspace
