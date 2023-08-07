@@ -2,9 +2,13 @@ import { Target, Template, TypeLike } from '@kapeta/codegen-target';
 import prettier from 'prettier';
 import { snakeCase } from 'snake-case';
 import Path from 'path';
-import { execSync } from 'child_process';
+
 import { GeneratedAsset, GeneratedFile, SourceFile } from '@kapeta/codegen';
 import {HelperOptions} from "handlebars";
+
+import { exec } from "child_process";
+import {promisify} from "util";
+const execAsync = promisify(exec);
 
 type MapUnknown = { [key: string]: any };
 function copyUnknown(from: MapUnknown, to: MapUnknown): MapUnknown {
@@ -199,9 +203,9 @@ export default class ReactTSTarget extends Target {
 
         if (packageJsonChanged) {
             console.log('Running npm install in %s', targetDir);
-            execSync('npm install', {
+            await execAsync('npm install', {
                 cwd: targetDir,
-                stdio: 'inherit',
+                windowsHide: true,
             });
             console.log('install done');
         }
