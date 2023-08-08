@@ -7,5 +7,5 @@
         "module": "CommonJS"
     },
     "exclude": ["node_modules", "web", "node"],
-    "include": ["src/index.ts"]
+    "include": ["src/index.ts", "definitions.d.ts"]
 }
