@@ -6,9 +6,8 @@ import Path from 'path';
 import { GeneratedAsset, GeneratedFile, SourceFile } from '@kapeta/codegen';
 import {HelperOptions} from "handlebars";
 
-import { exec } from "child_process";
-import {promisify} from "util";
-const execAsync = promisify(exec);
+import { exec } from "@kapeta/nodejs-process";
+
 
 type MapUnknown = { [key: string]: any };
 function copyUnknown(from: MapUnknown, to: MapUnknown): MapUnknown {
@@ -203,10 +202,11 @@ export default class ReactTSTarget extends Target {
 
         if (packageJsonChanged) {
             console.log('Running npm install in %s', targetDir);
-            await execAsync('npm install', {
+            const child = exec('npm install', {
                 cwd: targetDir,
                 windowsHide: true,
             });
+            await child.wait();
             console.log('install done');
         }
     }
