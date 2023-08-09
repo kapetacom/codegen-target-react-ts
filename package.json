@@ -30,6 +30,7 @@
     "peerDependencies": {
         "@kapeta/ui-web-types": "<2"
     },
+    "bundledDependencies": true,
     "devDependencies": {
         "@babel/cli": "^7.18.10",
         "@babel/core": "^7.18.13",
