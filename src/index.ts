@@ -58,6 +58,13 @@ export default class ReactTSTarget extends Target {
             }
 
             switch (type) {
+                case 'char':
+                case 'byte':
+                    value = `string${array ? '[]' : ''}`;
+                    break;
+                case 'date':
+                    value =  'Date'
+                    break;
                 case 'integer':
                 case 'int':
                 case 'float':
