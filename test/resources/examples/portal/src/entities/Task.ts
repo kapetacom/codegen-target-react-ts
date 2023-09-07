@@ -10,4 +10,5 @@ export interface Task {
     views: number;
     stars: number;
     numberList: number[];
+    age: number;
 }

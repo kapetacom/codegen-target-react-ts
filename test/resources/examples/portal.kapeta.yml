@@ -73,13 +73,17 @@ spec:
             ref: TaskState
             properties: null
           created:
-            type: Date
+            type: date
           views:
             type: integer
           stars:
             type: float
           numberList:
             type: double[]
+          age:
+            description: Age of the task
+            type: integer
+            properties: null
     source:
       type: kapeta-dsl
       value: |-
