@@ -6,6 +6,7 @@
     "scripts": {
         "clean": "rm -rf dist",
         "start:dev": "NODE_ENV=development nodemon --ext ts,tsx,js,json,yaml,yml --watch '**/*' src/server/index.ts",
+        "start:dev:docker": "NODE_ENV=development nodemon --exitcrash --ext ts,tsx,js,json,yaml,yml --watch '**/*' src/server/index.ts",
         "start": "NODE_ENV=production ts-node --transpile-only src/server/index.ts",
         "build": "webpack --config webpack.production.config.js",
         "format": "prettier --write .",
