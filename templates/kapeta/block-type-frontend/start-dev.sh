@@ -1,6 +1,5 @@
 //#FILENAME:scripts/start-dev.sh:write-always:755
 #!/bin/sh
-npm update
 npm install
 if [ "$KAPETA_ENVIRONMENT_TYPE" = "docker" ]; then
   # In docker we want nodemon to exit on crash so that the container can be restarted
