@@ -86,7 +86,6 @@ const config = {
                     ],
                     plugins: [
                         ...(devMode ? ['react-refresh/babel',] : []),
-                        "@babel/plugin-transform-modules-commonjs",
                         ["@babel/plugin-proposal-decorators", {legacy: true}],
                         ["@babel/plugin-proposal-private-methods", {"loose": true}],
                         ["@babel/plugin-proposal-private-property-in-object", {"loose": true}],
@@ -113,7 +112,7 @@ const config = {
         ],
     },
     resolve: {
-        mainFields: ["main"],
+        mainFields: ["module", "main"],
         extensions: [
             ".js",
             ".jsx",
