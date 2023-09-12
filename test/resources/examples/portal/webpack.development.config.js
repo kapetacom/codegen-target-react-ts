@@ -78,7 +78,6 @@ const config = {
                     ],
                     plugins: [
                         ...(devMode ? ["react-refresh/babel"] : []),
-                        "@babel/plugin-transform-modules-commonjs",
                         ["@babel/plugin-proposal-decorators", { legacy: true }],
                         [
                             "@babel/plugin-proposal-private-methods",
@@ -114,7 +113,7 @@ const config = {
         ],
     },
     resolve: {
-        mainFields: ["main"],
+        mainFields: ["module", "main"],
         extensions: [
             ".js",
             ".jsx",
