@@ -4,7 +4,7 @@
 //
 import {RestClient} from "@kapeta/sdk-rest-client";
 {{#eachTypeReference data.spec.methods all=true}}
-import { {{name}} } from "../../entities/{{name}}";
+import { {{type name}} } from "../../entities/{{type name}}";
 {{/eachTypeReference}}
 
 class {{type data.metadata.name}}Client {
