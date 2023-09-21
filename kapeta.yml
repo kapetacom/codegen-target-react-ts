@@ -3,6 +3,7 @@ metadata:
   name: kapeta/language-target-react-ts
   title: ReactJS / Typescript
   description: Generate block frontend code in ReactJS using Typescript
+  visibility: public
 spec:
   icon:
     type: url
