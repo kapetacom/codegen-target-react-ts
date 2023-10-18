@@ -63,7 +63,7 @@ export default class ReactTSTarget extends Target {
                     value = `string${array ? '[]' : ''}`;
                     break;
                 case 'date':
-                    value =  'Date'
+                    value =  'number'
                     break;
                 case 'integer':
                 case 'int':
