@@ -9,7 +9,7 @@ spec:
     type: url
     value: https://storage.googleapis.com/kapeta-public-cdn/icons/react.svg
   local:
-    image: node:19
+    image: node:20
     workingDir: /workspace
     healthcheck: curl --fail http://localhost:80/__kapeta/health || exit 1
     handlers:
