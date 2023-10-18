@@ -6,7 +6,7 @@ import { TaskState } from "./TaskState";
 export interface Task {
     id: string;
     state: TaskState;
-    created: Date;
+    created: number;
     views: number;
     stars: number;
     numberList: number[];
