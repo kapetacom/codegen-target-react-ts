@@ -36,6 +36,8 @@ spec:
               task:
                 ref: Task
                 transport: body
+            responseType:
+              ref: Task
           markAsDone:
             description: Mark task as done
             method: POST

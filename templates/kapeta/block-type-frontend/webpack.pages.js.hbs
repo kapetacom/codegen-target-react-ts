@@ -1,0 +1,14 @@
+//#FILENAME:webpack.pages.js:write-always
+//
+// GENERATED SOURCE - DO NOT EDIT
+//
+const webPages = [];
+{{#providers-of-type 'kapeta/resource-type-web-page'}}
+    webPages.push({
+    name: "{{string metadata.name}}",
+    path: "{{string spec.path}}",
+    localPath: "{{snakecase metadata.name}}"
+    });
+{{/providers-of-type}}
+
+module.exports = webPages;

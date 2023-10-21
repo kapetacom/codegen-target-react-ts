@@ -1,0 +1,13 @@
+//#FILENAME:src/server/tsconfig.json:create-only
+{
+    "extends": "@tsconfig/node18/tsconfig.json",
+    "compilerOptions": {
+        "noEmit": true,
+        "declaration": true
+    },
+    "ts-node": {
+        "files": true
+    },
+    "include": ["*.ts", "**/*.tsx", "**/*.ts"],
+    "exclude": ["node_modules", "dist"]
+}
