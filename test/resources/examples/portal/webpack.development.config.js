@@ -1,24 +1,14 @@
-//
-// GENERATED SOURCE - DO NOT EDIT
-//
 const Path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const webpack = require("webpack");
-const HotMiddlewareScript =
-    "webpack-hot-middleware/client?path=__webpack_hmr&timeout=20000&dynamicPublicPath=true&reload=true";
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const TerserJSPlugin = require("terser-webpack-plugin");
-const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
 const AssetsPlugin = require("assets-webpack-plugin");
-const PAGES = [];
 
-PAGES.push({
-    name: "MyPage",
-    path: "/",
-    localPath: "my_page",
-});
+const PAGES = require("./webpack.pages.js");
+
+const HotMiddlewareScript =
+    "webpack-hot-middleware/client?path=__webpack_hmr&timeout=20000&dynamicPublicPath=true&reload=true";
 
 const devMode = process.env.NODE_ENV === "development";
 
@@ -35,7 +25,6 @@ const makeEntry = (name, localPath) => {
 };
 
 const entries = {};
-const htmlPlugins = [];
 
 PAGES.forEach((page) => {
     while (page.path.startsWith("/")) {
@@ -53,14 +42,9 @@ PAGES.forEach((page) => {
 
 const config = {
     mode: devMode ? "development" : "production",
-    optimization: devMode
-        ? {}
-        : {
-              minimizer: [new TerserJSPlugin({}), new CssMinimizerPlugin()],
-          },
     output: {
         path: Path.join(__dirname, "dist"),
-        filename: "[name].[hash].bundle.js",
+        filename: "[name].[contenthash].bundle.js",
         publicPath: "",
     },
     entry: entries,
@@ -113,7 +97,6 @@ const config = {
         ],
     },
     resolve: {
-        mainFields: ["module", "main"],
         extensions: [
             ".js",
             ".jsx",
@@ -130,8 +113,7 @@ const config = {
             "react-dom": Path.resolve(__dirname, "./node_modules/react-dom"),
         },
     },
-    plugins: htmlPlugins,
-    externals: {},
+    plugins: [],
 };
 
 if (devMode) {
@@ -142,8 +124,8 @@ if (devMode) {
 } else {
     config.plugins.unshift(
         new MiniCssExtractPlugin({
-            filename: "[name].[hash].css",
-            chunkFilename: "[id].[hash].css",
+            filename: "[name].[contenthash].css",
+            chunkFilename: "[id].[contenthash].css",
         })
     );
 

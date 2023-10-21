@@ -19,18 +19,17 @@ export class {{type data.metadata.name}}Client {
 
 {{#methods data.spec.methods}}
 
-
     /**
     * {{comment description}}
     * HTTP: {{./method}} /api{{path}}
     */
-    {{method methodName}}(
+    async {{method methodName}}(
     {{#arguments arguments}}
         {{variable argumentName}}:{{fieldtype this}}
     {{/arguments}}
-    ):Promise<{{returnType responseType}}> {
+    ):Promise<{{returnType responseType}}{{#ifValueType responseType}}|null{{/ifValueType}}> {
 
-    return this.client.execute(
+    {{#ifValueType responseType}}const result = {{/ifValueType}}await this.client.execute(
     '{{string method}}',
     '{{string path}}',
     [
@@ -43,6 +42,13 @@ export class {{type data.metadata.name}}Client {
     {{/arguments}}
     ]
     );
+
+    {{#ifValueType responseType}}
+        if (result === null) {
+            return null;
+        }
+        return result as {{returnType ../responseType}};
+    {{/ifValueType}}
     }
 
 {{/methods}}

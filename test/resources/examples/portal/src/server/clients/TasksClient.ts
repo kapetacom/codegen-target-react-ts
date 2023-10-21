@@ -19,12 +19,25 @@ class TasksClient {
      *
      * HTTP: POST /tasks/{userId}/{id}
      */
-    async addTask(userId: string, id: string, task: Task): Promise<void> {
-        await this.client.execute("POST", "/tasks/{userId}/{id}", [
-            { name: "userId", value: userId, transport: "path" },
-            { name: "id", value: id, transport: "path" },
-            { name: "task", value: task, transport: "body" },
-        ]);
+    async addTask(
+        userId: string,
+        id: string,
+        task: Task
+    ): Promise<Task | null> {
+        const result = await this.client.execute(
+            "POST",
+            "/tasks/{userId}/{id}",
+            [
+                { name: "userId", value: userId, transport: "path" },
+                { name: "id", value: id, transport: "path" },
+                { name: "task", value: task, transport: "body" },
+            ]
+        );
+
+        if (result === null) {
+            return null;
+        }
+        return result as Task;
     }
 
     /**
