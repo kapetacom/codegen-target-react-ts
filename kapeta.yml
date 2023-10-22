@@ -14,3 +14,10 @@ spec:
     healthcheck: curl --fail http://localhost:80/__kapeta/health || exit 1
     handlers:
       onCreate: /workspace/scripts/start-dev.sh
+    Env:
+      - NPM_CONFIG_PROGRESS=false
+      - NPM_CONFIG_LOGLEVEL=verbose
+      - NPM_CONFIG_foreground_scripts=true
+    HostConfig:
+      Binds:
+        - ~/.npm:~/.npm
