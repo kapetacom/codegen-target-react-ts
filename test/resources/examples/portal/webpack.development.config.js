@@ -2,8 +2,8 @@ const Path = require("path");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const webpack = require("webpack");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
-const AssetsPlugin = require("assets-webpack-plugin");
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+const AssetsPlugin = require('assets-webpack-plugin');
 
 const PAGES = require("./webpack.pages.js");
 
@@ -12,7 +12,9 @@ const HotMiddlewareScript =
 
 const devMode = process.env.NODE_ENV === "development";
 
-const styleLoader = devMode ? "style-loader" : MiniCssExtractPlugin.loader;
+const styleLoader = devMode
+    ? "style-loader"
+    : MiniCssExtractPlugin.loader;
 
 const makeEntry = (name, localPath) => {
     const path = "./" + Path.join("./src/browser/pages/", localPath);
@@ -21,7 +23,7 @@ const makeEntry = (name, localPath) => {
         return [path];
     }
 
-    return [HotMiddlewareScript + "&name=" + encodeURIComponent(name), path];
+    return [HotMiddlewareScript + '&name=' + encodeURIComponent(name), path];
 };
 
 const entries = {};
@@ -61,22 +63,8 @@ const config = {
                         "@babel/react",
                     ],
                     plugins: [
-                        ...(devMode ? ["react-refresh/babel"] : []),
-                        ["@babel/plugin-proposal-decorators", { legacy: true }],
-                        [
-                            "@babel/plugin-proposal-private-methods",
-                            { loose: true },
-                        ],
-                        [
-                            "@babel/plugin-proposal-private-property-in-object",
-                            { loose: true },
-                        ],
-                        [
-                            "@babel/plugin-proposal-class-properties",
-                            { loose: true },
-                        ],
-                        "@babel/proposal-object-rest-spread",
-                    ],
+                        ...(devMode ? ['react-refresh/babel',] : []),
+                        ["@babel/plugin-proposal-decorators", {legacy: true}]
                 },
             },
             {
@@ -93,7 +81,7 @@ const config = {
                 test: /\.ya?ml$/,
                 use: ["json-loader", "yaml-loader"],
                 include: Path.resolve(__dirname, "./"),
-            },
+            }
         ],
     },
     resolve: {
@@ -109,9 +97,9 @@ const config = {
             ".yaml",
         ],
         alias: {
-            react: Path.resolve(__dirname, "./node_modules/react"),
-            "react-dom": Path.resolve(__dirname, "./node_modules/react-dom"),
-        },
+            "react": Path.resolve(__dirname, "./node_modules/react"),
+            "react-dom": Path.resolve(__dirname, "./node_modules/react-dom")
+        }
     },
     plugins: [],
 };
@@ -130,12 +118,10 @@ if (devMode) {
     );
 
     config.plugins.unshift(new CleanWebpackPlugin());
-    config.plugins.push(
-        new AssetsPlugin({
-            filename: "assets.json",
-            useCompilerPath: true,
-        })
-    );
+    config.plugins.push(new AssetsPlugin({
+        filename: "assets.json",
+        useCompilerPath: true,
+    }));
 }
 
 module.exports = config;
