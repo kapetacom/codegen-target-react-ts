@@ -66,7 +66,8 @@ const config = {
                     plugins: [
                         ...(devMode ? ['react-refresh/babel',] : []),
                         ["@babel/plugin-proposal-decorators", {legacy: true}]
-                },
+                    ],
+                }
             },
             {
                 test: /\.less$/,
