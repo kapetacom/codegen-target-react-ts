@@ -1,3 +1,3 @@
-//#FILENAME:scripts/start-prod.sh:write-always:755
-#!/bin/sh
+//#FILENAME:scripts/start-prod.cmd:write-always:644
+@echo off
 npm start
