@@ -1,3 +1,8 @@
+/**
+ * Copyright 2023 Kapeta Inc.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { Target, Template, TypeLike } from '@kapeta/codegen-target';
 import prettier from 'prettier';
 import { snakeCase } from 'snake-case';
