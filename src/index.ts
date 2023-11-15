@@ -11,6 +11,7 @@ import Path from 'path';
 import { GeneratedAsset, GeneratedFile, SourceFile } from '@kapeta/codegen';
 import { HelperOptions } from 'handlebars';
 import { exec } from '@kapeta/nodejs-process';
+import { typeName } from '@kapeta/schemas';
 
 type MapUnknown = { [key: string]: any };
 function copyUnknown(from: MapUnknown, to: MapUnknown): MapUnknown {
@@ -92,13 +93,12 @@ export default class ReactTSTarget extends Target {
             return $fieldType(value);
         });
 
-        engine.registerHelper('ifValueType', (type, options) => {
+        engine.registerHelper('ifValueType', (type: TypeLike, options: HelperOptions) => {
             if (
-                (type?.type || type?.ref) &&
-                type?.type?.toLowerCase() !== 'void' &&
-                type?.ref?.toLowerCase() !== 'void'
+                (typeof type === 'string' && type !== 'void') ||
+                (typeof type !== 'string' && typeName(type) !== 'void')
             ) {
-                return Template.SafeString(options.fn());
+                return Template.SafeString(options.fn(this));
             }
             return Template.SafeString('');
         });
@@ -109,14 +109,10 @@ export default class ReactTSTarget extends Target {
                 type = type.string as string;
             }
 
-            let isVoid = false;
-            if (typeof type === 'string') {
-                isVoid = type.toLowerCase() === 'void';
-            } else if (type && ('type' in type || 'ref' in type)) {
-                isVoid = type.type?.toLowerCase() === 'void' || type.ref?.toLowerCase() === 'void';
-            }
-
-            if (isVoid) {
+            if (
+                (typeof type === 'string' && type === 'void') ||
+                (typeof type !== 'string' && typeName(type) === 'void')
+            ) {
                 return Template.SafeString(options.fn(this));
             }
 
