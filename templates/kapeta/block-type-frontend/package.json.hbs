@@ -81,10 +81,17 @@
         "nodemon": "^2.0.22"
 
         {{#consumes 'kapeta/resource-type-rest-client'}},
-            "@kapeta/sdk-web-rest-client": "<2"
+            "@kapeta/sdk-web-rest-client": "<2",
+            "copy-webpack-plugin": "^11.0.0",
+            "msw": "^2.0.6"
         {{/consumes}}
         {{#consumes 'kapeta/resource-type-web-*'}},
             "@kapeta/sdk-web-microfrontend-frame": "<2"
         {{/consumes}}
     }
+    {{#consumes 'kapeta/resource-type-rest-client'}},
+        "msw": {
+            "workerDirectory": "src/mocks"
+        }
+    {{/consumes}}
 }

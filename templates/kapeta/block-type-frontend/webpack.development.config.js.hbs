@@ -5,6 +5,9 @@ const webpack = require("webpack");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const AssetsPlugin = require('assets-webpack-plugin');
+{{#consumes 'kapeta/resource-type-rest-client'}}
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+{{/consumes}}
 
 const PAGES = require("./webpack.pages.js");
 
@@ -111,6 +114,13 @@ if (devMode) {
         new webpack.HotModuleReplacementPlugin(),
         new ReactRefreshWebpackPlugin()
     );
+    {{#consumes 'kapeta/resource-type-rest-client'}}
+    config.plugins.push(
+        new CopyWebpackPlugin({
+            patterns: [{ from: Path.resolve(__dirname, 'src/mocks/mockServiceWorker.js'), to: 'mockServiceWorker.js' }],
+        })
+    );
+    {{/consumes}}
 } else {
     config.plugins.unshift(
         new MiniCssExtractPlugin({
