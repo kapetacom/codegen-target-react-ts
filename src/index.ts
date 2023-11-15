@@ -111,10 +111,12 @@ export default class ReactTSTarget extends Target {
                 type = type.string as string;
             }
 
-            const isVoid =
-                typeof type === 'string'
-                    ? type.toLowerCase() === 'void'
-                    : type.type?.toLowerCase() === 'void' || type.ref?.toLowerCase() === 'void';
+            let isVoid = false;
+            if (typeof type === 'string') {
+                isVoid = type.toLowerCase() === 'void';
+            } else if (type && ('type' in type || 'ref' in type)) {
+                isVoid = type.type?.toLowerCase() === 'void' || type.ref?.toLowerCase() === 'void';
+            }
 
             if (isVoid) {
                 return Template.SafeString(options.fn(this));

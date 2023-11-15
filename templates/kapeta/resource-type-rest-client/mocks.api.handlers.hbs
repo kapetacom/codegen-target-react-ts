@@ -4,7 +4,7 @@
 
 import {
     http 
-    {{~#ifVoidType responseType~}}
+    {{~#ifVoidType (returnType responseType)~}}
         , HttpResponse 
     {{~else~}}
         , passthrough
