@@ -1,3 +1,5 @@
+import { SetupWorker } from "msw/browser";
+
 declare global {
     interface Window {
         enableMockApi?: (enable: boolean) => void;
@@ -19,7 +21,9 @@ export async function enableApiMocking() {
     if (localStorage.getItem("enableMockApi") === "true") {
         // Start the mock service worker
         try {
-            const { worker } = await import("./browser");
+            const { worker } = (await import("./browser.js")) as {
+                worker: SetupWorker;
+            };
             await worker.start();
         } catch (error) {
             console.error("Failed to start mock service worker", error);
