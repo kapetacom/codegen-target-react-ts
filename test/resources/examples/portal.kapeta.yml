@@ -1,4 +1,4 @@
-kind: kapeta/block-type-frontend:0.0.3
+kind: kapeta/block-type-frontend:1.3.4
 metadata:
   name: kapeta/portal
 spec:
@@ -6,18 +6,18 @@ spec:
     kind: kapeta/language-target-react-ts:local
   type: service
   providers:
-    - kind: kapeta/resource-type-web-page:0.0.3
+    - kind: kapeta/resource-type-web-page:0.0.12
       metadata:
         name: MyPage
       spec:
         path: /
   consumers:
-    - kind: kapeta/resource-type-web-fragment:0.0.3
+    - kind: kapeta/resource-type-web-fragment:0.0.12
       metadata:
         name: subpage
       spec:
         path: /subpage
-    - kind: kapeta/resource-type-rest-client:0.0.4
+    - kind: kapeta/resource-type-rest-client:1.0.12
       metadata:
         name: tasks
       spec:

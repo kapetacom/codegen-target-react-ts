@@ -17,7 +17,7 @@ class TasksClient {
      * Throws if service responds with a status code higher than 399 and not 404.
      * For 404 responses, null is returned.
      *
-     * HTTP: POST /tasks/{userId}/{id}
+     * HTTP: POST /api/rest/tasks/tasks/{userId}/{id}
      */
     async addTask(
         userId: string,
@@ -46,7 +46,7 @@ class TasksClient {
      * Throws if service responds with a status code higher than 399 and not 404.
      * For 404 responses, null is returned.
      *
-     * HTTP: POST /tasks/{id}/done
+     * HTTP: POST /api/rest/tasks/tasks/{id}/done
      */
     async markAsDone(id: string): Promise<void> {
         await this.client.execute("POST", "/tasks/{id}/done", [
@@ -60,7 +60,7 @@ class TasksClient {
      * Throws if service responds with a status code higher than 399 and not 404.
      * For 404 responses, null is returned.
      *
-     * HTTP: DELETE /tasks/{id}
+     * HTTP: DELETE /api/rest/tasks/tasks/{id}
      */
     async removeTask(id: string): Promise<void> {
         await this.client.execute("DELETE", "/tasks/{id}", [
