@@ -14,7 +14,7 @@ export class TasksClient {
 
     /**
      * Add task for user
-     * HTTP: POST /api/tasks/{userId}/{id}
+     * HTTP: POST /api/rest/tasks/tasks/{userId}/{id}
      */
     async addTask(
         userId: string,
@@ -39,7 +39,7 @@ export class TasksClient {
 
     /**
      * Mark task as done
-     * HTTP: POST /api/tasks/{id}/done
+     * HTTP: POST /api/rest/tasks/tasks/{id}/done
      */
     async markAsDone(id: string): Promise<void> {
         await this.client.execute("POST", "/tasks/{id}/done", [
@@ -49,7 +49,7 @@ export class TasksClient {
 
     /**
      * Delete task
-     * HTTP: DELETE /api/tasks/{id}
+     * HTTP: DELETE /api/rest/tasks/tasks/{id}
      */
     async removeTask(id: string): Promise<void> {
         await this.client.execute("DELETE", "/tasks/{id}", [

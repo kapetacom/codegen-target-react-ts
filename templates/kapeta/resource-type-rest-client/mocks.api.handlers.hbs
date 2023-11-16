@@ -1,0 +1,33 @@
+{{#methods data.spec.methods}}
+
+//#FILENAME:src/mocks/handlers/{{../data.metadata.name}}/{{method methodName}}Handler.ts:create-only
+
+import {
+    http 
+    {{~#ifVoidType (returnType responseType)~}}
+        , HttpResponse 
+    {{~else~}}
+        , passthrough
+    {{~/ifVoidType~}}
+} from 'msw';
+
+/**
+ * {{comment description}}
+ * HTTP: {{./method}} /api/rest/{{../data.metadata.name}}{{mswpath path}}
+ * Response type: {{returnType responseType}}
+ */
+export const {{method methodName}}Handler = http.{{lowercase ./method}}('*/api/rest/{{../data.metadata.name}}{{mswpath path}}', 
+
+    {{~#ifVoidType (returnType responseType)~}}
+        () => {
+            return new HttpResponse(null, { status: 200 });
+        }
+    {{~else~}}
+        () => {
+            // TODO: Return a response of type {{returnType ../responseType}}
+            return passthrough()
+        }
+    {{~/ifVoidType~}})
+
+{{/methods}}
+

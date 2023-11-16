@@ -23,7 +23,7 @@ this.client = new RestClient('{{string data.metadata.name}}');
     * Throws if service responds with a status code higher than 399 and not 404.
     * For 404 responses, null is returned.
     *
-    * HTTP: {{./method}} {{path}}
+    * HTTP: {{./method}} /api/rest/{{../data.metadata.name}}{{path}}
     */
     async {{method methodName}}(
     {{#arguments arguments}}

@@ -9,10 +9,9 @@ import { snakeCase } from 'snake-case';
 import Path from 'path';
 
 import { GeneratedAsset, GeneratedFile, SourceFile } from '@kapeta/codegen';
-import {HelperOptions} from "handlebars";
-
-import { exec } from "@kapeta/nodejs-process";
-
+import { HelperOptions } from 'handlebars';
+import { exec } from '@kapeta/nodejs-process';
+import { typeName } from '@kapeta/schemas';
 
 type MapUnknown = { [key: string]: any };
 function copyUnknown(from: MapUnknown, to: MapUnknown): MapUnknown {
@@ -34,6 +33,11 @@ export default class ReactTSTarget extends Target {
 
         engine.registerHelper('snakecase', (name: string) => {
             return snakeCase(name);
+        });
+
+        engine.registerHelper('mswpath', (path: string) => {
+            // Replace all request parameters like e.g {id} with :id
+            return path.replace(/\{(\w+)\}/g, ':$1');
         });
 
         engine.registerHelper('enumValues', (values: any[]) => {
@@ -89,11 +93,31 @@ export default class ReactTSTarget extends Target {
             return $fieldType(value);
         });
 
-        engine.registerHelper('ifValueType', (type, options) => {
-            if ((type?.type || type?.ref) && type?.type?.toLowerCase() !== 'void' && type?.ref?.toLowerCase() !== 'void') {
-                return Template.SafeString(options.fn());
+        engine.registerHelper('ifValueType', (type: TypeLike, options: HelperOptions) => {
+            if (
+                (typeof type === 'string' && type !== 'void') ||
+                (typeof type !== 'string' && typeName(type) !== 'void')
+            ) {
+                return Template.SafeString(options.fn(this));
             }
             return Template.SafeString('');
+        });
+
+        engine.registerHelper('ifVoidType', (type: TypeLike, options: HelperOptions) => {
+            // Check if type has a property 'string' (which it would have if it is a SafeString)
+            if (type && typeof type === 'object' && 'string' in type) {
+                type = type.string as string;
+            }
+
+            if (
+                (typeof type === 'string' && type === 'void') ||
+                (typeof type !== 'string' && typeName(type) === 'void')
+            ) {
+                return Template.SafeString(options.fn(this));
+            }
+
+            // Check if there is an else block and render it, else return an empty string
+            return options.inverse ? Template.SafeString(options.inverse(this)) : Template.SafeString('');
         });
 
         engine.registerHelper('include-proxy-route', function (this: any, options: HelperOptions) {
@@ -101,9 +125,11 @@ export default class ReactTSTarget extends Target {
                 return '';
             }
 
-            const checker = (consumer:any) => {
-                return consumer.kind.toLowerCase().startsWith('kapeta/resource-type-rest-client:') ||
+            const checker = (consumer: any) => {
+                return (
+                    consumer.kind.toLowerCase().startsWith('kapeta/resource-type-rest-client:') ||
                     consumer.kind.toLowerCase().startsWith('kapeta/resource-type-web-fragment:')
+                );
             };
 
             if (context.spec.consumers.some(checker)) {

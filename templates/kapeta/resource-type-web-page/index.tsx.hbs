@@ -1,0 +1,23 @@
+//#FILENAME:src/browser/pages/{{snakecase data.metadata.name}}/index.tsx:create-only
+import React from 'react';
+import { createRoot } from 'react-dom/client';
+{{#consumes 'kapeta/resource-type-rest-client'}}
+import { enableApiMocking } from '../../../mocks/enableApiMocking';
+{{/consumes}}
+import { {{type data.metadata.name}}Page } from "./{{type data.metadata.name}}Page";
+
+const container = document.createElement('div');
+container.classList.add('application-container');
+document.body.append(container);
+
+{{#consumes 'kapeta/resource-type-rest-client'}}
+void (async () => {
+    if (process.env.NODE_ENV === 'development') {
+        await enableApiMocking();
+    }
+    
+    createRoot(container).render(<{{type data.metadata.name}}Page />);
+})();
+{{else}}
+createRoot(container).render(<{{type data.metadata.name}}Page />);
+{{/consumes}}
