@@ -3,6 +3,7 @@
 //
 import { RestClient } from "@kapeta/sdk-rest-client";
 import { Task } from "../../entities/Task";
+import { Tags } from "../../entities/Tags";
 
 class TasksClient {
     private readonly client: RestClient;
@@ -48,9 +49,17 @@ class TasksClient {
      *
      * HTTP: POST /api/rest/tasks/tasks/{id}/done
      */
-    async markAsDone(id: string): Promise<void> {
+    async markAsDone(
+        id: string,
+        headers: Any,
+        metadata: Map<string, string>,
+        tags: Set<Tags>
+    ): Promise<void> {
         await this.client.execute("POST", "/tasks/{id}/done", [
             { name: "id", value: id, transport: "path" },
+            { name: "headers", value: headers, transport: "header" },
+            { name: "metadata", value: metadata, transport: "body" },
+            { name: "tags", value: tags, transport: "query" },
         ]);
     }
 

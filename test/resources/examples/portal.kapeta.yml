@@ -46,6 +46,15 @@ spec:
               id:
                 type: string
                 transport: path
+              headers:
+                ref: any
+                transport: header
+              metadata:
+                transport: body
+                ref: Map<string,string>
+              tags:
+                transport: query
+                ref: Set<Tags>
           removeTask:
             description: Delete task
             method: DELETE
@@ -56,6 +65,12 @@ spec:
                 transport: path
   entities:
     types:
+      - type: enum
+        name: Tags
+        description: null
+        values:
+          - TAG1
+          - TAG2
       - type: enum
         name: TaskState
         description: null
@@ -85,7 +100,10 @@ spec:
           age:
             description: Age of the task
             type: integer
-            properties: null
+          metadata:
+            ref: Map<string,string>
+          tags:
+            ref: Set<Tags>
     source:
       type: kapeta-dsl
       value: |-

@@ -1,4 +1,5 @@
 node/*
 web/*
-test/resources/examples/*
+test/resources/*
 templates/*
+README.md
