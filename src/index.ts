@@ -67,6 +67,11 @@ export default class ReactTSTarget extends Target {
             }
 
             switch (type) {
+                case 'unknown':
+                case 'any':
+                case 'object':
+                    value = `any${array ? '[]' : ''}`;
+                    break;
                 case 'char':
                 case 'byte':
                     value = `string${array ? '[]' : ''}`;
