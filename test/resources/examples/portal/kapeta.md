@@ -43,6 +43,7 @@ The block comes with support for mocking the REST API with [Mock Service Worker 
 
 
 ### Understanding MSW
+
 MSW is an API mocking library that uses Service Worker API to intercept actual network requests. This enables you to mock REST APIs and other external dependencies during development and testing. Here's why incorporating MSW is beneficial:
 
 1. **Realistic Testing Environment:** MSW allows you to create mocks that closely resemble actual server responses. This helps in testing your application in a more realistic environment without the need to set up and maintain a backend server for development purposes.
