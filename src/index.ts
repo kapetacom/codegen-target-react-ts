@@ -46,6 +46,13 @@ export default class ReactTSTarget extends Target {
             );
         });
 
+        engine.registerHelper('keys', function (object: Record<string, any>) {
+            if (object && typeof object === 'object' && !Array.isArray(object)) {
+                return Object.keys(object);
+            }
+            return [];
+        });
+
         const $fieldType = (value: TypeLike) => {
             if (!value) {
                 return value;
