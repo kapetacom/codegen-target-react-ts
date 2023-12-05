@@ -9,7 +9,7 @@ RUN npm install
 
 ADD tsconfig.json /application/
 ADD webpack.*.js /application/
-ADD src/browser /application/src/browser
+ADD src /application/src
 RUN npm run build
 
 FROM node:20-alpine3.18
@@ -19,8 +19,7 @@ COPY --from=build /application/dist /application/dist
 ADD kapeta.yml /application/kapeta.yml
 ADD package.json /application/package.json
 ADD package-lock.json /application/package-lock.json
-ADD src/server /application/src/server
-ADD src/browser /application/src/browser
+ADD src /application/src
 ADD webpack.*.js /application/
 
 WORKDIR /application
