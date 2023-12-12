@@ -116,7 +116,7 @@ if (devMode) {
                 {
                     from: Path.resolve(
                         __dirname,
-                        "src/mocks/mockServiceWorker.js"
+                        "src/mocks/.generated/mockServiceWorker.js"
                     ),
                     to: "mockServiceWorker.js",
                 },
