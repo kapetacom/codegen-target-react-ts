@@ -1,26 +1,5 @@
 {
-    "compilerOptions": {
-        "target": "ES2021",
-        "lib": ["es6", "es7", "ES2021", "dom", "dom.iterable"],
-        "skipLibCheck": true,
-        "esModuleInterop": true,
-        "strict": true,
-        "module": "CommonJS",
-        "resolveJsonModule": true,
-        "experimentalDecorators": true,
-        "allowJs": true,
-        "jsx": "react",
-        "moduleResolution": "Node16",
-        "forceConsistentCasingInFileNames": true,
-        "noImplicitReturns": true,
-        "noImplicitThis": true,
-        "noImplicitAny": true,
-        "strictNullChecks": true,
-        "noUnusedLocals": false,
-        "allowSyntheticDefaultImports": true,
-        "emitDecoratorMetadata": true,
-        "isolatedModules": true
-    },
+    "extends": "@tsconfig/create-react-app/tsconfig.json",
     "include": ["src/**/*.ts", "src/**/*.tsx"],
     "exclude": ["node_modules", "dist"]
 }

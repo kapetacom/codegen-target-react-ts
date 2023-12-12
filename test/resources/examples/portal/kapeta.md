@@ -4,15 +4,19 @@ This file contains some structural information about the block.
 
 This file will be overwritten every time you change the block definition in Kapeta.
 
-## Structure
+## Folder Structure
 
 The block is structured as follows:
 
 * `src/browser`: Contains code that is only executed in the browser.
-* `src/entities`: Contains the entities used by the block.
-  * These are generated files and should not be edited directly
 * `src/mocks`: Contains code that enables you to mock the REST APIs.
 * `src/server`: Contains code that is only executed on the server.
+
+You'll find some subfolders called `.generated` under `src/`,  `src/browser/` and `src/server/`. 
+These folders contain generated files and should not be edited directly.
+
+In particular the following folders are generated:
+* `src/.generated/entities`: Contains the entities defined by the block.
 
 ## REST API
 
@@ -20,15 +24,16 @@ The block consumes the following REST APIs:
 
 * `tasks`
 
-A rest client for each of these APIs is available in the `src/browser/clients` directory:
+A rest client for each of these APIs is available both in the browser: `src/browser/.generated/clients` and server: `src/server/.generated/clients` directories
 
-* [src/browser/clients/TasksClient.ts](src/browser/clients/TasksClient.ts)
+* [src/browser/.generated/clients/TasksClient.ts](src/browser/.generated/clients/TasksClient.ts)
+* [src/server/.generated/clients/TasksClient.ts](src/server/.generated/clients/TasksClient.ts)
 
 You can use these clients to make requests to the REST API. For example:
 
 
 ```typescript
-import { TasksClient } from '../../clients/TasksClient';
+import { TasksClient } from '../../.generated/clients/TasksClient';
 
 // ...
 

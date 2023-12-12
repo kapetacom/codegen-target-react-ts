@@ -3,10 +3,10 @@ import Path from 'path';
 import {Server} from "@kapeta/sdk-server";
 const server = new Server('{{data.metadata.name}}', Path.resolve(__dirname, '../..'));
 {{#consumers-of-type 'kapeta/resource-type-rest-client'}}
-import { {{type metadata.name}}ProxyRoute } from './proxies/rest/{{type metadata.name}}ProxyRoute';
+import { {{type metadata.name}}ProxyRoute } from './.generated/proxies/rest/{{type metadata.name}}ProxyRoute';
 {{/consumers-of-type}}
 {{#consumers-of-type 'kapeta/resource-type-web-fragment'}}
-import { {{type metadata.name}}ProxyRoute } from './proxies/fragments/{{type metadata.name}}ProxyRoute';
+import { {{type metadata.name}}ProxyRoute } from './.generated/proxies/fragments/{{type metadata.name}}ProxyRoute';
 {{/consumers-of-type}}
 
 {{#consumers-of-type 'kapeta/resource-type-web-fragment'}}

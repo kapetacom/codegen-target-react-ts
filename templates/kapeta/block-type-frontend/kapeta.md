@@ -5,17 +5,21 @@ This file contains some structural information about the block.
 
 This file will be overwritten every time you change the block definition in Kapeta.
 
-## Structure
+## Folder Structure
 
 The block is structured as follows:
 
 * `src/browser`: Contains code that is only executed in the browser.
-* `src/entities`: Contains the entities used by the block.
-  * These are generated files and should not be edited directly
 {{#consumes 'kapeta/resource-type-rest-client'}}
 * `src/mocks`: Contains code that enables you to mock the REST APIs.
 {{/consumes}}
 * `src/server`: Contains code that is only executed on the server.
+
+You'll find some subfolders called `.generated` under `src/`,  `src/browser/` and `src/server/`. 
+These folders contain generated files and should not be edited directly.
+
+In particular the following folders are generated:
+* `src/.generated/entities`: Contains the entities defined by the block.
 
 {{#consumes 'kapeta/resource-type-rest-client'}}
 ## REST API
@@ -27,10 +31,11 @@ The block consumes the following REST APIs:
 {{~/consumers-of-type}}
 
 
-A rest client for each of these APIs is available in the `src/browser/clients` directory:
+A rest client for each of these APIs is available both in the browser: `src/browser/.generated/clients` and server: `src/server/.generated/clients` directories
 
 {{#consumers-of-type 'kapeta/resource-type-rest-client'}}
-* [src/browser/clients/{{type metadata.name}}Client.ts](src/browser/clients/{{type metadata.name}}Client.ts)
+* [src/browser/.generated/clients/{{type metadata.name}}Client.ts](src/browser/.generated/clients/{{type metadata.name}}Client.ts)
+* [src/server/.generated/clients/{{type metadata.name}}Client.ts](src/server/.generated/clients/{{type metadata.name}}Client.ts)
 {{~/consumers-of-type}}
 
 
@@ -39,7 +44,7 @@ You can use these clients to make requests to the REST API. For example:
 
 ```typescript
 {{#consumers-of-type 'kapeta/resource-type-rest-client'~}}
-import { {{type metadata.name}}Client } from '../../clients/{{type metadata.name}}Client';
+import { {{type metadata.name}}Client } from '../../.generated/clients/{{type metadata.name}}Client';
 {{~/consumers-of-type}}
 
 

@@ -1,20 +1,18 @@
-//#FILENAME:src/browser/clients/{{type data.metadata.name}}Client.ts:write-always
+//#FILENAME:src/browser/.generated/clients/{{type data.metadata.name}}Client.ts:write-always
 //
 // GENERATED SOURCE - DO NOT EDIT
 //
 
-import { RestClient } from "@kapeta/sdk-web-rest-client";
+import { RestClient, RestClientRequest } from "@kapeta/sdk-web-rest-client";
 {{#eachTypeReference data.spec.methods all=true}}
-import { {{type name}} } from "../../entities/{{type name}}";
+import { {{type name}} } from "../../../.generated/entities/{{type name}}";
 {{/eachTypeReference}}
 
 
-export class {{type data.metadata.name}}Client {
-
-    private client:RestClient;
+export class {{type data.metadata.name}}Client extends RestClient {
 
     constructor() {
-        this.client = new RestClient('api/rest/{{string data.metadata.name}}');
+        super('api/rest/{{string data.metadata.name}}');
     }
 
 {{#methods data.spec.methods}}
@@ -29,7 +27,7 @@ export class {{type data.metadata.name}}Client {
     {{/arguments}}
     ):Promise<{{returnType responseType}}{{#ifValueType responseType}}|null{{/ifValueType}}> {
 
-    {{#ifValueType responseType}}const result = {{/ifValueType}}await this.client.execute(
+    {{#ifValueType responseType}}const result = {{/ifValueType}}await this.execute<{{returnType responseType}}>(
     '{{string method}}',
     '{{string path}}',
     [
@@ -49,6 +47,35 @@ export class {{type data.metadata.name}}Client {
         }
         return result as {{returnType ../responseType}};
     {{/ifValueType}}
+    }
+
+    /**
+    * {{comment description}}
+    *
+    * Throws if service responds with a status code higher than 399 and not 404.
+    * For 404 responses, null is returned.
+    *
+    * HTTP: {{./method}} {{path}}
+    */
+    {{method methodName}}Request(
+    {{#arguments arguments}}
+        {{variable argumentName}}:{{fieldtype this}}
+    {{/arguments}}
+    ):RestClientRequest<{{returnType responseType}}{{#ifValueType responseType}}|null{{/ifValueType}}> {
+
+    return this.create<{{returnType responseType}}>(
+    '{{string method}}',
+    '{{string path}}',
+    [
+    {{#arguments arguments}}
+        {
+        name: '{{string argumentName}}',
+        value: {{variable argumentName}},
+        transport: '{{string transport}}'
+        }
+    {{/arguments}}
+    ]
+    );
     }
 
 {{/methods}}
