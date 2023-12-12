@@ -99,7 +99,10 @@ const config = {
         alias: {
             react: Path.resolve(__dirname, "./node_modules/react"),
             "react-dom": Path.resolve(__dirname, "./node_modules/react-dom"),
-            "./browser.js": Path.resolve(__dirname, "./src/mocks/browser.ts"),
+            "./browser.js": Path.resolve(
+                __dirname,
+                "./src/mocks/.generated/browser.ts"
+            ),
         },
     },
     plugins: [],
