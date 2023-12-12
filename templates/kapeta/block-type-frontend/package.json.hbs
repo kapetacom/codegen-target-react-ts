@@ -21,8 +21,8 @@
     ]
   },
     "dependencies": {
-        "@kapeta/sdk-config": "<2",
-        "@kapeta/sdk-server": "<2",
+        "@kapeta/sdk-config": "<3",
+        "@kapeta/sdk-server": "<3",
 
         "ts-node": "^10.9.1",
         "typescript": "^5.2.2",
@@ -30,10 +30,10 @@
         "@tsconfig/node18": "^18.2.2",
         "@tsconfig/create-react-app": "^2.0.1"
         {{#include-proxy-route}},
-            "@kapeta/sdk-proxy-route": "<2"
+            "@kapeta/sdk-proxy-route": "<3"
         {{/include-proxy-route}}
         {{#consumes 'kapeta/resource-type-rest-client'}},
-            "@kapeta/sdk-rest-client": "<2"
+            "@kapeta/sdk-rest-client": "<3"
         {{/consumes}}
     },
     "devDependencies": {
@@ -80,12 +80,12 @@
         "nodemon": "^2.0.22"
 
         {{#consumes 'kapeta/resource-type-rest-client'}},
-            "@kapeta/sdk-web-rest-client": "<2",
+            "@kapeta/sdk-web-rest-client": "<3",
             "copy-webpack-plugin": "^11.0.0",
             "msw": "^2.0.6"
         {{/consumes}}
         {{#consumes 'kapeta/resource-type-web-*'}},
-            "@kapeta/sdk-web-microfrontend-frame": "<2"
+            "@kapeta/sdk-web-microfrontend-frame": "<3"
         {{/consumes}}
     }
     {{#consumes 'kapeta/resource-type-rest-client'}},
