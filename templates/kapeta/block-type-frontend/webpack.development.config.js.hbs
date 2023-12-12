@@ -105,7 +105,7 @@ const config = {
             "react": Path.resolve(__dirname, "./node_modules/react"),
             "react-dom": Path.resolve(__dirname, "./node_modules/react-dom")
             {{#consumes 'kapeta/resource-type-rest-client'}},
-            './browser.js': Path.resolve(__dirname, './src/mocks/browser.ts'),
+            './browser.js': Path.resolve(__dirname, './src/mocks/.generated/browser.ts'),
             {{/consumes}}
         }
     },
@@ -120,7 +120,7 @@ if (devMode) {
     {{#consumes 'kapeta/resource-type-rest-client'}}
     config.plugins.push(
         new CopyWebpackPlugin({
-            patterns: [{ from: Path.resolve(__dirname, 'src/mocks/mockServiceWorker.js'), to: 'mockServiceWorker.js' }],
+            patterns: [{ from: Path.resolve(__dirname, 'src/mocks/.generated/mockServiceWorker.js'), to: 'mockServiceWorker.js' }],
         })
     );
     {{/consumes}}

@@ -76,6 +76,6 @@
         "@kapeta/sdk-web-microfrontend-frame": "<3"
     },
     "msw": {
-        "workerDirectory": "src/mocks"
+        "workerDirectory": "src/mocks/.generated"
     }
 }
