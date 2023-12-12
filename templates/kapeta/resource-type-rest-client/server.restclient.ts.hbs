@@ -1,18 +1,18 @@
-//#FILENAME:src/server/clients/{{type data.metadata.name}}Client.ts:write-always
+//#FILENAME:src/server/.generated/clients/{{type data.metadata.name}}Client.ts:write-always
 //
 // GENERATED SOURCE - DO NOT EDIT
 //
-import {RestClient} from "@kapeta/sdk-rest-client";
+import { RestClient, RestClientRequest} from '@kapeta/sdk-rest-client';
 {{#eachTypeReference data.spec.methods all=true}}
-import { {{type name}} } from "../../entities/{{type name}}";
+import { {{type name}} } from "../../../.generated/entities/{{type name}}";
 {{/eachTypeReference}}
 
-class {{type data.metadata.name}}Client {
-private readonly client:RestClient;
 
-constructor() {
-this.client = new RestClient('{{string data.metadata.name}}');
-}
+export class {{type data.metadata.name}}Client extends RestClient {
+
+    constructor() {
+        super('{{string data.metadata.name}}');
+    }
 
 {{#methods data.spec.methods}}
 
@@ -23,7 +23,7 @@ this.client = new RestClient('{{string data.metadata.name}}');
     * Throws if service responds with a status code higher than 399 and not 404.
     * For 404 responses, null is returned.
     *
-    * HTTP: {{./method}} /api/rest/{{../data.metadata.name}}{{path}}
+    * HTTP: {{./method}} {{path}}
     */
     async {{method methodName}}(
     {{#arguments arguments}}
@@ -31,7 +31,7 @@ this.client = new RestClient('{{string data.metadata.name}}');
     {{/arguments}}
     ):Promise<{{returnType responseType}}{{#ifValueType responseType}}|null{{/ifValueType}}> {
 
-    {{#ifValueType responseType}}const result = {{/ifValueType}}await this.client.execute(
+    {{#ifValueType responseType}}const result = {{/ifValueType}}await this.execute(
     '{{string method}}',
     '{{string path}}',
     [
@@ -47,13 +47,40 @@ this.client = new RestClient('{{string data.metadata.name}}');
 
     {{#ifValueType responseType}}
         if (result === null) {
-            return null;
+        return null;
         }
         return result as {{returnType ../responseType}};
     {{/ifValueType}}
     }
 
+    /**
+    * {{comment description}}
+    *
+    * Throws if service responds with a status code higher than 399 and not 404.
+    * For 404 responses, null is returned.
+    *
+    * HTTP: {{./method}} {{path}}
+    */
+    {{method methodName}}Request(
+    {{#arguments arguments}}
+        {{variable argumentName}}:{{fieldtype this}}
+    {{/arguments}}
+    ):RestClientRequest<{{returnType responseType}}{{#ifValueType responseType}}|null{{/ifValueType}}> {
+
+    return this.create(
+    '{{string method}}',
+    '{{string path}}',
+    [
+    {{#arguments arguments}}
+        {
+        name: '{{string argumentName}}',
+        value: {{variable argumentName}},
+        transport: '{{string transport}}'
+        }
+    {{/arguments}}
+    ]
+    );
+    }
+
 {{/methods}}
 }
-
-export default new {{type data.metadata.name}}Client();
