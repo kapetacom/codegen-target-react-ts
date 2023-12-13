@@ -1,0 +1,22 @@
+//#FILENAME:src/server/.generated/routes.ts:write-always
+import {Router} from "express";
+import {ConfigProvider} from "@kapeta/sdk-config";
+
+{{#consumers-of-type 'kapeta/resource-type-rest-client'}}
+    import { create{{type metadata.name}}Router } from './proxies/rest/{{type metadata.name}}-routes';
+{{/consumers-of-type}}
+{{#consumers-of-type 'kapeta/resource-type-web-fragment'}}
+    import { create{{type metadata.name}}Router } from './proxies/fragments/{{type metadata.name}}-routes';
+{{/consumers-of-type}}
+
+
+export const createRoutes = async (config:ConfigProvider):Promise<Router> => {
+    const routes = Router();
+    {{#consumers-of-type 'kapeta/resource-type-rest-client'}}
+        routes.use(await create{{type metadata.name}}Router(config));
+    {{/consumers-of-type}}
+    {{#consumers-of-type 'kapeta/resource-type-web-fragment'}}
+        routes.use(await create{{type metadata.name}}Router(config));
+    {{/consumers-of-type}}
+    return routes;
+};
