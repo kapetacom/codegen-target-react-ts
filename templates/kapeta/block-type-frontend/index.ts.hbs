@@ -1,27 +1,16 @@
 //#FILENAME:src/server/index.ts:create-only
-import Path from 'path';
-import {Server} from "@kapeta/sdk-server";
-const server = new Server('{{data.metadata.name}}', Path.resolve(__dirname, '../..'));
-{{#consumers-of-type 'kapeta/resource-type-rest-client'}}
-import { {{type metadata.name}}ProxyRoute } from './.generated/proxies/rest/{{type metadata.name}}ProxyRoute';
-{{/consumers-of-type}}
-{{#consumers-of-type 'kapeta/resource-type-web-fragment'}}
-import { {{type metadata.name}}ProxyRoute } from './.generated/proxies/fragments/{{type metadata.name}}ProxyRoute';
-{{/consumers-of-type}}
-
-{{#consumers-of-type 'kapeta/resource-type-web-fragment'}}
-server.addRoute(
-    new {{type metadata.name}}ProxyRoute()
-);
-{{/consumers-of-type}}
-{{#consumers-of-type 'kapeta/resource-type-rest-client'}}
-server.addRoute(
-    new {{type metadata.name}}ProxyRoute()
-);
-{{/consumers-of-type}}
+import { ConfigProvider, runApp } from "@kapeta/sdk-config";
+import { createServer } from "./server";
+import { createRoutes } from "./.generated/routes";
+import Path from 'node:path';
 
 const BASE_DIR = Path.resolve(__dirname, "../../dist");
-const webpackConfig = require("../../webpack.development.config");
-server.configureAssets(BASE_DIR, webpackConfig);
+runApp(async (configProvider:ConfigProvider) => {
+    const server = await createServer(configProvider);
 
-server.start('web');
+    server.use(await createRoutes(configProvider));
+    const webpackConfig = require("../../webpack.development.config");
+    server.configureAssets(BASE_DIR, webpackConfig);
+
+    server.start("web");
+}, Path.resolve(__dirname,'../../'));

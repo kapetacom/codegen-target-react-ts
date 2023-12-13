@@ -1,0 +1,14 @@
+//#FILENAME:src/server/.generated/proxies/fragments/{{type data.metadata.name}}-routes.ts:write-always
+//
+// GENERATED SOURCE - DO NOT EDIT
+//
+import {Router} from "express";
+import { createProxyRoute } from "@kapeta/sdk-proxy-route";
+import {ConfigProvider} from "@kapeta/sdk-config";
+
+export const create{{type data.metadata.name}}Router = async (provider: ConfigProvider) => {
+    const router = Router();
+    router.use("/fragments{{string data.spec.path}}", await createProxyRoute(provider, "{{string data.metadata.name}}", 'web'));
+
+    return router;
+}
