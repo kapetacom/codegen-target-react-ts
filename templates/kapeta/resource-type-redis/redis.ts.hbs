@@ -1,11 +1,9 @@
-//#FILENAME:src/.generated/data/{{type data.metadata.name}}DB.ts:write-always
+//#FILENAME:src/server/.generated/data/{{type data.metadata.name}}.ts:write-always
 //
 // GENERATED SOURCE - DO NOT EDIT
 //
-import { RedisDB } from '@kapeta/sdk-redis';
+import { createRedisClient } from '@kapeta/sdk-redis';
 
-export class {{type data.metadata.name}}DB extends RedisDB {
-    constructor() {
-        super('{{string data.metadata.name}}');
-    }
+export const create{{type data.metadata.name}}Client = <M extends RedisModules, F extends RedisFunctions, S extends RedisScripts>(config: ConfigProvider) => {
+    return createRedisClient<M,F,S>(config, '{{string data.metadata.name}}');
 }
