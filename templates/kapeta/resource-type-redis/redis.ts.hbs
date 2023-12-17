@@ -1,0 +1,11 @@
+//#FILENAME:src/.generated/data/{{type data.metadata.name}}DB.ts:write-always
+//
+// GENERATED SOURCE - DO NOT EDIT
+//
+import { RedisDB } from '@kapeta/sdk-redis';
+
+export class {{type data.metadata.name}}DB extends RedisDB {
+    constructor() {
+        super('{{string data.metadata.name}}');
+    }
+}
