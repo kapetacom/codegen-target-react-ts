@@ -16,7 +16,8 @@ const targetConfig: ILanguageTargetProvider = {
     resourceKinds: [
         'kapeta/resource-type-rest-client',
         'kapeta/resource-type-web-fragment',
-        'kapeta/resource-type-web-page'
+        'kapeta/resource-type-web-page',
+        'kapeta/resource-type-redis',
     ],
     definition: kapetaDefinition,
 };

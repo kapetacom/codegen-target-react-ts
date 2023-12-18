@@ -12,6 +12,9 @@ spec:
       spec:
         path: /
   consumers:
+    - kind: kapeta/resource-type-redis:0.0.1
+      metadata:
+        name: session
     - kind: kapeta/resource-type-web-fragment:0.0.12
       metadata:
         name: subpage

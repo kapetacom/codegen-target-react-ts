@@ -35,6 +35,10 @@
         {{#consumes 'kapeta/resource-type-rest-client'}},
             "@kapeta/sdk-rest-client": "^2"
         {{/consumes}}
+        {{#consumes 'kapeta/resource-type-redis'}},
+            "@kapeta/sdk-redis": "<2",
+            "redis": "^4"
+        {{/consumes}}
     },
     "devDependencies": {
         "@types/react": "^18.0.27",
