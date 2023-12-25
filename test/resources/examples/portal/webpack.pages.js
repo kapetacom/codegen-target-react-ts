@@ -3,9 +3,9 @@
 //
 const webPages = [];
 webPages.push({
-    name: "MyPage",
-    path: "/",
-    localPath: "my_page",
+    name: 'MyPage',
+    path: '/',
+    localPath: 'my_page',
 });
 
 module.exports = webPages;

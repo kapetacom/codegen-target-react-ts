@@ -1,8 +1,8 @@
 //
 // GENERATED SOURCE - DO NOT EDIT
 //
-import { TaskState } from "./TaskState";
-import { Tags } from "./Tags";
+import { TaskState } from './TaskState';
+import { Tags } from './Tags';
 
 export interface Task {
     id: string;

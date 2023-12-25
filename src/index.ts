@@ -13,6 +13,8 @@ import { HelperOptions } from 'handlebars';
 import { exec } from '@kapeta/nodejs-process';
 import { typeName } from '@kapeta/schemas';
 
+const DefaultPrettierConfig  = require('@kapeta/prettier-config');
+
 type MapUnknown = { [key: string]: any };
 function copyUnknown(from: MapUnknown, to: MapUnknown): MapUnknown {
     Object.entries(from).forEach(([key, value]) => {
@@ -152,35 +154,33 @@ export default class ReactTSTarget extends Target {
         return engine;
     }
     protected _postProcessCode(filename: string, code: string): string {
-        let parser = null;
-        let tabWidth = 4;
+        const opts:any = {
+            ...DefaultPrettierConfig,
+            parser: null,
+        };
 
         if (filename.endsWith('.json')) {
-            parser = 'json';
+            opts.parser = 'json';
         }
 
         if (filename.endsWith('.js') || filename.endsWith('.jsx')) {
-            parser = 'babel';
+            opts.parser = 'babel';
         }
 
         if (filename.endsWith('.ts') || filename.endsWith('.tsx')) {
-            parser = 'babel-ts';
+            opts.parser = 'babel-ts';
         }
 
         if (filename.endsWith('.yaml') || filename.endsWith('.yml')) {
-            parser = 'yaml';
-            tabWidth = 2;
+            opts.parser = 'yaml';
         }
 
-        if (!parser) {
+        if (!opts.parser) {
             return code;
         }
 
         try {
-            return prettier.format(code, {
-                tabWidth: tabWidth,
-                parser: parser,
-            });
+            return prettier.format(code, opts);
         } catch (e) {
             console.log('Failed to prettify source: ' + filename + '. ' + e);
             return code;

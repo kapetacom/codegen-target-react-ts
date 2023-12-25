@@ -3,6 +3,6 @@
 //
 
 export enum TaskState {
-    PENDING = "PENDING",
-    DONE = "DONE",
+    PENDING = 'PENDING',
+    DONE = 'DONE',
 }
