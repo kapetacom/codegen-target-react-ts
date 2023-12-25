@@ -3,17 +3,13 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Target, Template, TypeLike } from '@kapeta/codegen-target';
-import prettier from 'prettier';
+import { format, Target, Template, TypeLike } from '@kapeta/codegen-target';
 import { snakeCase } from 'snake-case';
 import Path from 'path';
-
 import { GeneratedAsset, GeneratedFile, SourceFile } from '@kapeta/codegen';
 import { HelperOptions } from 'handlebars';
 import { exec } from '@kapeta/nodejs-process';
 import { typeName } from '@kapeta/schemas';
-
-const DefaultPrettierConfig  = require('@kapeta/prettier-config');
 
 type MapUnknown = { [key: string]: any };
 function copyUnknown(from: MapUnknown, to: MapUnknown): MapUnknown {
@@ -154,37 +150,7 @@ export default class ReactTSTarget extends Target {
         return engine;
     }
     protected _postProcessCode(filename: string, code: string): string {
-        const opts:any = {
-            ...DefaultPrettierConfig,
-            parser: null,
-        };
-
-        if (filename.endsWith('.json')) {
-            opts.parser = 'json';
-        }
-
-        if (filename.endsWith('.js') || filename.endsWith('.jsx')) {
-            opts.parser = 'babel';
-        }
-
-        if (filename.endsWith('.ts') || filename.endsWith('.tsx')) {
-            opts.parser = 'babel-ts';
-        }
-
-        if (filename.endsWith('.yaml') || filename.endsWith('.yml')) {
-            opts.parser = 'yaml';
-        }
-
-        if (!opts.parser) {
-            return code;
-        }
-
-        try {
-            return prettier.format(code, opts);
-        } catch (e) {
-            console.log('Failed to prettify source: ' + filename + '. ' + e);
-            return code;
-        }
+        return format(filename, code);
     }
 
     mergeFile(sourceFile: SourceFile, newFile: GeneratedFile): GeneratedFile {
