@@ -1,8 +1,8 @@
-import { Router } from "express";
-import { ConfigProvider } from "@kapeta/sdk-config";
+import { Router } from 'express';
+import { ConfigProvider } from '@kapeta/sdk-config';
 
-import { createTasksRouter } from "./proxies/rest/Tasks-routes";
-import { createSubpageRouter } from "./proxies/fragments/Subpage-routes";
+import { createTasksRouter } from './proxies/rest/Tasks-routes';
+import { createSubpageRouter } from './proxies/fragments/Subpage-routes';
 
 export const createRoutes = async (config: ConfigProvider): Promise<Router> => {
     const routes = Router();

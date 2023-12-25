@@ -3,11 +3,9 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { Target, Template, TypeLike } from '@kapeta/codegen-target';
-import prettier from 'prettier';
+import { format, Target, Template, TypeLike } from '@kapeta/codegen-target';
 import { snakeCase } from 'snake-case';
 import Path from 'path';
-
 import { GeneratedAsset, GeneratedFile, SourceFile } from '@kapeta/codegen';
 import { HelperOptions } from 'handlebars';
 import { exec } from '@kapeta/nodejs-process';
@@ -152,39 +150,7 @@ export default class ReactTSTarget extends Target {
         return engine;
     }
     protected _postProcessCode(filename: string, code: string): string {
-        let parser = null;
-        let tabWidth = 4;
-
-        if (filename.endsWith('.json')) {
-            parser = 'json';
-        }
-
-        if (filename.endsWith('.js') || filename.endsWith('.jsx')) {
-            parser = 'babel';
-        }
-
-        if (filename.endsWith('.ts') || filename.endsWith('.tsx')) {
-            parser = 'babel-ts';
-        }
-
-        if (filename.endsWith('.yaml') || filename.endsWith('.yml')) {
-            parser = 'yaml';
-            tabWidth = 2;
-        }
-
-        if (!parser) {
-            return code;
-        }
-
-        try {
-            return prettier.format(code, {
-                tabWidth: tabWidth,
-                parser: parser,
-            });
-        } catch (e) {
-            console.log('Failed to prettify source: ' + filename + '. ' + e);
-            return code;
-        }
+        return format(filename, code);
     }
 
     mergeFile(sourceFile: SourceFile, newFile: GeneratedFile): GeneratedFile {
