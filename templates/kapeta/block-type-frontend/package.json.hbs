@@ -5,8 +5,8 @@
   "main": "src/server/index.js",
   "scripts": {
     "clean": "rm -rf dist",
-    "start:dev": "NODE_ENV=development nodemon --ext ts,tsx,js,json,yaml,yml --watch '**/*' src/server/index.ts",
-    "start:dev:docker": "NODE_ENV=development nodemon --exitcrash --ext ts,tsx,js,json,yaml,yml --watch '**/*' src/server/index.ts",
+    "start:dev": "NODE_ENV=development nodemon src/server/index.ts",
+    "start:dev:docker": "NODE_ENV=development nodemon --exitcrash --legacy-watch src/server/index.ts",
     "start": "NODE_ENV=production ts-node --transpile-only src/server/index.ts",
     "build": "webpack --config webpack.production.config.js",
     "format": "prettier --write .",
@@ -14,12 +14,19 @@
   },
   "prettier": "@kapeta/prettier-config",
   "nodemonConfig": {
-    "ignore": [
-        "test/*",
-        "docs/*",
-        "src/browser/*"
-    ]
-  },
+        "watch": [
+            "kapeta.yml",
+            "webpack.*.js",
+            "package.json",
+            "tsconfig.json",
+            "src/server",
+            "src/server/.generated",
+            "src/mocks",
+            "src/mocks/.generated"
+        ],
+        "ext": "ts,tsx,js,jsx,json,yaml,yml",
+        "exec": "ts-node --transpile-only"
+    },
     "dependencies": {
         "@types/node": "^20",
         "@types/express": "^4",

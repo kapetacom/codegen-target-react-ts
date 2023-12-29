@@ -21,6 +21,8 @@ export async function enableApiMocking() {
     if (localStorage.getItem('enableMockApi') === 'true') {
         // Start the mock service worker
         try {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore - This is a dynamic import to create the mocks
             const { worker } = (await import('./browser.js')) as { worker: SetupWorker };
             await worker.start();
         } catch (error) {
