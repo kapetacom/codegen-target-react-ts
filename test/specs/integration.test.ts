@@ -24,7 +24,7 @@ describe('blocks', () => {
         return CodegenHelpers.testCodeGenFor(target, new BlockCodeGenerator(data), basedir);
     });
 
-    function doMergeJSON(filename: string, original: any, changed: any) {
+    function doMergeJSON(filename: string, original: any, changed: any, last: any | null = null) {
         const merged = target.mergeFile(
             {
                 filename: filename,
@@ -36,7 +36,20 @@ describe('blocks', () => {
                 permissions: '644',
                 content: JSON.stringify(changed),
                 mode: 'merge',
-            }
+            },
+            last
+                ? {
+                      filename: filename,
+                      permissions: '644',
+                      content: JSON.stringify(last),
+                      mode: 'merge',
+                  }
+                : {
+                      filename: filename,
+                      permissions: '644',
+                      content: JSON.stringify(original),
+                      mode: 'merge',
+                  }
         );
 
         return JSON.parse(merged.content);
@@ -52,11 +65,18 @@ describe('blocks', () => {
             expect(result).toEqual(changed);
         });
 
-        test('removed dependencies will be ignored', () => {
+        test('removed dependencies will be removed if unchanged', () => {
             const original = readJSON('../resources/packages/original.json');
             const changed = readJSON('../resources/packages/removed-dependencies.json');
-            const result = doMergeJSON(FILENAME, original, changed);
-            expect(result).toEqual(original);
+            let result = doMergeJSON(FILENAME, original, changed);
+            expect(result).toEqual(changed);
+
+            const original2 = {
+                ...original,
+                dependencies: { ...original.dependencies, '@kapeta/sdk-web-rest-client': '^2' },
+            };
+            result = doMergeJSON(FILENAME, original2, changed, original);
+            expect(result).toEqual(original2);
         });
 
         test('existing dependencies will be upgraded', () => {
@@ -73,18 +93,26 @@ describe('blocks', () => {
             expect(result).toEqual(changed);
         });
 
-        test('removed scripts will be ignored ', () => {
+        test('removed scripts will be removed if unchanged', () => {
             const original = readJSON('../resources/packages/original.json');
             const changed = readJSON('../resources/packages/removed-scripts.json');
-            const result = doMergeJSON(FILENAME, original, changed);
-            expect(result).toEqual(original);
+            let result = doMergeJSON(FILENAME, original, changed);
+            expect(result).toEqual(changed);
+
+            const original2 = { ...original, scripts: { ...original.scripts, build: 'tsc' } };
+            result = doMergeJSON(FILENAME, original2, changed, original);
+            expect(result).toEqual(original2);
         });
 
-        test('changed scripts will be ignored ', () => {
+        test('changed scripts will be updated if unchanged', () => {
             const original = readJSON('../resources/packages/original.json');
             const changed = readJSON('../resources/packages/changed-scripts.json');
-            const result = doMergeJSON(FILENAME, original, changed);
-            expect(result).toEqual(original);
+            let result = doMergeJSON(FILENAME, original, changed);
+            expect(result).toEqual(changed);
+
+            const original2 = { ...original, scripts: { ...original.scripts, start: 'node index.js' } };
+            result = doMergeJSON(FILENAME, original2, changed, original);
+            expect(result).toEqual(original2);
         });
 
         test('new top-level will be added', () => {
@@ -94,18 +122,26 @@ describe('blocks', () => {
             expect(result).toEqual(changed);
         });
 
-        test('removed top-level will be ignored', () => {
+        test('removed top-level will be removed if unchanged', () => {
             const original = readJSON('../resources/packages/original.json');
             const changed = readJSON('../resources/packages/removed-top-level.json');
-            const result = doMergeJSON(FILENAME, original, changed);
-            expect(result).toEqual(original);
+            let result = doMergeJSON(FILENAME, original, changed);
+            expect(result).toEqual(changed);
+
+            const original2 = { ...original, type: 'module' };
+            result = doMergeJSON(FILENAME, original2, changed, original);
+            expect(result).toEqual(original2);
         });
 
-        test('updated top-level will be ignored', () => {
+        test('updated top-level will be updated if unchanged', () => {
             const original = readJSON('../resources/packages/original.json');
             const changed = readJSON('../resources/packages/changed-top-level.json');
-            const result = doMergeJSON(FILENAME, original, changed);
-            expect(result).toEqual(original);
+            let result = doMergeJSON(FILENAME, original, changed);
+            expect(result).toEqual(changed);
+
+            const original2 = { ...original, type: 'esm' };
+            result = doMergeJSON(FILENAME, original2, changed, original);
+            expect(result).toEqual(original2);
         });
     });
 
