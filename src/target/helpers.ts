@@ -1,3 +1,7 @@
+/**
+ * Copyright 2023 Kapeta Inc.
+ * SPDX-License-Identifier: MIT
+ */
 import _ from 'lodash';
 
 export type MapUnknown = { [key: string]: any };

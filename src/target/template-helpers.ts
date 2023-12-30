@@ -1,3 +1,7 @@
+/**
+ * Copyright 2023 Kapeta Inc.
+ * SPDX-License-Identifier: MIT
+ */
 import Handlebars = require('handlebars');
 import { snakeCase } from 'snake-case';
 import { Template, TypeLike } from '@kapeta/codegen-target';

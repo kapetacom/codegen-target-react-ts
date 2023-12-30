@@ -12,6 +12,8 @@ module.exports = {
         '@typescript-eslint/restrict-plus-operands': 'off',
         'no-param-reassign': 'off',
         '@typescript-eslint/no-var-requires': 'off',
+        '@typescript-eslint/no-unsafe-argument': 'off',
+        '@typescript-eslint/no-unsafe-call': 'off',
     },
     parserOptions: {
         project: `${__dirname}/tsconfig.eslint.json`,
