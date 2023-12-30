@@ -5,8 +5,10 @@
 
 import { ILanguageTargetProvider } from '@kapeta/ui-web-types';
 
-const kapetaDefinition = require('../../kapeta.yml');
-const packageJson = require('../../package.json');
+// @ts-ignore
+import kapetaDefinition from '../../kapeta.yml';
+// @ts-ignore
+import packageJson from '../../package.json';
 
 const targetConfig: ILanguageTargetProvider = {
     kind: kapetaDefinition.metadata.name,
