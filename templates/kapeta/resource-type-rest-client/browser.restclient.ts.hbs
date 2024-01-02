@@ -27,7 +27,7 @@ export class {{type data.metadata.name}}Client extends RestClient {
     {{/arguments}}
     ):Promise<{{returnType responseType}}{{#ifValueType responseType}}|null{{/ifValueType}}> {
 
-    {{#ifValueType responseType}}const result = {{/ifValueType}}await this.execute<{{returnType responseType}}>(
+    {{#ifValueType responseType}}const result = {{/ifValueType}}await this.$execute<{{returnType responseType}}>(
     '{{string method}}',
     '{{string path}}',
     [
@@ -63,7 +63,7 @@ export class {{type data.metadata.name}}Client extends RestClient {
     {{/arguments}}
     ):RestClientRequest<{{returnType responseType}}{{#ifValueType responseType}}|null{{/ifValueType}}> {
 
-    return this.create<{{returnType responseType}}>(
+    return this.$create<{{returnType responseType}}>(
     '{{string method}}',
     '{{string path}}',
     [
