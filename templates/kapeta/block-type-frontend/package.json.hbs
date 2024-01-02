@@ -40,7 +40,7 @@
             "@kapeta/sdk-proxy-route": "^2"
         {{/include-proxy-route}}
         {{#consumes 'kapeta/resource-type-rest-client'}},
-            "@kapeta/sdk-rest-client": "^2"
+            "@kapeta/sdk-rest-client": "^3"
         {{/consumes}}
         {{#consumes 'kapeta/resource-type-redis'}},
             "@kapeta/sdk-redis": "<2",
@@ -91,7 +91,7 @@
         "nodemon": "^2.0.22"
 
         {{#consumes 'kapeta/resource-type-rest-client'}},
-            "@kapeta/sdk-web-rest-client": "^1",
+            "@kapeta/sdk-web-rest-client": "^2",
             "copy-webpack-plugin": "^11.0.0",
             "msw": "^2.0.6"
         {{/consumes}}
