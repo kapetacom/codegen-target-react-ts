@@ -47,6 +47,10 @@ module.exports = {
                 use: ['yaml-loader'],
                 include: Path.resolve(__dirname, './'),
             },
+            {
+                test: /\.(jpg|png|gif|woff|woff2|eot|ttf|svg)$/,
+                type: 'asset',
+            },
         ],
     },
     devtool: process.env.NODE_ENV === 'production' ? 'source-map' : 'inline-source-map',

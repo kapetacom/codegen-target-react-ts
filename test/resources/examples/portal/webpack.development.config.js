@@ -78,6 +78,10 @@ const config = {
                 use: ['json-loader', 'yaml-loader'],
                 include: Path.resolve(__dirname, './'),
             },
+            {
+                test: /\.(jpg|png|gif|woff|woff2|eot|ttf|svg)$/,
+                type: 'asset',
+            },
         ],
     },
     resolve: {
