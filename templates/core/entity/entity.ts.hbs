@@ -11,7 +11,7 @@ import { {{name}} } from "./{{name}}";
 export interface {{type data.name}} {
 
 {{#eachProperty data.properties}}
-    {{propertyId}}{{#if optional}}?{{/if}}:{{fieldtype this}};
+    {{propertyId}}{{#if required}}:{{else}}?:{{/if}}{{fieldtype this}};
 {{/eachProperty}}
 
 }
