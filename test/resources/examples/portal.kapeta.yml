@@ -94,28 +94,34 @@ spec:
             description: null
             type: string
             properties: null
+            required: true
           state:
             description: null
             ref: TaskState
             properties: null
+            required: true
           created:
             type: date
-            optional: true
+            required: false
           views:
             type: integer
-            optional: true
+            required: false
           stars:
             type: float
-            optional: true
+            required: false
           numberList:
             type: double[]
+            required: true
           age:
             description: Age of the task
             type: integer
+            required: true
           metadata:
             ref: Map<string,string>
+            required: true
           tags:
             ref: Set<Tags>
+            required: true
     source:
       type: kapeta-dsl
       value: |-
