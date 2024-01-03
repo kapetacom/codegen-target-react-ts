@@ -27,7 +27,7 @@ export class {{type data.metadata.name}}Client extends RestClient {
     */
     async {{method methodName}}(
     {{#arguments arguments}}
-        {{variable argumentName}}:{{fieldtype this}}
+        {{variable argumentName}}{{#if this.optional}}?{{/if}}:{{fieldtype this}}
     {{/arguments}}
     ):Promise<{{returnType responseType}}{{#ifValueType responseType}}|null{{/ifValueType}}> {
 
@@ -63,7 +63,7 @@ export class {{type data.metadata.name}}Client extends RestClient {
     */
     {{method methodName}}Request(
     {{#arguments arguments}}
-        {{variable argumentName}}:{{fieldtype this}}
+        {{variable argumentName}}{{#if this.optional}}?{{/if}}:{{fieldtype this}}
     {{/arguments}}
     ):RestClientRequest<{{returnType responseType}}{{#ifValueType responseType}}|null{{/ifValueType}}> {
 

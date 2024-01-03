@@ -7,9 +7,9 @@ import { Tags } from './Tags';
 export interface Task {
     id: string;
     state: TaskState;
-    created: number;
-    views: number;
-    stars: number;
+    created?: number;
+    views?: number;
+    stars?: number;
     numberList: number[];
     age: number;
     metadata: Map<string, string>;
