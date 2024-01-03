@@ -51,7 +51,7 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
             array = true;
         }
 
-        switch (type) {
+        switch (type.toLowerCase()) {
             case 'unknown':
             case 'any':
             case 'object':

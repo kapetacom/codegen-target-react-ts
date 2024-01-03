@@ -36,6 +36,10 @@ spec:
               id:
                 type: string
                 transport: path
+              filter:
+                type: string
+                transport: query
+                optional: true
               task:
                 ref: Task
                 transport: body
@@ -52,12 +56,14 @@ spec:
               headers:
                 ref: any
                 transport: header
+                optional: true
               metadata:
                 transport: body
                 ref: Map<string,string>
               tags:
                 transport: query
                 ref: Set<Tags>
+                optional: true
           removeTask:
             description: Delete task
             method: DELETE
@@ -94,10 +100,13 @@ spec:
             properties: null
           created:
             type: date
+            optional: true
           views:
             type: integer
+            optional: true
           stars:
             type: float
+            optional: true
           numberList:
             type: double[]
           age:

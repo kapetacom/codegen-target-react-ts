@@ -18,11 +18,12 @@ export class TasksClient extends RestClient {
      *
      * HTTP: POST /tasks/{userId}/{id}
      */
-    async addTask(userId: string, id: string, task: Task): Promise<Task | null> {
+    async addTask(userId: string, id: string, task: Task, filter?: string): Promise<Task | null> {
         const result = await this.$execute('POST', '/tasks/{userId}/{id}', [
             { name: 'userId', value: userId, transport: 'path' },
             { name: 'id', value: id, transport: 'path' },
             { name: 'task', value: task, transport: 'body' },
+            { name: 'filter', value: filter, transport: 'query' },
         ]);
 
         if (result === null) {
@@ -39,11 +40,12 @@ export class TasksClient extends RestClient {
      *
      * HTTP: POST /tasks/{userId}/{id}
      */
-    addTaskRequest(userId: string, id: string, task: Task): RestClientRequest<Task | null> {
+    addTaskRequest(userId: string, id: string, task: Task, filter?: string): RestClientRequest<Task | null> {
         return this.$create('POST', '/tasks/{userId}/{id}', [
             { name: 'userId', value: userId, transport: 'path' },
             { name: 'id', value: id, transport: 'path' },
             { name: 'task', value: task, transport: 'body' },
+            { name: 'filter', value: filter, transport: 'query' },
         ]);
     }
 
@@ -55,11 +57,11 @@ export class TasksClient extends RestClient {
      *
      * HTTP: POST /tasks/{id}/done
      */
-    async markAsDone(id: string, headers: Any, metadata: Map<string, string>, tags: Set<Tags>): Promise<void> {
+    async markAsDone(id: string, metadata: Map<string, string>, headers?: any, tags?: Set<Tags>): Promise<void> {
         await this.$execute('POST', '/tasks/{id}/done', [
             { name: 'id', value: id, transport: 'path' },
-            { name: 'headers', value: headers, transport: 'header' },
             { name: 'metadata', value: metadata, transport: 'body' },
+            { name: 'headers', value: headers, transport: 'header' },
             { name: 'tags', value: tags, transport: 'query' },
         ]);
     }
@@ -74,14 +76,14 @@ export class TasksClient extends RestClient {
      */
     markAsDoneRequest(
         id: string,
-        headers: Any,
         metadata: Map<string, string>,
-        tags: Set<Tags>
+        headers?: any,
+        tags?: Set<Tags>
     ): RestClientRequest<void> {
         return this.$create('POST', '/tasks/{id}/done', [
             { name: 'id', value: id, transport: 'path' },
-            { name: 'headers', value: headers, transport: 'header' },
             { name: 'metadata', value: metadata, transport: 'body' },
+            { name: 'headers', value: headers, transport: 'header' },
             { name: 'tags', value: tags, transport: 'query' },
         ]);
     }
