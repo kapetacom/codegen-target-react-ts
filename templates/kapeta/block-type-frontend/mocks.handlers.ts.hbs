@@ -1,0 +1,15 @@
+{{#consumes 'kapeta/resource-type-rest-client'}}
+//#FILENAME:src/mocks/.generated/handlers.ts:write-always
+
+{{#consumers-of-type 'kapeta/resource-type-rest-client'}}
+    {{#methods spec.methods~}}
+    import { {{method ../metadata.name}}_{{method methodName}}Handler } from '../handlers/{{../metadata.name}}/{{method methodName}}Handler';
+    {{~/methods}}
+{{/consumers-of-type}}
+
+export const handlers = [
+    {{#consumers-of-type 'kapeta/resource-type-rest-client'}}
+        {{#methods spec.methods}}{{method ../metadata.name}}_{{method methodName}}Handler,{{/methods}}
+    {{/consumers-of-type}}
+];
+{{/consumes}}

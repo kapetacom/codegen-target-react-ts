@@ -64,6 +64,11 @@ const config = {
                 },
             },
             {
+                test: /\.css$/,
+                use: [styleLoader, 'css-loader'],
+                include: Path.resolve(__dirname, './'),
+            },
+            {
                 test: /\.less$/,
                 use: [styleLoader, 'css-loader', 'less-loader'],
                 include: Path.resolve(__dirname, './'),
