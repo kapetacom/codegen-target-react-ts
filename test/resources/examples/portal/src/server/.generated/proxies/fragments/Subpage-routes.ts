@@ -7,7 +7,7 @@ import { ConfigProvider } from '@kapeta/sdk-config';
 
 export const createSubpageRouter = async (provider: ConfigProvider, opts: ProxyRouteOptions = {}) => {
     const router = Router();
-    router.use('/fragments/subpage', await createProxyRoute(provider, 'subpage', 'web', opts));
+    router.use('/subpage', await createProxyRoute(provider, 'subpage', 'web', opts));
 
     return router;
 };

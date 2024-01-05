@@ -9,9 +9,14 @@ import { createSubpageRouter } from './proxies/fragments/Subpage-routes';
 
 export const createRoutes = async (config: ConfigProvider, opts: ProxyRouteOptions = {}): Promise<Router> => {
     const routes = Router();
-    routes.use(await createUsersRouter(config, opts));
+    const restApis = Router();
+    restApis.use(await createUsersRouter(config, opts));
 
-    routes.use(await createTasksRouter(config, opts));
-    routes.use(await createSubpageRouter(config, opts));
+    restApis.use(await createTasksRouter(config, opts));
+    routes.use('/api/rest', restApis);
+
+    const fragments = Router();
+    fragments.use(await createSubpageRouter(config, opts));
+    routes.use('/fragments', fragments);
     return routes;
 };
