@@ -1,5 +1,3 @@
-import { SetupWorker } from 'msw/browser';
-
 declare global {
     interface Window {
         enableMockApi?: (enable: boolean) => void;
@@ -21,9 +19,7 @@ export async function enableApiMocking() {
     if (localStorage.getItem('enableMockApi') === 'true') {
         // Start the mock service worker
         try {
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore - This is a dynamic import to create the mocks
-            const { worker } = (await import('./browser.js')) as { worker: SetupWorker };
+            const { worker } = await import('./.generated/browser');
             await worker.start();
         } catch (error) {
             console.error('Failed to start mock service worker', error);

@@ -16,7 +16,7 @@ import {
  * HTTP: {{./method}} /api/rest/{{../data.metadata.name}}{{mswpath path}}
  * Response type: {{returnType responseType}}
  */
-export const {{method methodName}}Handler = http.{{lowercase ./method}}('*/api/rest/{{../data.metadata.name}}{{mswpath path}}', 
+export const {{method ../data.metadata.name}}_{{method methodName}}Handler = http.{{lowercase ./method}}('*/api/rest/{{../data.metadata.name}}{{mswpath path}}',
 
     {{~#ifVoidType (returnType responseType)~}}
         () => {

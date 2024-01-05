@@ -5,9 +5,9 @@ import { Router, Request, Response, NextFunction } from 'express';
 import { createProxyRoute } from '@kapeta/sdk-proxy-route';
 import { ConfigProvider } from '@kapeta/sdk-config';
 
-export const createTasksRouter = async (provider: ConfigProvider) => {
+export const createUsersRouter = async (provider: ConfigProvider) => {
     const router = Router();
-    router.use('/api/rest/tasks', await createProxyRoute(provider, 'tasks', 'rest'));
+    router.use('/api/rest/users', await createProxyRoute(provider, 'users', 'rest'));
 
     // We need to handle errors here, because the proxy route will not handle them
     router.use((err: any, req: Request, res: Response, next: NextFunction) => {

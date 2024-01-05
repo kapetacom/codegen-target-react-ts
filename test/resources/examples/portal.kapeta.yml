@@ -22,6 +22,27 @@ spec:
         path: /subpage
     - kind: kapeta/resource-type-rest-client:1.0.12
       metadata:
+        name: users
+      spec:
+        methods:
+          addUser:
+            description: Add user
+            method: POST
+            path: /users/{userId}
+            arguments:
+              userId:
+                type: string
+                transport: path
+          removeUser:
+            description: Delete user
+            method: DELETE
+            path: /users/{id}
+            arguments:
+              id:
+                type: string
+                transport: path
+    - kind: kapeta/resource-type-rest-client:1.0.12
+      metadata:
         name: tasks
       spec:
         methods:
