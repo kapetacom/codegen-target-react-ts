@@ -8,7 +8,7 @@ import {ConfigProvider} from "@kapeta/sdk-config";
 
 export const create{{type data.metadata.name}}Router = async (provider: ConfigProvider, opts:ProxyRouteOptions = {}) => {
     const router = Router();
-    router.use("/fragments{{string data.spec.path}}", await createProxyRoute(provider, "{{string data.metadata.name}}", 'web', opts));
+    router.use("{{string data.spec.path}}", await createProxyRoute(provider, "{{string data.metadata.name}}", 'web', opts));
 
     return router;
 }

@@ -13,12 +13,21 @@ import { ProxyRouteOptions } from "@kapeta/sdk-proxy-route";
 
 export const createRoutes = async (config:ConfigProvider, opts:ProxyRouteOptions = {}):Promise<Router> => {
     const routes = Router();
+    {{#consumes 'kapeta/resource-type-rest-client'}}
+    const restApis = Router();
     {{#consumers-of-type 'kapeta/resource-type-rest-client'}}
-        routes.use(await create{{type metadata.name}}Router(config, opts));
+        restApis.use(await create{{type metadata.name}}Router(config, opts));
     {{/consumers-of-type}}
+    routes.use('/api/rest', restApis)
+    {{/consumes}}
+
+    {{#consumes 'kapeta/resource-type-web-fragment'}}
+    const fragments = Router();
     {{#consumers-of-type 'kapeta/resource-type-web-fragment'}}
-        routes.use(await create{{type metadata.name}}Router(config, opts));
+        fragments.use(await create{{type metadata.name}}Router(config, opts));
     {{/consumers-of-type}}
+    routes.use('/fragments', fragments);
+    {{/consumes}}
     return routes;
 };
 
