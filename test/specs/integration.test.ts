@@ -24,6 +24,13 @@ describe('blocks', () => {
         return CodegenHelpers.testCodeGenFor(target, new BlockCodeGenerator(data), basedir);
     });
 
+    test('minimal', async () => {
+        const basedir = Path.resolve(__dirname, '../resources/examples/minimal');
+        const data = require('../resources/examples/minimal.kapeta.yml') as BlockDefinition;
+
+        return CodegenHelpers.testCodeGenFor(target, new BlockCodeGenerator(data), basedir);
+    });
+
     function doMergeJSON(filename: string, original: any, changed: any, last: any | null = null) {
         const merged = target.mergeFile(
             {

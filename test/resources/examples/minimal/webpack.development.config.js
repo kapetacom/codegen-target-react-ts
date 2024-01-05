@@ -4,7 +4,6 @@ const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const AssetsPlugin = require('assets-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const PAGES = require('./webpack.pages.js');
 
@@ -97,16 +96,6 @@ const config = {
 
 if (devMode) {
     config.plugins.unshift(new webpack.HotModuleReplacementPlugin(), new ReactRefreshWebpackPlugin());
-    config.plugins.push(
-        new CopyWebpackPlugin({
-            patterns: [
-                {
-                    from: Path.resolve(__dirname, 'src/mocks/.generated/mockServiceWorker.js'),
-                    to: 'mockServiceWorker.js',
-                },
-            ],
-        })
-    );
 } else {
     config.plugins.unshift(
         new MiniCssExtractPlugin({

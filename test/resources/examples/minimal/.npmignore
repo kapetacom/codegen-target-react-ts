@@ -1,0 +1,5 @@
+.github
+*.iml
+.kapeta
+.devcontainer
+scripts
