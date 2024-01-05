@@ -35,7 +35,7 @@ export class TasksClient extends RestClient {
      * Throws if service responds with a status code higher than 399 and not 404.
      * For 404 responses, null is returned.
      *
-     * HTTP: POST /tasks/{userId}/{id}
+     * HTTP: POST /api/rest/tasks/tasks/{userId}/{id}
      */
     addTaskRequest(userId: string, id: string, task: Task, filter?: string): RestClientRequest<Task | null> {
         return this.$create<Task>('POST', '/tasks/{userId}/{id}', [
@@ -65,7 +65,7 @@ export class TasksClient extends RestClient {
      * Throws if service responds with a status code higher than 399 and not 404.
      * For 404 responses, null is returned.
      *
-     * HTTP: POST /tasks/{id}/done
+     * HTTP: POST /api/rest/tasks/tasks/{id}/done
      */
     markAsDoneRequest(
         id: string,
@@ -95,7 +95,7 @@ export class TasksClient extends RestClient {
      * Throws if service responds with a status code higher than 399 and not 404.
      * For 404 responses, null is returned.
      *
-     * HTTP: DELETE /tasks/{id}
+     * HTTP: DELETE /api/rest/tasks/tasks/{id}
      */
     removeTaskRequest(id: string): RestClientRequest<void> {
         return this.$create<void>('DELETE', '/tasks/{id}', [{ name: 'id', value: id, transport: 'path' }]);

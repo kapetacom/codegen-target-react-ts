@@ -23,7 +23,7 @@ export class UsersClient extends RestClient {
      * Throws if service responds with a status code higher than 399 and not 404.
      * For 404 responses, null is returned.
      *
-     * HTTP: POST /users/{userId}
+     * HTTP: POST /api/rest/users/users/{userId}
      */
     addUserRequest(userId: string): RestClientRequest<void> {
         return this.$create<void>('POST', '/users/{userId}', [{ name: 'userId', value: userId, transport: 'path' }]);
@@ -43,7 +43,7 @@ export class UsersClient extends RestClient {
      * Throws if service responds with a status code higher than 399 and not 404.
      * For 404 responses, null is returned.
      *
-     * HTTP: DELETE /users/{id}
+     * HTTP: DELETE /api/rest/users/users/{id}
      */
     removeUserRequest(id: string): RestClientRequest<void> {
         return this.$create<void>('DELETE', '/users/{id}', [{ name: 'id', value: id, transport: 'path' }]);
