@@ -66,22 +66,18 @@ const config = {
             {
                 test: /\.css$/,
                 use: [styleLoader, 'css-loader'],
-                include: Path.resolve(__dirname, './'),
             },
             {
                 test: /\.less$/,
                 use: [styleLoader, 'css-loader', 'less-loader'],
-                include: Path.resolve(__dirname, './'),
             },
             {
                 test: /\.s[ac]ss$/i,
                 use: [styleLoader, 'css-loader', 'sass-loader'],
-                include: Path.resolve(__dirname, './'),
             },
             {
                 test: /\.ya?ml$/,
                 use: ['json-loader', 'yaml-loader'],
-                include: Path.resolve(__dirname, './'),
             },
             {
                 test: /\.(jpg|png|gif|woff|woff2|eot|ttf|svg)$/,

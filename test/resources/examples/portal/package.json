@@ -37,7 +37,7 @@
         "@tsconfig/create-react-app": "^2.0.1",
         "@kapeta/sdk-proxy-route": "^2",
         "@kapeta/sdk-rest-client": "^3",
-        "@kapeta/sdk-redis": "<2",
+        "@kapeta/sdk-redis": "^1.1",
         "redis": "^4"
     },
     "devDependencies": {
