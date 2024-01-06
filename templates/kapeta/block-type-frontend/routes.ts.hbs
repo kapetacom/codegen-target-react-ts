@@ -1,6 +1,6 @@
 {{#include-proxy-route}}
 //#FILENAME:src/server/.generated/routes.ts:write-always
-import {Router} from "express";
+import {Router, Request, Response, NextFunction} from "express";
 import {ConfigProvider} from "@kapeta/sdk-config";
 import { ProxyRouteOptions } from "@kapeta/sdk-proxy-route";
 
@@ -18,7 +18,16 @@ export const createRoutes = async (config:ConfigProvider, opts:ProxyRouteOptions
     {{#consumers-of-type 'kapeta/resource-type-rest-client'}}
         restApis.use(await create{{type metadata.name}}Router(config, opts));
     {{/consumers-of-type}}
+
+    // Catch all unknown routes and return 418 I'm a teapot
+    restApis.all('/*', (req: Request, res: Response, next: NextFunction) => {
+        res.status(418).json({
+            error: 'API endpoint not found',
+        });
+    });
+
     routes.use('/api/rest', restApis)
+
     {{/consumes}}
 
     {{#consumes 'kapeta/resource-type-web-fragment'}}
