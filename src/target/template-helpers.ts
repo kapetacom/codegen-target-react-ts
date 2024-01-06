@@ -7,6 +7,7 @@ import { snakeCase } from 'snake-case';
 import { Template, TypeLike } from '@kapeta/codegen-target';
 import { HelperOptions } from 'handlebars';
 import { typeName } from '@kapeta/schemas';
+import { parseKapetaUri } from '@kapeta/nodejs-utils';
 
 export type HandleBarsType = typeof Handlebars;
 
@@ -110,10 +111,11 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
         }
 
         const checker = (consumer: any) => {
-            return (
-                consumer.kind.toLowerCase().startsWith('kapeta/resource-type-rest-client:') ||
-                consumer.kind.toLowerCase().startsWith('kapeta/resource-type-web-fragment:')
-            );
+            const kindUri = parseKapetaUri(consumer.kind);
+            return [
+                'kapeta/resource-type-rest-client',
+                'kapeta/resource-type-web-fragment'
+            ].includes(kindUri.fullName);
         };
 
         if (context.spec.consumers.some(checker)) {
