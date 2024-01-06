@@ -41,9 +41,15 @@ There are a few templates that is being used when rendering the main HTML page. 
 contains the bare minimum - but you can override them by providing a map of template functions in
 ```src/server/index.ts```:
 
+**Note**: You shouldn't use the response object to send the response - instead you should return the rendered HTML as a string.
+The response object is only there to allow you to access ```res.locals``` and similar values other middleware.
+
 ```typescript
+import { Request, Response } from 'express';
+import { MainTemplateParams } from '@kapeta/sdk-server';
+
 server.configureAssets(BASE_DIR, webpackConfig, {
-    renderMain(params: MainTemplateParams): string {
+    renderMain(req: Request, res: Response, params: MainTemplateParams): string {
         return `<!doctype html>
             <html lang="en-US">
               <head>
