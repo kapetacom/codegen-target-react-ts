@@ -28,14 +28,14 @@
         "@types/node": "^20",
         "@types/express": "^4",
         "@kapeta/sdk-config": "^2",
-        "@kapeta/sdk-server": "^3",
+        "@kapeta/sdk-server": "^3.1.2",
         "ts-node": "^10.9.1",
         "typescript": "^5.2.2",
         "@tsconfig/node18": "^18.2.2",
         "@tsconfig/create-react-app": "^2.0.1",
-        "@kapeta/sdk-proxy-route": "^2",
-        "@kapeta/sdk-rest-client": "^3",
-        "@kapeta/sdk-redis": "^1.1",
+        "@kapeta/sdk-proxy-route": "^2.1.1",
+        "@kapeta/sdk-rest-client": "^3.0.1",
+        "@kapeta/sdk-redis": "^1.1.1",
         "redis": "^4"
     },
     "devDependencies": {
@@ -72,7 +72,7 @@
         "prettier": "^2.8.8",
         "cross-env": "^7.0.3",
         "nodemon": "^2.0.22",
-        "@kapeta/sdk-web-rest-client": "^2",
+        "@kapeta/sdk-web-rest-client": "^2.0.1",
         "copy-webpack-plugin": "^11.0.0",
         "msw": "^2.0.6",
         "@kapeta/sdk-web-microfrontend-frame": "^1"
