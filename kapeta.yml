@@ -11,7 +11,7 @@ spec:
   local:
     image: node:20
     workingDir: /workspace
-    healthcheck: curl --fail http://localhost:80/__kapeta/health || exit 1
+    healthcheck: curl --fail http://localhost:80/.kapeta/health || exit 1
     handlers:
       onCreate: /workspace/scripts/start-dev.sh
     Env:

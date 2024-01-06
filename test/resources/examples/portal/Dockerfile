@@ -24,6 +24,6 @@ ADD webpack.*.js /application/
 
 WORKDIR /application
 
-HEALTHCHECK --interval=5s --timeout=15s --start-period=5s --retries=10 CMD curl --fail http://localhost:80/__kapeta/health || exit 1
+HEALTHCHECK --interval=5s --timeout=15s --start-period=5s --retries=10 CMD curl --fail http://localhost:80/.kapeta/health || exit 1
 
 ENTRYPOINT [ "npm", "start" ]
