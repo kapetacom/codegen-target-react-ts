@@ -3,12 +3,36 @@
 // GENERATED SOURCE - DO NOT EDIT
 //
 
+import { useMemo } from "react";
 import { RestClient, RestClientRequest } from "@kapeta/sdk-web-rest-client";
 {{#eachTypeReference data.spec.methods all=true}}
 import { {{type name}} } from "../../../.generated/entities/{{type name}}";
 {{/eachTypeReference}}
 
+export type Configure{{type data.metadata.name}}Client = (client:{{type data.metadata.name}}Client) => {{type data.metadata.name}}Client;
 
+/**
+* Creates a new {{type data.metadata.name}}Client for React components.
+* The client is configured with the provided configuration function.
+*
+* It is wrapped in a useMemo hook to ensure that the client is only created once.
+*/
+export const use{{type data.metadata.name}}Client = (configure?:Configure{{type data.metadata.name}}Client):{{type data.metadata.name}}Client => {
+    return useMemo(() => {
+        const client = new {{type data.metadata.name}}Client();
+        if (configure) {
+            return configure(client);
+        }
+        return client;
+    }, [configure]);
+}
+
+/**
+* A client for the {{type data.metadata.name}} API.
+* Use the use{{type data.metadata.name}}Client hook to create a client in React.
+*
+* Use the {{type data.metadata.name}}Client directly in other contexts.
+*/
 export class {{type data.metadata.name}}Client extends RestClient {
 
     constructor() {

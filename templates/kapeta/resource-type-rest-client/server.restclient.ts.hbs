@@ -3,15 +3,38 @@
 // GENERATED SOURCE - DO NOT EDIT
 //
 import { RestClient, RestClientRequest} from '@kapeta/sdk-rest-client';
+import { ConfigProvider } from '@kapeta/sdk-config';
 {{#eachTypeReference data.spec.methods all=true}}
 import { {{type name}} } from "../../../.generated/entities/{{type name}}";
 {{/eachTypeReference}}
 
 
+/**
+* Creates a new ready {{type data.metadata.name}}Client.
+*
+* See https://github.com/kapetacom/sdk-nodejs-rest-client for more information.
+*/
+export async function create{{type data.metadata.name}}Client(configProvider:ConfigProvider):Promise<{{type data.metadata.name}}Client> {
+    return new {{type data.metadata.name}}Client(false).$withConfigProvider(configProvider);
+}
+
+/**
+* A client for the {{data.metadata.name}} API.
+*
+* Note that this client is not ready to use until it is configured with a ```ConfigProvider```.
+* This happens automatically when using the ```create{{type data.metadata.name}}Client``` function or
+* setting ```autoInit``` to true (the default).
+*
+* If you want to configure the client manually, set autoInit to false and call ```$withConfigProvider```.
+*
+* Recommended method is using ```create{{type data.metadata.name}}Client(configProvider:ConfigProvider)```;
+*
+* See https://github.com/kapetacom/sdk-nodejs-rest-client for more information.
+*/
 export class {{type data.metadata.name}}Client extends RestClient {
 
-    constructor() {
-        super('{{string data.metadata.name}}');
+    constructor(autoInit:boolean = true) {
+        super('{{string data.metadata.name}}', autoInit);
     }
 
 {{#methods data.spec.methods}}
@@ -56,8 +79,7 @@ export class {{type data.metadata.name}}Client extends RestClient {
     /**
     * {{comment description}}
     *
-    * Throws if service responds with a status code higher than 399 and not 404.
-    * For 404 responses, null is returned.
+    * Creates a request that can be manipulated before sending it with the ```call()``` method.
     *
     * HTTP: {{./method}} {{path}}
     */

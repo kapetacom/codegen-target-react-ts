@@ -9,6 +9,10 @@ if (!BASE_PATH.endsWith("/")) {
     BASE_PATH += "/";
 }
 
+/**
+ * A React component that renders the {{type data.metadata.name}} fragment in an iframe.
+ * The basePath is set to the path of the fragment.
+ */
 export const {{type data.metadata.name}}Fragment = (props: Omit<FragmentProps,'basePath'> ) => {
 
     return (

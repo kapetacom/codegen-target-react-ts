@@ -28,11 +28,12 @@
         "@types/node": "^20",
         "@types/express": "^4",
         "@kapeta/sdk-config": "^2",
-        "@kapeta/sdk-server": "^3.1.2",
+        "@kapeta/sdk-server": "^3.2",
         "ts-node": "^10.9.1",
         "typescript": "^5.2.2",
         "@tsconfig/node18": "^18.2.2",
-        "@tsconfig/create-react-app": "^2.0.1"
+        "@tsconfig/create-react-app": "^2.0.1",
+        "@kapeta/sdk-proxy-route": "^2.1.1"
     },
     "devDependencies": {
         "@types/react": "^18.0.27",

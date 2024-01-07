@@ -19,7 +19,7 @@ export async function enableApiMocking() {
     if (localStorage.getItem('enableMockApi') === 'true') {
         // Start the mock service worker
         try {
-            const { worker } = await import('./.generated/browser');
+            const { worker } = await import('./browser');
             await worker.start();
         } catch (error) {
             console.error('Failed to start mock service worker', error);

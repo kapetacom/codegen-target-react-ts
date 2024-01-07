@@ -157,7 +157,7 @@ MSW is an API mocking library that uses Service Worker API to intercept actual n
 To enable MSW run
 
 ```js
-enableApiMocking(true)
+window.enableMockApi(true)
 ```
 
 in the browser console. This will set `enableMockApi = true` in the browser's local storage. The mock service worker will then intercept all requests to the REST API and return mock data instead.
