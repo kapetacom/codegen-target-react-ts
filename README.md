@@ -24,8 +24,10 @@ See https://github.com/kapetacom/codegen-target for more information about the t
 
 ## Features
 
+**Note:** In your block see the ```kapeta.md``` file for more information specifically about the code that is generated for your block.
+
 ### Linting
-Will eslint support - lint your code using `npm run lint`.
+Will add eslint support - lint your code using `npm run lint`.
 
 ### Webpack
 Will create a production-grade webpack configuration. You can adjust the configuration by 
@@ -39,7 +41,7 @@ Use `npm run build` to build the frontend assets for production.
 Use `npm run start:dev` to start the frontend in dev mode - which includes hot-reloading.
 
 ### Mocking
-Generated methods and adds the MSW mocking library to make it easy to mock REST APIs when developing.
+Generates mock methods and adds the MSW mocking library to make it easy to mock REST APIs when developing.
 
 ### Prettier
 Adds prettier support - format your code using `npm run format`.
