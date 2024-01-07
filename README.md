@@ -2,7 +2,7 @@
 
 Provides Kapeta language support for React using Typescript
 
-Will generate code a NodeJS server and a React frontend using Typescript.
+Will generate code for a NodeJS server and a React frontend using Typescript.
 
 This language target is only available for Frontend blocks.
 
