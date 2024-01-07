@@ -7,6 +7,10 @@ if (!BASE_PATH.endsWith('/')) {
     BASE_PATH += '/';
 }
 
+/**
+ * A React component that renders the Subpage fragment in an iframe.
+ * The basePath is set to the path of the fragment.
+ */
 export const SubpageFragment = (props: Omit<FragmentProps, 'basePath'>) => {
     return <FragmentFrame basePath={BASE_PATH} {...props}></FragmentFrame>;
 };

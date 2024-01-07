@@ -2,10 +2,35 @@
 // GENERATED SOURCE - DO NOT EDIT
 //
 
+import { useMemo } from 'react';
 import { RestClient, RestClientRequest } from '@kapeta/sdk-web-rest-client';
 import { Task } from '../../../.generated/entities/Task';
 import { Tags } from '../../../.generated/entities/Tags';
 
+export type ConfigureTasksClient = (client: TasksClient) => TasksClient;
+
+/**
+ * Creates a new TasksClient for React components.
+ * The client is configured with the provided configuration function.
+ *
+ * It is wrapped in a useMemo hook to ensure that the client is only created once.
+ */
+export const useTasksClient = (configure?: ConfigureTasksClient): TasksClient => {
+    return useMemo(() => {
+        const client = new TasksClient();
+        if (configure) {
+            return configure(client);
+        }
+        return client;
+    }, [configure]);
+};
+
+/**
+ * A client for the Tasks API.
+ * Use the useTasksClient hook to create a client in React.
+ *
+ * Use the TasksClient directly in other contexts.
+ */
 export class TasksClient extends RestClient {
     constructor() {
         super('api/rest/tasks');
