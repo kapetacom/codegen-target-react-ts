@@ -45,8 +45,8 @@ contains the bare minimum - but you can override them by providing a map of temp
 The response object is only there to allow you to access ```res.locals``` and similar values other middleware.
 
 ```typescript
-import { Request, Response } from 'express';
-import { MainTemplateParams } from '@kapeta/sdk-server';
+import type { Request, Response } from 'express';
+import type { MainTemplateParams } from '@kapeta/sdk-server';
 
 server.configureAssets(BASE_DIR, webpackConfig, {
     renderMain(req: Request, res: Response, params: MainTemplateParams): string {
@@ -68,28 +68,31 @@ server.configureAssets(BASE_DIR, webpackConfig, {
 
 The full list of templates are:
 ```typescript
+import type { Request, Response } from 'express';
+import type { MainTemplateParams } from '@kapeta/sdk-server';
+
 interface Templates {
     /**
      * Renders main html template. Receives params with baseUrl, styles and scripts.
      *
      * All of them should be rendered as-is, without any escaping for the renderer to work.
      */
-    renderMain(params: MainTemplateParams): string;
+    renderMain(req: Request, res: Response, params: MainTemplateParams): string;
 
     /**
      * Renders script link - used in both dev and prod mode
      */
-    renderScript(src: string): string;
+    renderScript(req: Request, res: Response, src: string): string;
 
     /**
      * Renders stylesheet link - only used in prod mode
      */
-    renderStylesheet(src: string): string;
+    renderStylesheet(req: Request, res: Response, src: string): string;
 
     /**
      * Renders inline style - only used in dev mode
      */
-    renderInlineStyle(style: string): string;
+    renderInlineStyle(req: Request, res: Response, style: string): string;
 }
 ```
 You can provide 1 or more of these templates to override the default ones.
