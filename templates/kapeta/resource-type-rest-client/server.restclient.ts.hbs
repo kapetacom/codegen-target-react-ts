@@ -10,27 +10,27 @@ import { {{type name}} } from "../../../.generated/entities/{{type name}}";
 
 
 /**
-* Creates a new ready {{type data.metadata.name}}Client.
-*
-* See https://github.com/kapetacom/sdk-nodejs-rest-client for more information.
-*/
+ * Creates a new ready {{type data.metadata.name}}Client.
+ *
+ * See https://github.com/kapetacom/sdk-nodejs-rest-client for more information.
+ */
 export async function create{{type data.metadata.name}}Client(configProvider:ConfigProvider):Promise<{{type data.metadata.name}}Client> {
     return new {{type data.metadata.name}}Client(false).$withConfigProvider(configProvider);
 }
 
 /**
-* A client for the {{data.metadata.name}} API.
-*
-* Note that this client is not ready to use until it is configured with a ```ConfigProvider```.
-* This happens automatically when using the ```create{{type data.metadata.name}}Client``` function or
-* setting ```autoInit``` to true (the default).
-*
-* If you want to configure the client manually, set autoInit to false and call ```$withConfigProvider```.
-*
-* Recommended method is using ```create{{type data.metadata.name}}Client(configProvider:ConfigProvider)```;
-*
-* See https://github.com/kapetacom/sdk-nodejs-rest-client for more information.
-*/
+ * A client for the {{data.metadata.name}} API.
+ *
+ * Note that this client is not ready to use until it is configured with a ```ConfigProvider```.
+ * This happens automatically when using the ```create{{type data.metadata.name}}Client``` function or
+ * setting ```autoInit``` to true (the default).
+ *
+ * If you want to configure the client manually, set autoInit to false and call ```$withConfigProvider```.
+ *
+ * Recommended method is using ```create{{type data.metadata.name}}Client(configProvider:ConfigProvider)```;
+ *
+ * See https://github.com/kapetacom/sdk-nodejs-rest-client for more information.
+ */
 export class {{type data.metadata.name}}Client extends RestClient {
 
     constructor(autoInit:boolean = true) {

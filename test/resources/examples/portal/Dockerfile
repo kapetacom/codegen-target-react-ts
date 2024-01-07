@@ -28,6 +28,6 @@ ADD src /application/src
 
 WORKDIR /application
 
-HEALTHCHECK --interval=5s --timeout=15s --start-period=5s --retries=10 CMD curl --fail http://localhost:80/.kapeta/health || exit 1
+HEALTHCHECK --interval=5s --timeout=15s --start-period=5s --retries=10 CMD wget --no-verbose --tries=1 --spider "http://localhost:80/.kapeta/health" || exit 1
 
 ENTRYPOINT [ "npm", "start" ]
