@@ -2,6 +2,7 @@ import { http, HttpResponse } from 'msw';
 
 /**
  * Delete task
+ *
  * HTTP: DELETE /api/rest/tasks/tasks/:id
  * Response type: void
  */

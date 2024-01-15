@@ -2,6 +2,7 @@ import { http, HttpResponse } from 'msw';
 
 /**
  * Add user
+ *
  * HTTP: POST /api/rest/users/users/:userId
  * Response type: void
  */

@@ -2,6 +2,7 @@ import { http, HttpResponse } from 'msw';
 
 /**
  * Mark task as done
+ *
  * HTTP: POST /api/rest/tasks/tasks/:id/done
  * Response type: void
  */

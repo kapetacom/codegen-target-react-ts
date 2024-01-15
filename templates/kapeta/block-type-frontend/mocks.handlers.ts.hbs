@@ -1,15 +1,18 @@
 {{#consumes 'kapeta/resource-type-rest-client'}}
 //#FILENAME:src/mocks/.generated/handlers.ts:write-always
 
+import { sortHandlersByPathSpecificity } from './sortHandlers';
 {{#consumers-of-type 'kapeta/resource-type-rest-client'}}
     {{#methods spec.methods~}}
     import { {{method ../metadata.name}}_{{method methodName}}Handler } from '../handlers/{{../metadata.name}}/{{method methodName}}Handler';
     {{~/methods}}
 {{/consumers-of-type}}
 
-export const handlers = [
+
+export const handlers = sortHandlersByPathSpecificity([
     {{#consumers-of-type 'kapeta/resource-type-rest-client'}}
         {{#methods spec.methods}}{{method ../metadata.name}}_{{method methodName}}Handler,{{/methods}}
     {{/consumers-of-type}}
-];
+])
+
 {{/consumes}}

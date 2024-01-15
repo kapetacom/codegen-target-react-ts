@@ -36,6 +36,7 @@ export class UsersClient extends RestClient {
 
     /**
      * Add user
+     *
      * HTTP: POST /api/rest/users/users/{userId}
      */
     async addUser(userId: string): Promise<void> {
@@ -56,6 +57,7 @@ export class UsersClient extends RestClient {
 
     /**
      * Delete user
+     *
      * HTTP: DELETE /api/rest/users/users/{id}
      */
     async removeUser(id: string): Promise<void> {

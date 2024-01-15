@@ -38,6 +38,7 @@ export class TasksClient extends RestClient {
 
     /**
      * Add task for user
+     *
      * HTTP: POST /api/rest/tasks/tasks/{userId}/{id}
      */
     async addTask(userId: string, id: string, task: Task, filter?: string): Promise<Task | null> {
@@ -73,6 +74,7 @@ export class TasksClient extends RestClient {
 
     /**
      * Mark task as done
+     *
      * HTTP: POST /api/rest/tasks/tasks/{id}/done
      */
     async markAsDone(id: string, metadata: Map<string, string>, headers?: any, tags?: Set<Tags>): Promise<void> {
@@ -108,6 +110,7 @@ export class TasksClient extends RestClient {
 
     /**
      * Delete task
+     *
      * HTTP: DELETE /api/rest/tasks/tasks/{id}
      */
     async removeTask(id: string): Promise<void> {

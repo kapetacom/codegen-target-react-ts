@@ -41,8 +41,10 @@ export class {{type data.metadata.name}}Client extends RestClient {
 
 
     /**
+    {{#if description}}
     * {{comment description}}
     *
+    {{/if}}
     * Throws if service responds with a status code higher than 399 and not 404.
     * For 404 responses, null is returned.
     *
@@ -77,8 +79,10 @@ export class {{type data.metadata.name}}Client extends RestClient {
     }
 
     /**
+    {{#if description}}
     * {{comment description}}
     *
+    {{/if}}
     * Creates a request that can be manipulated before sending it with the ```call()``` method.
     *
     * HTTP: {{./method}} {{path}}
