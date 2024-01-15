@@ -12,7 +12,10 @@ import {
 } from 'msw';
 
 /**
+ {{#if description}}
  * {{comment description}}
+ *
+ {{/if}}
  * HTTP: {{./method}} /api/rest/{{../data.metadata.name}}{{mswpath path}}
  * Response type: {{returnType responseType}}
  */

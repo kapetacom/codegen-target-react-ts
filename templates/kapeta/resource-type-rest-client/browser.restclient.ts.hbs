@@ -42,7 +42,10 @@ export class {{type data.metadata.name}}Client extends RestClient {
 {{#methods data.spec.methods}}
 
     /**
+    {{#if description}}
     * {{comment description}}
+    *
+    {{/if}}
     * HTTP: {{./method}} /api/rest/{{../data.metadata.name}}{{path}}
     */
     async {{method methodName}}(
@@ -74,8 +77,10 @@ export class {{type data.metadata.name}}Client extends RestClient {
     }
 
     /**
+    {{#if description}}
     * {{comment description}}
     *
+    {{/if}}
     * Throws if service responds with a status code higher than 399 and not 404.
     * For 404 responses, null is returned.
     *
