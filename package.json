@@ -25,8 +25,9 @@
         "@kapeta/codegen-target": "<2",
         "@kapeta/nodejs-process": "^1.2.0",
         "@kapeta/schemas": "<2",
-        "prettier": "^2.8.8",
-        "snake-case": "^3.0.4"
+        "@types/lodash": "^4.14.202",
+        "lodash": "^4.17.21",
+        "prettier": "^2.8.8"
     },
     "peerDependencies": {
         "@kapeta/ui-web-types": "<2"
@@ -47,6 +48,7 @@
         "@jest/globals": "^29.7.0",
         "@kapeta/codegen": "<2",
         "@kapeta/eslint-config": "^0.7.0",
+        "@kapeta/kaplang-core": "^1.6.1",
         "@kapeta/prettier-config": "^0.6.2",
         "@kapeta/ui-web-types": "<2",
         "@tsconfig/node18": "^18.2.2",

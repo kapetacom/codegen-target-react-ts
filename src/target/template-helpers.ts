@@ -3,26 +3,80 @@
  * SPDX-License-Identifier: MIT
  */
 import Handlebars = require('handlebars');
-import { snakeCase } from 'snake-case';
-import { Template, TypeLike } from '@kapeta/codegen-target';
+import {parseEntities, Template} from '@kapeta/codegen-target';
 import { HelperOptions } from 'handlebars';
-import { typeName } from '@kapeta/schemas';
 import { parseKapetaUri } from '@kapeta/nodejs-utils';
+import {
+    asComplexType,
+    DataTypeReader,
+    DSLData,
+    DSLEntity,
+    DSLReferenceResolver, DSLType, RESTControllerReader,
+    TypescriptWriter,
+    ucFirst
+} from "@kapeta/kaplang-core";
 
 export type HandleBarsType = typeof Handlebars;
 
 export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: any): void => {
-    engine.registerHelper('snakecase', (name: string) => {
-        return snakeCase(name);
+
+    const TypeMap: { [key: string]: string } = {
+        Instance: 'InstanceValue',
+        InstanceProvider: 'InstanceProviderValue',
+    };
+
+    let parsedEntities: DSLData[] | undefined = undefined;
+    function getParsedEntities(): DSLData[] {
+        if (!parsedEntities &&
+            context.spec?.entities?.source?.value) {
+            parsedEntities = parseEntities(context.spec?.entities?.source?.value);
+        }
+
+        if (!parsedEntities) {
+            return [];
+        }
+
+        return parsedEntities as DSLData[];
+    }
+
+
+    const resolvePath = function(path:string, options:HelperOptions) {
+        let fullPath = path;
+        if (options?.hash?.base) {
+            let baseUrl:string = options.hash.base;
+            while (baseUrl.endsWith('/')) {
+                baseUrl = baseUrl.substring(0, baseUrl.length - 1);
+            }
+            if (!fullPath.startsWith('/')) {
+                fullPath = '/' + fullPath;
+            }
+
+            fullPath = baseUrl + fullPath;
+        }
+        return fullPath;
+    }
+
+    engine.registerHelper('valueType', (value: DSLType) => {
+        const type = asComplexType(value);
+        if (TypeMap[type.name]) {
+            type.name = TypeMap[type.name];
+        }
+        return Template.SafeString(TypescriptWriter.toTypeCode(type));
     });
+
+    engine.registerHelper('returnType', (value: DSLType) => {
+        if (!value) {
+            return 'void';
+        }
+
+        return Template.SafeString(TypescriptWriter.toTypeCode(value));
+    });
+
+    engine.registerHelper('path', resolvePath);
 
     engine.registerHelper('mswpath', (path: string) => {
         // Replace all request parameters like e.g {id} with :id
         return path.replace(/\{(\w+)\}/g, ':$1');
-    });
-
-    engine.registerHelper('enumValues', (values: any[]) => {
-        return Template.SafeString('\t' + values.map((value) => `${value} = ${JSON.stringify(value)}`).join(',\n\t'));
     });
 
     engine.registerHelper('keys', function (object: Record<string, any>) {
@@ -30,79 +84,6 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
             return Object.keys(object);
         }
         return [];
-    });
-
-    const $fieldType = (value: TypeLike) => {
-        if (!value) {
-            return value;
-        }
-
-        if (typeof value !== 'string') {
-            if (value.ref) {
-                value = value.ref.substring(0, 1).toUpperCase() + value.ref.substring(1);
-            } else if (value.type) {
-                value = value.type;
-            }
-        }
-
-        let type = value as string;
-        let array = false;
-        if (type.endsWith('[]')) {
-            type = type.substring(0, type.length - 2);
-            array = true;
-        }
-
-        switch (type.toLowerCase()) {
-            case 'unknown':
-            case 'any':
-            case 'object':
-                value = `any${array ? '[]' : ''}`;
-                break;
-            case 'char':
-            case 'byte':
-                value = `string${array ? '[]' : ''}`;
-                break;
-            case 'date':
-            case 'integer':
-            case 'int':
-            case 'float':
-            case 'double':
-            case 'long':
-            case 'short':
-                value = `number${array ? '[]' : ''}`;
-                break;
-        }
-
-        return Template.SafeString(value as string);
-    };
-    engine.registerHelper('fieldtype', $fieldType);
-    engine.registerHelper('returnType', (value) => {
-        if (!value) {
-            return 'void';
-        }
-
-        return $fieldType(value);
-    });
-
-    engine.registerHelper('ifValueType', (type: TypeLike, options: HelperOptions) => {
-        if ((typeof type === 'string' && type !== 'void') || (typeof type !== 'string' && typeName(type) !== 'void')) {
-            return Template.SafeString(options.fn(this));
-        }
-        return Template.SafeString('');
-    });
-
-    engine.registerHelper('ifVoidType', (type: TypeLike, options: HelperOptions) => {
-        // Check if type has a property 'string' (which it would have if it is a SafeString)
-        if (type && typeof type === 'object' && 'string' in type) {
-            type = type.string as string;
-        }
-
-        if ((typeof type === 'string' && type === 'void') || (typeof type !== 'string' && typeName(type) === 'void')) {
-            return Template.SafeString(options.fn(this));
-        }
-
-        // Check if there is an else block and render it, else return an empty string
-        return options.inverse ? Template.SafeString(options.inverse(this)) : Template.SafeString('');
     });
 
     engine.registerHelper('include-proxy-route', function (this: any, options: HelperOptions) {
@@ -122,4 +103,79 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
             return options.fn(this);
         }
     });
+
+    engine.registerHelper('typescript-imports-dto', function (arg:DSLEntity, options: HelperOptions) {
+        const entities = getParsedEntities();
+        const resolver = new DSLReferenceResolver();
+        const referencesEntities = resolver.resolveReferencesFrom([arg], entities);
+
+        if (referencesEntities.length === 0) {
+            return '';
+        }
+
+        const base:string = options.hash.base ?? '.';
+
+        return Template.SafeString(
+            referencesEntities
+                .map((entity) => {
+                    const native = DataTypeReader.getNative(entity);
+                    if (native) {
+                        return `import { ${entity.name} } from "${native}";`;
+                    }
+
+                    return `import { ${ucFirst(entity.name)} } from '${base}/${ucFirst(entity.name)}';`;
+                })
+                .join('\n')
+        );
+    });
+
+    engine.registerHelper('typescript-imports-config', function (arg:DSLEntity, options: HelperOptions) {
+        const entities = getParsedEntities();
+        const resolver = new DSLReferenceResolver();
+        const referencesEntities = resolver.resolveReferencesFrom([arg], entities);
+
+        if (referencesEntities.length === 0) {
+            return '';
+        }
+
+        const base:string = options.hash.base ?? '.';
+
+        return Template.SafeString(
+            referencesEntities
+                .map((entity) => {
+                    const native = DataTypeReader.getNative(entity);
+                    if (native) {
+                        return `import { ${entity.name} } from "${native}";`;
+                    }
+
+                    return `import { ${ucFirst(entity.name)}Config } from '${base}/${ucFirst(entity.name)}';`;
+                })
+                .join('\n')
+        );
+    });
+
+    engine.registerHelper('typescript-dto', (entity: DSLData) => {
+        const writer = new TypescriptWriter();
+
+        try {
+            return Template.SafeString(writer.write([entity]));
+        } catch (e) {
+            console.warn('Failed to write entity', entity);
+            throw e;
+        }
+    });
+
+    engine.registerHelper('typescript-config', (entity: DSLData) => {
+        const writer = new TypescriptWriter();
+
+        try {
+            // All config entities are postfixed with Config
+            const copy = {...entity, name: entity.name + 'Config'};
+            return Template.SafeString(writer.write([copy]));
+        } catch (e) {
+            console.warn('Failed to write entity', entity);
+            throw e;
+        }
+    });
+
 };

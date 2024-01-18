@@ -24,128 +24,89 @@ spec:
       metadata:
         name: users
       spec:
-        methods:
-          addUser:
-            description: Add user
-            method: POST
-            path: /users/{userId}
-            arguments:
-              userId:
-                type: string
-                transport: path
-          removeUser:
-            description: Delete user
-            method: DELETE
-            path: /users/{id}
-            arguments:
-              id:
-                type: string
-                transport: path
+        source:
+          type: kapeta-dsl
+          value: |-
+            controller Users('/users') {
+              // Add user
+              @POST("/{userId}")
+              addUser(@Path userId:string):void
+              
+              // Delete user
+              @DELETE("/{id}")
+              removeUser(@Path id:string):void
+            }
+            
+            controller Groups('/groups') {
+              // Add user group
+              @POST("/{id}")
+              addGroup(@Path id:string):void
+
+              // Delete user group
+              @DELETE("/{id}")
+              removeGroup(@Path id:string):void
+            }
     - kind: kapeta/resource-type-rest-client:1.0.12
       metadata:
         name: tasks
       spec:
-        methods:
-          addTask:
-            description: Add task for user
-            method: POST
-            path: /tasks/{userId}/{id}
-            arguments:
-              userId:
-                type: string
-                transport: path
-              id:
-                type: string
-                transport: path
-              filter:
-                type: string
-                transport: query
-                optional: true
-              task:
-                ref: Task
-                transport: body
-            responseType:
-              ref: Task
-          markAsDone:
-            description: Mark task as done
-            method: POST
-            path: /tasks/{id}/done
-            arguments:
-              id:
-                type: string
-                transport: path
-              headers:
-                ref: any
-                transport: header
-                optional: true
-              metadata:
-                transport: body
-                ref: Map<string,string>
-              tags:
-                transport: query
-                ref: Set<Tags>
-                optional: true
-          removeTask:
-            description: Delete task
-            method: DELETE
-            path: /tasks/{id}
-            arguments:
-              id:
-                type: string
-                transport: path
+        source:
+          type: kapeta-dsl
+          value: |-
+            // Add task for user
+            @POST("/tasks/{userId}/{id}")
+            addTask(@Path userId:string, @Path id:string,@Query filter?:string,@Body task:Task):Task
+            
+            // Mark task as done
+            @POST("/tasks/{id}/done")
+            markAsDone(@Path id:string,@Header headers?:any, @Body metadata:Map<string,string>, @Query tags?:Set<Tags>):void
+            
+            // Delete task
+            @DELETE("/tasks/{id}")
+            removeTask(@Path id:string):void
+            
+            controller Lists('/lists') {
+              // Add list
+              @POST("/{id}")
+              addList(@Path id:string):void
+              
+              // Delete list
+              @DELETE("/{id}")
+              removeList(@Path id:string):void
+            }
   entities:
-    types:
-      - type: enum
-        name: Tags
-        description: null
-        values:
-          - TAG1
-          - TAG2
-      - type: enum
-        name: TaskState
-        description: null
-        values:
-          - PENDING
-          - DONE
-      - type: dto
-        name: Task
-        description: null
-        properties:
-          id:
-            description: null
-            type: string
-            properties: null
-            required: true
-          state:
-            description: null
-            ref: TaskState
-            properties: null
-            required: true
-          created:
-            type: date
-            required: false
-          views:
-            type: integer
-            required: false
-          stars:
-            type: float
-            required: false
-          numberList:
-            type: double[]
-            required: true
-          age:
-            description: Age of the task
-            type: integer
-            required: true
-          metadata:
-            ref: Map<string,string>
-            required: true
-          tags:
-            ref: Set<Tags>
-            required: true
     source:
       type: kapeta-dsl
       value: |-
+        enum Tags {
+            TAG1,TAG2
+        }
+        
+        enum TaskState {
+            PENDING,DONE
+        }
+        
+        type Task {
+            id:string
+
+            state:TaskState
+
+            created?:Date
+
+            views?:integer
+
+            stars?:float
+
+            numberList:double[]
+
+            // Age of the task
+            age:integer
+
+            metadata:Map<string,string>
+
+            tags:Set<Tags>
+        }
+        
         enum TestState {
             OK,TWO
         }

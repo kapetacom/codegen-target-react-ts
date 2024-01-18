@@ -106,29 +106,20 @@ The block consumes the following REST APIs:
 * `users`
 * `tasks`
 
-A rest client for each of these APIs is available both in the browser: `src/browser/.generated/clients` and server: `src/server/.generated/clients` directories
+REST clients for each of these APIs is available both in the browser: `src/browser/.generated/clients` and server: `src/server/.generated/clients` directories
+* [src/browser/.generated/clients](src/browser/.generated/clients)
+* [src/server/.generated/clients](src/server/.generated/clients)
 
-* [src/browser/.generated/clients/UsersClient.ts](src/browser/.generated/clients/UsersClient.ts)
-* [src/server/.generated/clients/UsersClient.ts](src/server/.generated/clients/UsersClient.ts)
-* [src/browser/.generated/clients/TasksClient.ts](src/browser/.generated/clients/TasksClient.ts)
-* [src/server/.generated/clients/TasksClient.ts](src/server/.generated/clients/TasksClient.ts)
 
 You can use these clients to make requests to the REST API. For example:
 
-
 ```typescript
-import { UsersClient } from '../../.generated/clients/UsersClient';
-import { TasksClient } from '../../.generated/clients/TasksClient';
+import { SomeClient } from '../../.generated/clients/SomeClient';
 
 // ...
 
-const usersApi = new UsersClient();
-await usersApi.addUser(...)
-
-// ...
-
-const tasksApi = new TasksClient();
-await tasksApi.addTask(...)
+const someApi = new SomeClient();
+const apiResponseData = await someApi.someApiMethod('my-id');
 ```
 
 
@@ -163,9 +154,8 @@ window.enableMockApi(true)
 in the browser console. This will set `enableMockApi = true` in the browser's local storage. The mock service worker will then intercept all requests to the REST API and return mock data instead.
 
 Edit the mock data that is returned by the handlers in:
+* [src/mocks/handlers](src/mocks/handlers)
 
-* `src/mocks/handlers/users`
-* `src/mocks/handlers/tasks`
 
 Endpoints that doesn't return any data is mocked to return an empty response with status code 200.
 

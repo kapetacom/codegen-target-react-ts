@@ -1,9 +1,9 @@
 //
 // GENERATED SOURCE - DO NOT EDIT
 //
+
 import { TaskState } from './TaskState';
 import { Tags } from './Tags';
-
 export interface Task {
     id: string;
     state: TaskState;
@@ -11,7 +11,10 @@ export interface Task {
     views?: number;
     stars?: number;
     numberList: number[];
+    /**
+     *  Age of the task
+     */
     age: number;
-    metadata: Map<string, string>;
+    metadata: { [key: string]: string };
     tags: Set<Tags>;
 }
