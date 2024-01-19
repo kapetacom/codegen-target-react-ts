@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 import Handlebars = require('handlebars');
-import {parseEntities, Template} from '@kapeta/codegen-target';
+import { parseEntities, Template } from '@kapeta/codegen-target';
 import { HelperOptions } from 'handlebars';
 import { parseKapetaUri } from '@kapeta/nodejs-utils';
 import {
@@ -11,15 +11,16 @@ import {
     DataTypeReader,
     DSLData,
     DSLEntity,
-    DSLReferenceResolver, DSLType, RESTControllerReader,
+    DSLReferenceResolver,
+    DSLType,
+    RESTControllerReader,
     TypescriptWriter,
-    ucFirst
-} from "@kapeta/kaplang-core";
+    ucFirst,
+} from '@kapeta/kaplang-core';
 
 export type HandleBarsType = typeof Handlebars;
 
 export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: any): void => {
-
     const TypeMap: { [key: string]: string } = {
         Instance: 'InstanceValue',
         InstanceProvider: 'InstanceProviderValue',
@@ -27,8 +28,7 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
 
     let parsedEntities: DSLData[] | undefined = undefined;
     function getParsedEntities(): DSLData[] {
-        if (!parsedEntities &&
-            context.spec?.entities?.source?.value) {
+        if (!parsedEntities && context.spec?.entities?.source?.value) {
             parsedEntities = parseEntities(context.spec?.entities?.source?.value);
         }
 
@@ -39,11 +39,10 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
         return parsedEntities as DSLData[];
     }
 
-
-    const resolvePath = function(path:string, options:HelperOptions) {
+    const resolvePath = function (path: string, options: HelperOptions) {
         let fullPath = path;
         if (options?.hash?.base) {
-            let baseUrl:string = options.hash.base;
+            let baseUrl: string = options.hash.base;
             while (baseUrl.endsWith('/')) {
                 baseUrl = baseUrl.substring(0, baseUrl.length - 1);
             }
@@ -54,7 +53,7 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
             fullPath = baseUrl + fullPath;
         }
         return fullPath;
-    }
+    };
 
     engine.registerHelper('valueType', (value: DSLType) => {
         const type = asComplexType(value);
@@ -93,10 +92,7 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
 
         const checker = (consumer: any) => {
             const kindUri = parseKapetaUri(consumer.kind);
-            return [
-                'kapeta/resource-type-rest-client',
-                'kapeta/resource-type-web-fragment'
-            ].includes(kindUri.fullName);
+            return ['kapeta/resource-type-rest-client', 'kapeta/resource-type-web-fragment'].includes(kindUri.fullName);
         };
 
         if (context.spec.consumers.some(checker)) {
@@ -104,7 +100,7 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
         }
     });
 
-    engine.registerHelper('typescript-imports-dto', function (arg:DSLEntity, options: HelperOptions) {
+    engine.registerHelper('typescript-imports-dto', function (arg: DSLEntity, options: HelperOptions) {
         const entities = getParsedEntities();
         const resolver = new DSLReferenceResolver();
         const referencesEntities = resolver.resolveReferencesFrom([arg], entities);
@@ -113,7 +109,7 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
             return '';
         }
 
-        const base:string = options.hash.base ?? '.';
+        const base: string = options.hash.base ?? '.';
 
         return Template.SafeString(
             referencesEntities
@@ -129,7 +125,7 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
         );
     });
 
-    engine.registerHelper('typescript-imports-config', function (arg:DSLEntity, options: HelperOptions) {
+    engine.registerHelper('typescript-imports-config', function (arg: DSLEntity, options: HelperOptions) {
         const entities = getParsedEntities();
         const resolver = new DSLReferenceResolver();
         const referencesEntities = resolver.resolveReferencesFrom([arg], entities);
@@ -138,7 +134,7 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
             return '';
         }
 
-        const base:string = options.hash.base ?? '.';
+        const base: string = options.hash.base ?? '.';
 
         return Template.SafeString(
             referencesEntities
@@ -170,12 +166,11 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
 
         try {
             // All config entities are postfixed with Config
-            const copy = {...entity, name: entity.name + 'Config'};
+            const copy = { ...entity, name: entity.name + 'Config' };
             return Template.SafeString(writer.write([copy]));
         } catch (e) {
             console.warn('Failed to write entity', entity);
             throw e;
         }
     });
-
 };
