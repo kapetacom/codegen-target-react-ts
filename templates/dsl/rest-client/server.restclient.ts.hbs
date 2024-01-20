@@ -1,0 +1,124 @@
+//#FILENAME:src/server/.generated/clients/{{controller-name this}}Client.ts:write-always
+//
+// GENERATED SOURCE - DO NOT EDIT
+//
+import { RestClient, RestClientRequest} from '@kapeta/sdk-rest-client';
+import { ConfigProvider } from '@kapeta/sdk-config';
+{{typescript-imports-dto raw base='../../../.generated/entities'}}
+{{#usesAnyOf (toArray 'kapeta/resource-type-auth-jwt-provider' 'kapeta/resource-type-auth-jwt-consumer') }}
+    import { getJWTToken } from "@kapeta/sdk-auth-jwt";
+{{/usesAnyOf}}
+
+
+/**
+* Creates a new ready {{controller-name this}}Client.
+*
+* See https://github.com/kapetacom/sdk-nodejs-rest-client for more information.
+*/
+export async function create{{controller-name this}}Client(configProvider:ConfigProvider):Promise<{{controller-name this}}Client> {
+    return new {{controller-name this}}Client(false).$withConfigProvider(configProvider);
+    }
+
+    /**
+    * A client for the {{controller-name this}} API.
+    *
+    * Note that this client is not ready to use until it is configured with a ```ConfigProvider```.
+    * This happens automatically when using the ```create{{controller-name this}}Client``` function or
+    * setting ```autoInit``` to true (the default).
+    *
+    * If you want to configure the client manually, set autoInit to false and call ```$withConfigProvider```.
+    *
+    * Recommended method is using ```create{{controller-name this}}Client(configProvider:ConfigProvider)```;
+    *
+    * See https://github.com/kapetacom/sdk-nodejs-rest-client for more information.
+    */
+    export class {{controller-name this}}Client extends RestClient {
+
+    constructor(autoInit:boolean = true) {
+    super('{{string (first namespace name)}}', autoInit);
+    }
+
+    {{#usesAnyOf (toArray 'kapeta/resource-type-auth-jwt-provider' 'kapeta/resource-type-auth-jwt-consumer') }}
+        protected $afterCreate(request: RestClientRequest):void {
+        if (request.hasHeader('Authorization')) {
+        // Do not overwrite existing authorization header
+        return;
+        }
+
+        // Adds current JWT token to request if available
+        const jwtToken = getJWTToken();
+        if (jwtToken?.token) {
+        request.withBearerToken(jwtToken.token);
+        }
+        }
+    {{/usesAnyOf}}
+
+    {{#methods methods}}
+
+
+        /**
+        * {{comment description}}
+        *
+        * Throws if service responds with a status code higher than 399 and not 404.
+        * For 404 responses, null is returned.
+        *
+        * HTTP: {{./method}} {{path path base=../path}}
+        */
+        async {{method name}}(
+        {{#arguments parameters}}
+            {{variable name}}{{#if this.optional}}?{{/if}}:{{valueType type}}
+        {{/arguments}}
+        ):Promise<{{returnType returnType}}{{#ifValueType returnType}}|null{{/ifValueType}}> {
+
+        {{#ifValueType returnType}}const result = {{/ifValueType}}await this.$execute(
+        '{{string method}}',
+        '{{string (path path base=../path)}}',
+        [
+        {{#arguments parameters}}
+            {
+            name: '{{string name}}',
+            value: {{variable name}},
+            transport: '{{string transport}}'
+            }
+        {{/arguments}}
+        ]
+        );
+
+        {{#ifValueType returnType}}
+            if (result === null) {
+            return null;
+            }
+            return result as {{returnType returnType}};
+        {{/ifValueType}}
+        }
+
+        /**
+        * {{comment description}}
+        *
+        * Creates a request that can be manipulated before sending it with the ```call()``` method.
+        *
+        * HTTP: {{./method}} {{path path base=../path}}
+        */
+        {{method name}}Request(
+        {{#arguments parameters}}
+            {{variable name}}{{#if optional}}?{{/if}}:{{valueType type}}
+        {{/arguments}}
+        ):RestClientRequest<{{returnType returnType}}{{#ifValueType returnType}}|null{{/ifValueType}}> {
+
+        return this.$create(
+        '{{string method}}',
+        '{{string (path path base=../path)}}',
+        [
+        {{#arguments parameters}}
+            {
+            name: '{{string name}}',
+            value: {{variable name}},
+            transport: '{{string transport}}'
+            }
+        {{/arguments}}
+        ]
+        );
+        }
+
+    {{/methods}}
+}

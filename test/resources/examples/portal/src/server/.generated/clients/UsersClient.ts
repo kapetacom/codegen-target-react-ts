@@ -14,7 +14,7 @@ export async function createUsersClient(configProvider: ConfigProvider): Promise
 }
 
 /**
- * A client for the users API.
+ * A client for the Users API.
  *
  * Note that this client is not ready to use until it is configured with a ```ConfigProvider```.
  * This happens automatically when using the ```createUsersClient``` function or
@@ -40,7 +40,7 @@ export class UsersClient extends RestClient {
      * HTTP: POST /users/{userId}
      */
     async addUser(userId: string): Promise<void> {
-        await this.$execute('POST', '/users/{userId}', [{ name: 'userId', value: userId, transport: 'path' }]);
+        await this.$execute('POST', '/users/{userId}', [{ name: 'userId', value: userId, transport: 'PATH' }]);
     }
 
     /**
@@ -51,7 +51,7 @@ export class UsersClient extends RestClient {
      * HTTP: POST /users/{userId}
      */
     addUserRequest(userId: string): RestClientRequest<void> {
-        return this.$create('POST', '/users/{userId}', [{ name: 'userId', value: userId, transport: 'path' }]);
+        return this.$create('POST', '/users/{userId}', [{ name: 'userId', value: userId, transport: 'PATH' }]);
     }
 
     /**
@@ -63,7 +63,7 @@ export class UsersClient extends RestClient {
      * HTTP: DELETE /users/{id}
      */
     async removeUser(id: string): Promise<void> {
-        await this.$execute('DELETE', '/users/{id}', [{ name: 'id', value: id, transport: 'path' }]);
+        await this.$execute('DELETE', '/users/{id}', [{ name: 'id', value: id, transport: 'PATH' }]);
     }
 
     /**
@@ -74,6 +74,6 @@ export class UsersClient extends RestClient {
      * HTTP: DELETE /users/{id}
      */
     removeUserRequest(id: string): RestClientRequest<void> {
-        return this.$create('DELETE', '/users/{id}', [{ name: 'id', value: id, transport: 'path' }]);
+        return this.$create('DELETE', '/users/{id}', [{ name: 'id', value: id, transport: 'PATH' }]);
     }
 }

@@ -1,0 +1,36 @@
+{{#methods methods}}
+
+//#FILENAME:src/mocks/handlers/{{kebab (controller-name ../this)}}/{{method name}}Handler.ts:create-only
+
+import {
+    http 
+    {{#ifValueType returnType}}
+        , passthrough 
+    {{else}}
+        , HttpResponse
+    {{/ifValueType}}
+} from 'msw';
+
+/**
+ {{#if description}}
+ * {{comment description}}
+ *
+ {{/if}}
+ * HTTP: {{./method}} /api/rest/{{first ../namespace ../name}}{{mswpath (path path base=../path)}}
+ * Response type: {{returnType returnType}}
+ */
+export const {{controller-name ../this}}_{{method name}}Handler = http.{{lowercase method}}('*/api/rest/{{first ../namespace ../name}}{{mswpath (path path base=../path)}}',
+
+    {{#ifValueType returnType}}
+        () => {
+            // TODO: Return a response of type {{returnType returnType}}
+            return passthrough()
+        }
+    {{else}}
+        () => {
+            return new HttpResponse(null, { status: 200 });
+        }
+    {{/ifValueType}})
+
+{{/methods}}
+

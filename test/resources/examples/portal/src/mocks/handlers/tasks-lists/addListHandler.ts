@@ -1,13 +1,13 @@
 import { http, HttpResponse } from 'msw';
 
 /**
- * Add user
+ * Add list
  *
- * HTTP: POST /api/rest/users/users/:userId
+ * HTTP: POST /api/rest/tasks/lists/:id
  * Response type: void
  */
-export const Users_addUserHandler = http.post(
-    '*/api/rest/users/users/:userId',
+export const TasksLists_addListHandler = http.post(
+    '*/api/rest/tasks/lists/:id',
 
     () => {
         return new HttpResponse(null, { status: 200 });

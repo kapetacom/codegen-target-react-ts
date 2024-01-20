@@ -114,29 +114,20 @@ The block consumes the following REST APIs:
 {{~/consumers-of-type}}
 
 
-A rest client for each of these APIs is available both in the browser: `src/browser/.generated/clients` and server: `src/server/.generated/clients` directories
-
-{{#consumers-of-type 'kapeta/resource-type-rest-client'}}
-* [src/browser/.generated/clients/{{type metadata.name}}Client.ts](src/browser/.generated/clients/{{type metadata.name}}Client.ts)
-* [src/server/.generated/clients/{{type metadata.name}}Client.ts](src/server/.generated/clients/{{type metadata.name}}Client.ts)
-{{~/consumers-of-type}}
+REST clients for each of these APIs is available both in the browser: `src/browser/.generated/clients` and server: `src/server/.generated/clients` directories
+* [src/browser/.generated/clients](src/browser/.generated/clients)
+* [src/server/.generated/clients](src/server/.generated/clients)
 
 
 You can use these clients to make requests to the REST API. For example:
 
-
 ```typescript
-{{#consumers-of-type 'kapeta/resource-type-rest-client'~}}
-import { {{type metadata.name}}Client } from '../../.generated/clients/{{type metadata.name}}Client';
-{{~/consumers-of-type}}
+import { SomeClient } from '../../.generated/clients/SomeClient';
 
-
-{{#consumers-of-type 'kapeta/resource-type-rest-client'}}
 // ...
 
-const {{lowercase metadata.name}}Api = new {{type metadata.name}}Client();
-await {{lowercase metadata.name}}Api.{{lookup (keys spec.methods) 0}}(...)
-{{/consumers-of-type}}
+const someApi = new SomeClient();
+const apiResponseData = await someApi.someApiMethod('my-id');
 ```
 
 
@@ -171,10 +162,7 @@ window.enableMockApi(true)
 in the browser console. This will set `enableMockApi = true` in the browser's local storage. The mock service worker will then intercept all requests to the REST API and return mock data instead.
 
 Edit the mock data that is returned by the handlers in:
-
-{{#consumers-of-type 'kapeta/resource-type-rest-client'}}
-* `src/mocks/handlers/{{metadata.name}}`
-{{~/consumers-of-type}}
+* [src/mocks/handlers](src/mocks/handlers)
 
 
 Endpoints that doesn't return any data is mocked to return an empty response with status code 200.

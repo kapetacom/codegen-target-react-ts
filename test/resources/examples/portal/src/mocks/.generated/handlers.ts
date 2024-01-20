@@ -1,15 +1,25 @@
 import { sortHandlersByPathSpecificity } from './sortHandlers';
-import { users_addUserHandler } from '../handlers/users/addUserHandler';
-import { users_removeUserHandler } from '../handlers/users/removeUserHandler';
-import { tasks_addTaskHandler } from '../handlers/tasks/addTaskHandler';
-import { tasks_markAsDoneHandler } from '../handlers/tasks/markAsDoneHandler';
-import { tasks_removeTaskHandler } from '../handlers/tasks/removeTaskHandler';
+import { Users_addUserHandler } from '../handlers/users/addUserHandler';
+import { Users_removeUserHandler } from '../handlers/users/removeUserHandler';
+import { UsersGroups_addGroupHandler } from '../handlers/users-groups/addGroupHandler';
+import { UsersGroups_removeGroupHandler } from '../handlers/users-groups/removeGroupHandler';
+import { TasksLists_addListHandler } from '../handlers/tasks-lists/addListHandler';
+import { TasksLists_removeListHandler } from '../handlers/tasks-lists/removeListHandler';
+import { Tasks_addTaskHandler } from '../handlers/tasks/addTaskHandler';
+import { Tasks_markAsDoneHandler } from '../handlers/tasks/markAsDoneHandler';
+import { Tasks_removeTaskHandler } from '../handlers/tasks/removeTaskHandler';
 
 export const handlers = sortHandlersByPathSpecificity([
-    users_addUserHandler,
-    users_removeUserHandler,
+    Users_addUserHandler,
+    Users_removeUserHandler,
 
-    tasks_addTaskHandler,
-    tasks_markAsDoneHandler,
-    tasks_removeTaskHandler,
+    UsersGroups_addGroupHandler,
+    UsersGroups_removeGroupHandler,
+
+    TasksLists_addListHandler,
+    TasksLists_removeListHandler,
+
+    Tasks_addTaskHandler,
+    Tasks_markAsDoneHandler,
+    Tasks_removeTaskHandler,
 ]);
