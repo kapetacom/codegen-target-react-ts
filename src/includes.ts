@@ -28,15 +28,10 @@ export const includes = (context: IncludeContextType = IncludeContextType.REST):
             }
             
             @Native("@kapeta/sdk-rest")
-            type Sort {
-                orders: SortOrder[]
-            }
-            
-            @Native("@kapeta/sdk-rest")
             type Pageable {
                 page?: long
                 size?: long
-                sort?: Sort
+                sort?: SortOrder[]
             }
             `,
     };

@@ -4,7 +4,8 @@
 //
 
 import { useMemo } from "react";
-import { RestClient, RestClientRequest } from "@kapeta/sdk-web-rest-client";
+import { RestClient } from "@kapeta/sdk-web-rest-client";
+import { RestClientRequest } from '@kapeta/sdk-rest';
 {{typescript-imports-dto raw base='../../../.generated/entities'}}
 
 export type Configure{{controller-name this}}Client = (client:{{controller-name this}}Client) => {{controller-name this}}Client;
