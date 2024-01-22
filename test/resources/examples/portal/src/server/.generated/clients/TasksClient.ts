@@ -43,10 +43,10 @@ export class TasksClient extends RestClient {
      */
     async addTask(userId: string, id: string, task: Task, filter?: string): Promise<Task | null> {
         const result = await this.$execute('POST', '/tasks/{userId}/{id}', [
-            { name: 'userId', value: userId, transport: 'PATH' },
-            { name: 'id', value: id, transport: 'PATH' },
-            { name: 'task', value: task, transport: 'BODY' },
-            { name: 'filter', value: filter, transport: 'QUERY' },
+            { name: 'userId', value: userId, transport: 'PATH', typeName: 'string' },
+            { name: 'id', value: id, transport: 'PATH', typeName: 'string' },
+            { name: 'task', value: task, transport: 'BODY', typeName: 'Task' },
+            { name: 'filter', value: filter, transport: 'QUERY', typeName: 'string' },
         ]);
 
         if (result === null) {
@@ -64,10 +64,10 @@ export class TasksClient extends RestClient {
      */
     addTaskRequest(userId: string, id: string, task: Task, filter?: string): RestClientRequest<Task | null> {
         return this.$create('POST', '/tasks/{userId}/{id}', [
-            { name: 'userId', value: userId, transport: 'PATH' },
-            { name: 'id', value: id, transport: 'PATH' },
-            { name: 'task', value: task, transport: 'BODY' },
-            { name: 'filter', value: filter, transport: 'QUERY' },
+            { name: 'userId', value: userId, transport: 'PATH', typeName: 'string' },
+            { name: 'id', value: id, transport: 'PATH', typeName: 'string' },
+            { name: 'task', value: task, transport: 'BODY', typeName: 'Task' },
+            { name: 'filter', value: filter, transport: 'QUERY', typeName: 'string' },
         ]);
     }
 
@@ -81,10 +81,10 @@ export class TasksClient extends RestClient {
      */
     async markAsDone(id: string, metadata: { [key: string]: string }, headers?: any, tags?: Set<Tags>): Promise<void> {
         await this.$execute('POST', '/tasks/{id}/done', [
-            { name: 'id', value: id, transport: 'PATH' },
-            { name: 'metadata', value: metadata, transport: 'BODY' },
-            { name: 'headers', value: headers, transport: 'HEADER' },
-            { name: 'tags', value: tags, transport: 'QUERY' },
+            { name: 'id', value: id, transport: 'PATH', typeName: 'string' },
+            { name: 'metadata', value: metadata, transport: 'BODY', typeName: '{ [key:string]: string }' },
+            { name: 'headers', value: headers, transport: 'HEADER', typeName: 'any' },
+            { name: 'tags', value: tags, transport: 'QUERY', typeName: 'Set<Tags>' },
         ]);
     }
 
@@ -102,10 +102,10 @@ export class TasksClient extends RestClient {
         tags?: Set<Tags>
     ): RestClientRequest<void> {
         return this.$create('POST', '/tasks/{id}/done', [
-            { name: 'id', value: id, transport: 'PATH' },
-            { name: 'metadata', value: metadata, transport: 'BODY' },
-            { name: 'headers', value: headers, transport: 'HEADER' },
-            { name: 'tags', value: tags, transport: 'QUERY' },
+            { name: 'id', value: id, transport: 'PATH', typeName: 'string' },
+            { name: 'metadata', value: metadata, transport: 'BODY', typeName: '{ [key:string]: string }' },
+            { name: 'headers', value: headers, transport: 'HEADER', typeName: 'any' },
+            { name: 'tags', value: tags, transport: 'QUERY', typeName: 'Set<Tags>' },
         ]);
     }
 
@@ -118,7 +118,9 @@ export class TasksClient extends RestClient {
      * HTTP: DELETE /tasks/{id}
      */
     async removeTask(id: string): Promise<void> {
-        await this.$execute('DELETE', '/tasks/{id}', [{ name: 'id', value: id, transport: 'PATH' }]);
+        await this.$execute('DELETE', '/tasks/{id}', [
+            { name: 'id', value: id, transport: 'PATH', typeName: 'string' },
+        ]);
     }
 
     /**
@@ -129,6 +131,8 @@ export class TasksClient extends RestClient {
      * HTTP: DELETE /tasks/{id}
      */
     removeTaskRequest(id: string): RestClientRequest<void> {
-        return this.$create('DELETE', '/tasks/{id}', [{ name: 'id', value: id, transport: 'PATH' }]);
+        return this.$create('DELETE', '/tasks/{id}', [
+            { name: 'id', value: id, transport: 'PATH', typeName: 'string' },
+        ]);
     }
 }

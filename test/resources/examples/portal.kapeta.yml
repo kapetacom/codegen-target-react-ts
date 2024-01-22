@@ -38,6 +38,10 @@ spec:
             }
             
             controller Groups('/groups') {
+              // Get all
+              @GET("/")
+              getAll(@Query pageable:Pageable):string[]
+            
               // Add user group
               @POST("/{id}")
               addGroup(@Path id:string):void

@@ -40,7 +40,9 @@ export class UsersClient extends RestClient {
      * HTTP: POST /users/{userId}
      */
     async addUser(userId: string): Promise<void> {
-        await this.$execute('POST', '/users/{userId}', [{ name: 'userId', value: userId, transport: 'PATH' }]);
+        await this.$execute('POST', '/users/{userId}', [
+            { name: 'userId', value: userId, transport: 'PATH', typeName: 'string' },
+        ]);
     }
 
     /**
@@ -51,7 +53,9 @@ export class UsersClient extends RestClient {
      * HTTP: POST /users/{userId}
      */
     addUserRequest(userId: string): RestClientRequest<void> {
-        return this.$create('POST', '/users/{userId}', [{ name: 'userId', value: userId, transport: 'PATH' }]);
+        return this.$create('POST', '/users/{userId}', [
+            { name: 'userId', value: userId, transport: 'PATH', typeName: 'string' },
+        ]);
     }
 
     /**
@@ -63,7 +67,9 @@ export class UsersClient extends RestClient {
      * HTTP: DELETE /users/{id}
      */
     async removeUser(id: string): Promise<void> {
-        await this.$execute('DELETE', '/users/{id}', [{ name: 'id', value: id, transport: 'PATH' }]);
+        await this.$execute('DELETE', '/users/{id}', [
+            { name: 'id', value: id, transport: 'PATH', typeName: 'string' },
+        ]);
     }
 
     /**
@@ -74,6 +80,8 @@ export class UsersClient extends RestClient {
      * HTTP: DELETE /users/{id}
      */
     removeUserRequest(id: string): RestClientRequest<void> {
-        return this.$create('DELETE', '/users/{id}', [{ name: 'id', value: id, transport: 'PATH' }]);
+        return this.$create('DELETE', '/users/{id}', [
+            { name: 'id', value: id, transport: 'PATH', typeName: 'string' },
+        ]);
     }
 }

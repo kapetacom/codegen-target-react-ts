@@ -78,7 +78,8 @@ export async function create{{controller-name this}}Client(configProvider:Config
             {
             name: '{{string name}}',
             value: {{variable name}},
-            transport: '{{string transport}}'
+            transport: '{{string transport}}',
+            typeName: '{{string (valueType type)}}'
             }
         {{/arguments}}
         ]
@@ -113,7 +114,8 @@ export async function create{{controller-name this}}Client(configProvider:Config
             {
             name: '{{string name}}',
             value: {{variable name}},
-            transport: '{{string transport}}'
+            transport: '{{string transport}}',
+            typeName: '{{string (valueType type)}}'
             }
         {{/arguments}}
         ]

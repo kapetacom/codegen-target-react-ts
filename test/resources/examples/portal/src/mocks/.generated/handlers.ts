@@ -1,6 +1,7 @@
 import { sortHandlersByPathSpecificity } from './sortHandlers';
 import { Users_addUserHandler } from '../handlers/users/addUserHandler';
 import { Users_removeUserHandler } from '../handlers/users/removeUserHandler';
+import { UsersGroups_getAllHandler } from '../handlers/users-groups/getAllHandler';
 import { UsersGroups_addGroupHandler } from '../handlers/users-groups/addGroupHandler';
 import { UsersGroups_removeGroupHandler } from '../handlers/users-groups/removeGroupHandler';
 import { TasksLists_addListHandler } from '../handlers/tasks-lists/addListHandler';
@@ -13,6 +14,7 @@ export const handlers = sortHandlersByPathSpecificity([
     Users_addUserHandler,
     Users_removeUserHandler,
 
+    UsersGroups_getAllHandler,
     UsersGroups_addGroupHandler,
     UsersGroups_removeGroupHandler,
 
