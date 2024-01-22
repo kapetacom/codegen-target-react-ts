@@ -3,7 +3,8 @@
 //
 
 import { useMemo } from 'react';
-import { RestClient, RestClientRequest } from '@kapeta/sdk-web-rest-client';
+import { RestClient } from '@kapeta/sdk-web-rest-client';
+import { RestClientRequest } from '@kapeta/sdk-rest';
 
 export type ConfigureUsersClient = (client: UsersClient) => UsersClient;
 

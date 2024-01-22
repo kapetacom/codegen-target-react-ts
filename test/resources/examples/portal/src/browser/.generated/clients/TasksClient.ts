@@ -3,7 +3,8 @@
 //
 
 import { useMemo } from 'react';
-import { RestClient, RestClientRequest } from '@kapeta/sdk-web-rest-client';
+import { RestClient } from '@kapeta/sdk-web-rest-client';
+import { RestClientRequest } from '@kapeta/sdk-rest';
 import { Task } from '../../../.generated/entities/Task';
 import { Tags } from '../../../.generated/entities/Tags';
 

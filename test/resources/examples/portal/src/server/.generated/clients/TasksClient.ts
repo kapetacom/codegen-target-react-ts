@@ -1,7 +1,8 @@
 //
 // GENERATED SOURCE - DO NOT EDIT
 //
-import { RestClient, RestClientRequest } from '@kapeta/sdk-rest-client';
+import { RestClient } from '@kapeta/sdk-rest-client';
+import { RestClientRequest } from '@kapeta/sdk-rest';
 import { ConfigProvider } from '@kapeta/sdk-config';
 import { Task } from '../../../.generated/entities/Task';
 import { Tags } from '../../../.generated/entities/Tags';
