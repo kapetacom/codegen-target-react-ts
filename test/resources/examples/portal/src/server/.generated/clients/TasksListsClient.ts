@@ -1,7 +1,8 @@
 //
 // GENERATED SOURCE - DO NOT EDIT
 //
-import { RestClient, RestClientRequest } from '@kapeta/sdk-rest-client';
+import { RestClient } from '@kapeta/sdk-rest-client';
+import { RestClientRequest } from '@kapeta/sdk-rest';
 import { ConfigProvider } from '@kapeta/sdk-config';
 
 /**
@@ -40,7 +41,7 @@ export class TasksListsClient extends RestClient {
      * HTTP: POST /lists/{id}
      */
     async addList(id: string): Promise<void> {
-        await this.$execute('POST', '/lists/{id}', [{ name: 'id', value: id, transport: 'PATH' }]);
+        await this.$execute('POST', '/lists/{id}', [{ name: 'id', value: id, transport: 'PATH', typeName: 'string' }]);
     }
 
     /**
@@ -51,7 +52,7 @@ export class TasksListsClient extends RestClient {
      * HTTP: POST /lists/{id}
      */
     addListRequest(id: string): RestClientRequest<void> {
-        return this.$create('POST', '/lists/{id}', [{ name: 'id', value: id, transport: 'PATH' }]);
+        return this.$create('POST', '/lists/{id}', [{ name: 'id', value: id, transport: 'PATH', typeName: 'string' }]);
     }
 
     /**
@@ -63,7 +64,9 @@ export class TasksListsClient extends RestClient {
      * HTTP: DELETE /lists/{id}
      */
     async removeList(id: string): Promise<void> {
-        await this.$execute('DELETE', '/lists/{id}', [{ name: 'id', value: id, transport: 'PATH' }]);
+        await this.$execute('DELETE', '/lists/{id}', [
+            { name: 'id', value: id, transport: 'PATH', typeName: 'string' },
+        ]);
     }
 
     /**
@@ -74,6 +77,8 @@ export class TasksListsClient extends RestClient {
      * HTTP: DELETE /lists/{id}
      */
     removeListRequest(id: string): RestClientRequest<void> {
-        return this.$create('DELETE', '/lists/{id}', [{ name: 'id', value: id, transport: 'PATH' }]);
+        return this.$create('DELETE', '/lists/{id}', [
+            { name: 'id', value: id, transport: 'PATH', typeName: 'string' },
+        ]);
     }
 }

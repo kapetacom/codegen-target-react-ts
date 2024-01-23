@@ -3,7 +3,9 @@
 //
 
 import { useMemo } from 'react';
-import { RestClient, RestClientRequest } from '@kapeta/sdk-web-rest-client';
+import { RestClient } from '@kapeta/sdk-web-rest-client';
+import { RestClientRequest } from '@kapeta/sdk-rest';
+import { Pageable } from '@kapeta/sdk-rest';
 
 export type ConfigureUsersGroupsClient = (client: UsersGroupsClient) => UsersGroupsClient;
 
@@ -35,12 +37,44 @@ export class UsersGroupsClient extends RestClient {
     }
 
     /**
+     * Get all
+     *
+     * HTTP: GET /api/rest/users/groups/
+     */
+    async getAll(pageable: Pageable): Promise<string[] | null> {
+        const result = await this.$execute<string[]>('GET', '/groups/', [
+            { name: 'pageable', value: pageable, transport: 'QUERY', typeName: 'Pageable' },
+        ]);
+
+        if (result === null) {
+            return null;
+        }
+        return result as string[];
+    }
+
+    /**
+     * Get all
+     *
+     * Throws if service responds with a status code higher than 399 and not 404.
+     * For 404 responses, null is returned.
+     *
+     * HTTP: GET /api/rest/users/groups/
+     */
+    getAllRequest(pageable: Pageable): RestClientRequest<string[] | null> {
+        return this.$create<string[]>('GET', '/groups/', [
+            { name: 'pageable', value: pageable, transport: 'QUERY', typeName: 'Pageable' },
+        ]);
+    }
+
+    /**
      * Add user group
      *
      * HTTP: POST /api/rest/users/groups/{id}
      */
     async addGroup(id: string): Promise<void> {
-        await this.$execute<void>('POST', '/groups/{id}', [{ name: 'id', value: id, transport: 'PATH' }]);
+        await this.$execute<void>('POST', '/groups/{id}', [
+            { name: 'id', value: id, transport: 'PATH', typeName: 'string' },
+        ]);
     }
 
     /**
@@ -52,7 +86,9 @@ export class UsersGroupsClient extends RestClient {
      * HTTP: POST /api/rest/users/groups/{id}
      */
     addGroupRequest(id: string): RestClientRequest<void> {
-        return this.$create<void>('POST', '/groups/{id}', [{ name: 'id', value: id, transport: 'PATH' }]);
+        return this.$create<void>('POST', '/groups/{id}', [
+            { name: 'id', value: id, transport: 'PATH', typeName: 'string' },
+        ]);
     }
 
     /**
@@ -61,7 +97,9 @@ export class UsersGroupsClient extends RestClient {
      * HTTP: DELETE /api/rest/users/groups/{id}
      */
     async removeGroup(id: string): Promise<void> {
-        await this.$execute<void>('DELETE', '/groups/{id}', [{ name: 'id', value: id, transport: 'PATH' }]);
+        await this.$execute<void>('DELETE', '/groups/{id}', [
+            { name: 'id', value: id, transport: 'PATH', typeName: 'string' },
+        ]);
     }
 
     /**
@@ -73,6 +111,8 @@ export class UsersGroupsClient extends RestClient {
      * HTTP: DELETE /api/rest/users/groups/{id}
      */
     removeGroupRequest(id: string): RestClientRequest<void> {
-        return this.$create<void>('DELETE', '/groups/{id}', [{ name: 'id', value: id, transport: 'PATH' }]);
+        return this.$create<void>('DELETE', '/groups/{id}', [
+            { name: 'id', value: id, transport: 'PATH', typeName: 'string' },
+        ]);
     }
 }

@@ -2,7 +2,8 @@
 //
 // GENERATED SOURCE - DO NOT EDIT
 //
-import { RestClient, RestClientRequest} from '@kapeta/sdk-rest-client';
+import { RestClient } from '@kapeta/sdk-rest-client';
+import { RestClientRequest } from '@kapeta/sdk-rest';
 import { ConfigProvider } from '@kapeta/sdk-config';
 {{typescript-imports-dto raw base='../../../.generated/entities'}}
 {{#usesAnyOf (toArray 'kapeta/resource-type-auth-jwt-provider' 'kapeta/resource-type-auth-jwt-consumer') }}
@@ -78,7 +79,8 @@ export async function create{{controller-name this}}Client(configProvider:Config
             {
             name: '{{string name}}',
             value: {{variable name}},
-            transport: '{{string transport}}'
+            transport: '{{string transport}}',
+            typeName: '{{string (valueType type)}}'
             }
         {{/arguments}}
         ]
@@ -113,7 +115,8 @@ export async function create{{controller-name this}}Client(configProvider:Config
             {
             name: '{{string name}}',
             value: {{variable name}},
-            transport: '{{string transport}}'
+            transport: '{{string transport}}',
+            typeName: '{{string (valueType type)}}'
             }
         {{/arguments}}
         ]

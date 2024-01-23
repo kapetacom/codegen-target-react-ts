@@ -12,6 +12,7 @@ module.exports = {
         '@typescript-eslint/no-var-requires': 'off',
         '@typescript-eslint/no-unsafe-assignment': 'off',
         'no-param-reassign': 'off',
+        '@typescript-eslint/require-await': 'off',
     },
     parserOptions: {
         project: `${__dirname}/tsconfig.json`,
