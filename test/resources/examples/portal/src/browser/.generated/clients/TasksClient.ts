@@ -78,12 +78,12 @@ export class TasksClient extends RestClient {
      *
      * HTTP: POST /api/rest/tasks/tasks/{id}/done
      */
-    async markAsDone(id: string, metadata: { [key: string]: string }, headers?: any, tags?: Set<Tags>): Promise<void> {
+    async markAsDone(id: string, metadata: { [key: string]: string }, headers?: any, tags?: Tags[]): Promise<void> {
         await this.$execute<void>('POST', '/tasks/{id}/done', [
             { name: 'id', value: id, transport: 'PATH', typeName: 'string' },
             { name: 'metadata', value: metadata, transport: 'BODY', typeName: '{ [key:string]: string }' },
             { name: 'headers', value: headers, transport: 'HEADER', typeName: 'any' },
-            { name: 'tags', value: tags, transport: 'QUERY', typeName: 'Set<Tags>' },
+            { name: 'tags', value: tags, transport: 'QUERY', typeName: 'Tags[]' },
         ]);
     }
 
@@ -99,13 +99,13 @@ export class TasksClient extends RestClient {
         id: string,
         metadata: { [key: string]: string },
         headers?: any,
-        tags?: Set<Tags>
+        tags?: Tags[]
     ): RestClientRequest<void> {
         return this.$create<void>('POST', '/tasks/{id}/done', [
             { name: 'id', value: id, transport: 'PATH', typeName: 'string' },
             { name: 'metadata', value: metadata, transport: 'BODY', typeName: '{ [key:string]: string }' },
             { name: 'headers', value: headers, transport: 'HEADER', typeName: 'any' },
-            { name: 'tags', value: tags, transport: 'QUERY', typeName: 'Set<Tags>' },
+            { name: 'tags', value: tags, transport: 'QUERY', typeName: 'Tags[]' },
         ]);
     }
 

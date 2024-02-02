@@ -16,5 +16,5 @@ export interface Task {
      */
     age: number;
     metadata: { [key: string]: string };
-    tags: Set<Tags>;
+    tags: Tags[];
 }
