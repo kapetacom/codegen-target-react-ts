@@ -22,14 +22,14 @@
     "homepage": "https://github.com/kapetacom/codegen-target-react-ts#readme",
     "prettier": "@kapeta/prettier-config",
     "dependencies": {
-        "@kapeta/codegen-target": "^1.6.0",
-        "@kapeta/kaplang-core": "^1.10.2",
+        "@kapeta/codegen-target": "^1.6.1",
+        "@kapeta/kaplang-core": "^1.11.2",
         "@kapeta/nodejs-process": "^1.2.0",
-        "@kapeta/schemas": "^2.0.0",
+        "@kapeta/schemas": "^3",
         "@types/lodash": "^4",
         "lodash": "^4",
         "prettier": "^2.8.8",
-        "@kapeta/ui-web-types": "^1.2.0"
+        "@kapeta/ui-web-types": "^1.3.1"
     },
     "bundleDependencies": true,
     "bundledDependencies": true,
@@ -45,7 +45,7 @@
         "@babel/preset-react": "^7.23.3",
         "@babel/preset-typescript": "^7.23.3",
         "@jest/globals": "^29.7.0",
-        "@kapeta/codegen": "<2",
+        "@kapeta/codegen": "^1.2.1",
         "@kapeta/eslint-config": "^0.7.0",
         "@kapeta/prettier-config": "^0.6.2",
         "@tsconfig/node18": "^18.2.2",

@@ -9,7 +9,7 @@ import { ILanguageTargetProvider } from '@kapeta/ui-web-types';
 import kapetaDefinition from '../../kapeta.yml';
 // @ts-ignore
 import packageJson from '../../package.json';
-import {includes} from "../includes";
+import { includes } from '../includes';
 
 const targetConfig: ILanguageTargetProvider = {
     kind: kapetaDefinition.metadata.name,
