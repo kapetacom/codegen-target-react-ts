@@ -17,7 +17,7 @@ import {
     TypescriptWriter,
     ucFirst,
 } from '@kapeta/kaplang-core';
-import {includes} from "../includes";
+import { includes } from '../includes';
 
 export type HandleBarsType = typeof Handlebars;
 
@@ -32,11 +32,10 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
         if (!parsedEntities) {
             const code: string[] = [includes().source];
             if (context.spec?.entities?.source?.value) {
-                code.push(context.spec?.entities?.source?.value)
+                code.push(context.spec?.entities?.source?.value);
             }
             parsedEntities = parseEntities(code.join('\n\n'));
         }
-
 
         if (!parsedEntities) {
             return [];
