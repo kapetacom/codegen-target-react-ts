@@ -1,4 +1,4 @@
-//#FILENAME:src/server/index.ts:create-only
+//#FILENAME:{{backendBasePath}}/index.ts:create-only
 import { ConfigProvider, runApp } from "@kapeta/sdk-config";
 import { createServer } from "./server";
 import express from 'express';
@@ -16,7 +16,7 @@ const ASSETS_DIR = Path.resolve(BASE_DIR, "./assets");
 
 // runApp is a helper function that will load the configuration from Kapeta and then run the provided function
 runApp(async (configProvider:ConfigProvider) => {
-    // Create the server - see src/server/server.ts for more information
+    // Create the server - see {{backendBasePath}}/server.ts for more information
     const server = createServer(configProvider);
 
     // Serve static files from the assets directory

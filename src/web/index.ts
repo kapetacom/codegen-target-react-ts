@@ -15,7 +15,10 @@ const targetConfig: ILanguageTargetProvider = {
     kind: kapetaDefinition.metadata.name,
     version: packageJson.version,
     title: kapetaDefinition.metadata.title,
-    blockKinds: ['kapeta/block-type-frontend'],
+    blockKinds: [
+        'kapeta/block-type-frontend',
+        'kapeta/block-type-desktop',
+    ],
     resourceKinds: [
         'kapeta/resource-type-rest-client',
         'kapeta/resource-type-web-fragment',

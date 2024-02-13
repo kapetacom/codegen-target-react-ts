@@ -9,13 +9,13 @@ This file will be overwritten every time you change the block definition in Kape
 
 The block is structured as follows:
 
-* `src/browser`: Contains code that is only executed in the browser.
+* `{{frontendBasePath}}`: Contains code that is only executed in the browser.
 {{#consumes 'kapeta/resource-type-rest-client'}}
 * `src/mocks`: Contains code that enables you to mock the REST APIs.
 {{/consumes}}
-* `src/server`: Contains code that is only executed on the server.
+* `{{backendBasePath}}`: Contains code that is only executed on the server.
 
-You'll find some subfolders called `.generated` under `src/`,  `src/browser/` and `src/server/`. 
+You'll find some subfolders called `.generated` under `src/`,  `{{frontendBasePath}}/` and `{{backendBasePath}}/`. 
 These folders contain generated files and should not be edited directly.
 
 In particular the following folders are generated:
@@ -23,7 +23,7 @@ In particular the following folders are generated:
 
 {{#provides 'kapeta/resource-type-web-page'}}
 ## Web Pages
-You'll find all your web pages in `src/browser/pages`. These pages contain
+You'll find all your web pages in `{{frontendBasePath}}/pages`. These pages contain
 a very simple React component that renders the page. 
 
 You should edit these files to add your own content to the pages.
@@ -44,7 +44,7 @@ For react components and styles it also supports hot-reloading whenever possible
 ### Templates
 There are a few templates that is being used when rendering the main HTML page. The default ones
 contains the bare minimum - but you can override them by providing a map of template functions in
-```src/server/index.ts```:
+```{{backendBasePath}}/index.ts```:
 
 **Note**: You shouldn't use the response object to send the response - instead you should return the rendered HTML as a string.
 The response object is only there to allow you to access ```res.locals``` and similar values other middleware.
@@ -114,9 +114,9 @@ The block consumes the following REST APIs:
 {{~/consumers-of-type}}
 
 
-REST clients for each of these APIs is available both in the browser: `src/browser/.generated/clients` and server: `src/server/.generated/clients` directories
-* [src/browser/.generated/clients](src/browser/.generated/clients)
-* [src/server/.generated/clients](src/server/.generated/clients)
+REST clients for each of these APIs is available both in the browser: `{{frontendBasePath}}/.generated/clients` and server: `{{backendBasePath}}/.generated/clients` directories
+* [{{frontendBasePath}}/.generated/clients]({{frontendBasePath}}/.generated/clients)
+* [{{backendBasePath}}/.generated/clients]({{backendBasePath}}/.generated/clients)
 
 
 You can use these clients to make requests to the REST API. For example:

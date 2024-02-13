@@ -1,4 +1,4 @@
-//#FILENAME:src/server/tsconfig.json:create-only
+//#FILENAME:{{backendBasePath}}/tsconfig.json:create-only
 {
     "extends": "@tsconfig/node18/tsconfig.json",
     "compilerOptions": {

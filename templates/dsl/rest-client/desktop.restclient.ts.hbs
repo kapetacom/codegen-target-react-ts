@@ -1,0 +1,114 @@
+{{#isDesktop}}
+//#FILENAME:{{frontendBasePath}}/.generated/clients/{{controller-name this}}Client.ts:write-always
+//
+// GENERATED SOURCE - DO NOT EDIT
+//
+
+import { useMemo } from "react";
+import { RestClient } from "@kapeta/sdk-desktop-rest-client";
+import { RestClientRequest } from '@kapeta/sdk-rest';
+{{typescript-imports-dto raw base='../../../.generated/entities'}}
+
+export type Configure{{controller-name this}}Client = (client:{{controller-name this}}Client) => {{controller-name this}}Client;
+
+/**
+* Creates a new {{controller-name this}}Client for React components.
+* The client is configured with the provided configuration function.
+*
+* It is wrapped in a useMemo hook to ensure that the client is only created once.
+*/
+export const use{{controller-name this}}Client = (configure?:Configure{{controller-name this}}Client):{{controller-name this}}Client => {
+    return useMemo(() => {
+        const client = new {{controller-name this}}Client();
+        if (configure) {
+            return configure(client);
+        }
+        return client;
+    }, [configure]);
+}
+
+/**
+* A client for the {{controller-name this}} API.
+* Use the use{{controller-name this}}Client hook to create a client in React.
+*
+* Use the {{controller-name this}}Client directly in other contexts.
+*/
+export class {{controller-name this}}Client extends RestClient {
+
+    constructor() {
+        super('{{first namespace name}}');
+    }
+
+{{#methods methods}}
+
+    /**
+    {{#if description}}
+    * {{comment description}}
+    *
+    {{/if}}
+    * HTTP: {{./method}} {{path path base=../path}}
+    */
+    async {{method name}}(
+    {{#arguments parameters}}
+        {{variable name}}{{#if optional}}?{{/if}}:{{valueType type}}
+    {{/arguments}}
+    ):Promise<{{returnType returnType}}{{#ifValueType returnType}}|null{{/ifValueType}}> {
+
+    {{#ifValueType returnType}}const result = {{/ifValueType}}await this.$execute<{{returnType returnType}}>(
+    '{{string method}}',
+    '{{string (path path base=../path)}}',
+    [
+    {{#arguments parameters}}
+        {
+        name: '{{string name}}',
+        value: {{variable name}},
+        transport: '{{string transport}}',
+        typeName: '{{string (valueType type)}}'
+        }
+    {{/arguments}}
+    ]
+    );
+
+    {{#ifValueType returnType}}
+        if (result === null) {
+            return null;
+        }
+        return result as {{returnType returnType}};
+    {{/ifValueType}}
+    }
+
+    /**
+    {{#if description}}
+    * {{comment description}}
+    *
+    {{/if}}
+    * Throws if service responds with a status code higher than 399 and not 404.
+    * For 404 responses, null is returned.
+    *
+    * HTTP: {{./method}} {{path path base=../path}}
+    */
+    {{method name}}Request(
+    {{#arguments parameters}}
+        {{variable name}}{{#if optional}}?{{/if}}:{{valueType type}}
+    {{/arguments}}
+    ):RestClientRequest<{{returnType returnType}}{{#ifValueType returnType}}|null{{/ifValueType}}> {
+
+    return this.$create<{{returnType returnType}}>(
+    '{{string method}}',
+    '{{string (path path base=../path)}}',
+    [
+    {{#arguments parameters}}
+        {
+        name: '{{string name}}',
+        value: {{variable name}},
+        transport: '{{string transport}}',
+        typeName: '{{string (valueType type)}}'
+        }
+    {{/arguments}}
+    ]
+    );
+    }
+
+{{/methods}}
+}
+{{/isDesktop}}

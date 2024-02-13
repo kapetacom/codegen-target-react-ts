@@ -1,0 +1,24 @@
+//#FILENAME:tsconfig.json:create-only
+{
+  "compilerOptions": {
+    "incremental": true,
+    "target": "es5",
+    "lib": ["dom", "es2015", "es2016", "es2017", "es2018", "es2019", "es2020", "esnext"],
+    "module": "commonjs",
+    "jsx": "react-jsx",
+    "strict": true,
+    "sourceMap": true,
+    "baseUrl": "./src",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "strictNullChecks": true,
+    "useDefineForClassFields": true,
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "resolveJsonModule": true,
+    "allowJs": true,
+    "outDir": ".erb/dll",
+    "skipLibCheck": true
+  },
+  "exclude": ["test", "release/build", "release/app/dist", ".erb/dll"]
+}

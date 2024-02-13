@@ -21,7 +21,7 @@ const styleLoader = devMode
     : MiniCssExtractPlugin.loader;
 
 const makeEntry = (name, localPath) => {
-    const path = "./" + Path.join("./src/browser/pages/", localPath);
+    const path = "./" + Path.join("./{{frontendBasePath}}/pages/", localPath);
 
     if (!devMode) {
         return [path];

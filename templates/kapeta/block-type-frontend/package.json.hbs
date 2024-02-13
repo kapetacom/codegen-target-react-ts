@@ -2,12 +2,12 @@
 {
   "name": "@{{lowercase data.metadata.name}}",
   "version": "0.0.1",
-  "main": "src/server/index.js",
+  "main": "{{backendBasePath}}/index.js",
   "scripts": {
     "clean": "rm -rf dist",
-    "start:dev": "NODE_ENV=development nodemon src/server/index.ts",
-    "start:dev:docker": "NODE_ENV=development nodemon --exitcrash --legacy-watch src/server/index.ts",
-    "start": "NODE_ENV=production ts-node --transpile-only src/server/index.ts",
+    "start:dev": "NODE_ENV=development nodemon {{backendBasePath}}/index.ts",
+    "start:dev:docker": "NODE_ENV=development nodemon --exitcrash --legacy-watch {{backendBasePath}}/index.ts",
+    "start": "NODE_ENV=production ts-node --transpile-only {{backendBasePath}}/index.ts",
     "build": "webpack --config webpack.production.config.js",
     "format": "prettier --write .",
     "lint": "tsc --noEmit && eslint src/**/*.ts"
@@ -19,8 +19,8 @@
             "webpack.*.js",
             "package.json",
             "tsconfig.json",
-            "src/server",
-            "src/server/.generated"
+            "{{backendBasePath}}",
+            "{{backendBasePath}}/.generated"
         ],
         "ext": "ts,tsx,js,jsx,json,yaml,yml",
         "exec": "ts-node --transpile-only"
