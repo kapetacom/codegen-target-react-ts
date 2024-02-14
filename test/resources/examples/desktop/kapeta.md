@@ -8,9 +8,9 @@ This file will be overwritten every time you change the block definition in Kape
 
 The block is structured as follows:
 
-* `src/renderer`: Contains code that is only executed in the browser.
+* `src/renderer`: Contains code that is only executed in the renderer.
 * `src/mocks`: Contains code that enables you to mock the REST APIs.
-* `src/main`: Contains code that is only executed on the server.
+* `src/main`: Contains code that is only executed on the main / node context.
 
 You'll find some subfolders called `.generated` under `src/`,  `src/renderer/` and `src/main/`. 
 These folders contain generated files and should not be edited directly.
@@ -40,13 +40,39 @@ REST clients for each of these APIs is available both in the browser: `src/rende
 
 You can use these clients to make requests to the REST API. For example:
 
+In the main context:
 ```typescript
-import { SomeClient } from '../../.generated/clients/SomeClient';
+import { createSomeClient } from '../../.generated/clients/SomeClient';
 
 // ...
 
-const someApi = new SomeClient();
+const someApi = createSomeClient(cfg);
 const apiResponseData = await someApi.someApiMethod('my-id');
+```
+
+In the renderer context:
+```typescript
+import { useSomeClient } from '../../.generated/clients/SomeClient';
+
+// ...
+
+const someApi = useSomeClient();
+const apiResponseData = await someApi.someApiMethod('my-id');
+```
+### Configuration
+When testing locally Kapeta will make sure your rest clients are pointing to the right instance.
+
+However when it's time to go live you need to tell the app where to find the API endpoints.
+
+You do that under [config/](config) where you'll find 2 files:
+* `hosts.development.json` for development. This file is automatically updated by Kapeta and should not be edited.
+* `hosts.production.json` for production - this is where you should set the correct endpoints.
+
+Both files are basically a key/map of the name of the resource and the endpoint. For example:
+```json
+{
+  "my-rest-client-resource": "https://api.my-cool-domain.com"
+}
 ```
 
 
@@ -78,7 +104,9 @@ To enable MSW run
 window.enableMockApi(true)
 ```
 
-in the browser console. This will set `enableMockApi = true` in the browser's local storage. The mock service worker will then intercept all requests to the REST API and return mock data instead.
+in the renderer console. This will set `enableMockApi = true` in the browser's local storage. The mock service worker will then intercept all requests to the REST API and return mock data instead.
+
+_Note: You open the renderer console through the main menu or by right-clicking and selecting "Inspect Element" and then navigating to the "Console" tab._
 
 Edit the mock data that is returned by the handlers in:
 * [src/mocks/handlers](src/mocks/handlers)
