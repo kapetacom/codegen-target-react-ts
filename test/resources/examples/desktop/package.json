@@ -52,6 +52,7 @@
         "electron-updater": "^6.1.4",
         "fix-path": "^4.0.0",
         "hazardous": "^0.3.0",
+        "source-map-support": "^0.5.21",
         "@kapeta/sdk-config": "^2",
         "@kapeta/sdk-rest": "^1.1.1",
         "@kapeta/sdk-rest-client": "^3.2.1"

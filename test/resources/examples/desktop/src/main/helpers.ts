@@ -33,17 +33,6 @@ export const ensureUserAgent = () => {
     });
 };
 
-export const attachIPCListener = (
-    win: BrowserWindow,
-    channel: string,
-    listener: (...args: any[]) => void | Promise<void>
-) => {
-    ipcMain.on(channel, listener);
-    win.on('close', () => {
-        ipcMain.removeListener(channel, listener);
-    });
-};
-
 export const getPreloadScript = () => {
     return app.isPackaged ? Path.join(__dirname, 'preload.js') : Path.join(__dirname, '../../.erb/dll/preload.js');
 };
