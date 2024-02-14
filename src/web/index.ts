@@ -4,12 +4,11 @@
  */
 
 import { ILanguageTargetProvider } from '@kapeta/ui-web-types';
+import { includes } from '../includes';
 
 // @ts-expect-error TS doesnt like YML imports
 import kapetaDefinition from '../../kapeta.yml';
-// @ts-expect-error TS doesnt like JSON imports
 import packageJson from '../../package.json';
-import { includes } from '../includes';
 
 const targetConfig: ILanguageTargetProvider = {
     kind: kapetaDefinition.metadata.name,
