@@ -8,7 +8,6 @@
  */
 
 import './patch-for-asar';
-
 import { app, dialog } from 'electron';
 import { MainWindow } from './ui/MainWindow';
 import { attachHandlers } from './services/IPCService';

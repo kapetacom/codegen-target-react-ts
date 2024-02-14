@@ -1,12 +1,18 @@
-import { contextBridge, ipcRenderer, IpcRendererEvent } from 'electron';
+import {contextBridge, ipcRenderer, IpcRendererEvent} from 'electron';
 
-export type Channels =
-    | 'ipc-main'
-    | 'auto-updater';
+import HOSTS_DEVELOPMENT from "../../config/hosts.development.json";
+import HOSTS_PRODUCTION from "../../config/hosts.production.json";
 
-export type Procedures =
-    | 'example-method'
-    | 'quit-and-install';
+export type Channels = 'ipc-main' | 'auto-updater';
+
+export type Procedures = 'example-method' | 'quit-and-install';
+
+const DEBUG = !!(process.env.NODE_ENV === 'development' || process.env.DEBUG_PROD === 'true')
+
+const kapetaHandler = {
+    environment: DEBUG ? 'development' : 'production',
+    hosts: DEBUG ? HOSTS_DEVELOPMENT : HOSTS_PRODUCTION,
+}
 
 const electronHandler = {
     ipcRenderer: {
@@ -30,6 +36,9 @@ const electronHandler = {
     },
 };
 
+
+contextBridge.exposeInMainWorld('kapeta', kapetaHandler);
 contextBridge.exposeInMainWorld('electron', electronHandler);
 
+export type KapetaHandler = typeof kapetaHandler;
 export type ElectronHandler = typeof electronHandler;

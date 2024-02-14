@@ -199,10 +199,10 @@ const configuration: webpack.Configuration = {
             isDevelopment: process.env.NODE_ENV !== 'production',
             nodeModules: webpackPaths.appNodeModulesPath,
         }),
-        {{#consumes 'kapeta/resource-type-rest-client'}},
+        {{#consumes 'kapeta/resource-type-rest-client'}}
         new CopyWebpackPlugin({
-            patterns: [{ from: path.resolve(__dirname, 'src/mocks/.generated/mockServiceWorker.js'), to: 'mockServiceWorker.js' }],
-        })
+            patterns: [{ from: path.resolve(__dirname, '../../src/mocks/mockServiceWorker.js'), to: 'mockServiceWorker.js' }],
+        }),
         {{/consumes}}
     ],
     resolve: {

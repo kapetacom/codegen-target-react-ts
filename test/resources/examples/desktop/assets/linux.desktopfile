@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=CoolTodoApp
+Comment=This is a cool app for simple todo tasks
+Exec=CoolTodoApp.AppImage
+Icon=com.example.CoolTodoApp
+Keywords=
+StartupNotify=true
+Terminal=false

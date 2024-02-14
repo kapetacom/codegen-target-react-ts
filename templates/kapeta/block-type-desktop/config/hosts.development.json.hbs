@@ -1,0 +1,6 @@
+#FILENAME:config/hosts.development.json:create-only
+{
+{{#consumers-of-type-joined 'kapeta/resource-type-rest-client' ','}}
+    "{{metadata.name}}": "http://replace-me-with-url.com/"
+{{~/consumers-of-type-joined}}
+}

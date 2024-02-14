@@ -1,0 +1,25 @@
+{
+    "name": "@kapeta/desktop-app",
+    "version": "0.0.1",
+    "productName": "CoolTodoApp",
+    "description": "This is a cool app for simple todo tasks",
+    "homepage": "https://example.com",
+    "main": "./dist/main/main.js",
+    "type": "commonjs",
+    "license": "MIT",
+    "author": {
+        "email": "support@example.com",
+        "name": "kapeta",
+        "url": "https://example.com"
+    },
+    "scripts": {
+        "rebuild": "node -r ts-node/register ../../.erb/scripts/electron-rebuild.js",
+        "postinstall": "npm run rebuild && npm run link-modules",
+        "link-modules": "node -r ts-node/register ../../.erb/scripts/link-modules.ts"
+    },
+    "dependencies": {
+        "@kapeta/sdk-config": "^2",
+        "@kapeta/sdk-rest-client": "^3.2",
+        "@kapeta/sdk-rest": "^1.0.1"
+    }
+}

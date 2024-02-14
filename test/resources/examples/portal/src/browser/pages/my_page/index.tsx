@@ -1,6 +1,6 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { enableApiMocking } from '../../../mocks/.generated/enableApiMocking';
+import { enableApiMocking } from '../../../mocks/enableApiMocking';
 import { MyPagePage } from './MyPagePage';
 
 /*

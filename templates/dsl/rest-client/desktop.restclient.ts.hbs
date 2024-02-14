@@ -5,7 +5,7 @@
 //
 
 import { useMemo } from "react";
-import { RestClient } from "@kapeta/sdk-desktop-rest-client";
+import { RestClient } from "@kapeta/sdk-web-rest-client";
 import { RestClientRequest } from '@kapeta/sdk-rest';
 {{typescript-imports-dto raw base='../../../.generated/entities'}}
 
@@ -36,15 +36,20 @@ export const use{{controller-name this}}Client = (configure?:Configure{{controll
 export class {{controller-name this}}Client extends RestClient {
 
     constructor() {
-        super('{{first namespace name}}');
+        // @ts-ignore
+        if (!window.kapeta.hosts || !window.kapeta.hosts["{{string (first namespace name)}}"]) {
+            throw new Error(`Resource not found: "{{string (first namespace name)}}"`);
+        }
+        // @ts-ignore
+        super(window.kapeta.hosts["{{string (first namespace name)}}"]);
     }
 
 {{#methods methods}}
 
     /**
     {{#if description}}
-    * {{comment description}}
-    *
+        * {{comment description}}
+        *
     {{/if}}
     * HTTP: {{./method}} {{path path base=../path}}
     */
@@ -71,7 +76,7 @@ export class {{controller-name this}}Client extends RestClient {
 
     {{#ifValueType returnType}}
         if (result === null) {
-            return null;
+        return null;
         }
         return result as {{returnType returnType}};
     {{/ifValueType}}
@@ -79,8 +84,8 @@ export class {{controller-name this}}Client extends RestClient {
 
     /**
     {{#if description}}
-    * {{comment description}}
-    *
+        * {{comment description}}
+        *
     {{/if}}
     * Throws if service responds with a status code higher than 399 and not 404.
     * For 404 responses, null is returned.

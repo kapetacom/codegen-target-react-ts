@@ -78,6 +78,7 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
 
     engine.registerHelper('path', resolvePath);
 
+
     const isFrontend = parseKapetaUri(context.kind).fullName === 'kapeta/block-type-frontend';
 
     engine.registerHelper('isFrontend', function (this:any, options:HelperOptions) {

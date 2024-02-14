@@ -31,6 +31,14 @@ describe('blocks', () => {
         return CodegenHelpers.testCodeGenFor(target, new BlockCodeGenerator(data), basedir);
     });
 
+
+    test('desktop', async () => {
+        const basedir = Path.resolve(__dirname, '../resources/examples/desktop');
+        const data = require('../resources/examples/desktop.kapeta.yml') as BlockDefinition;
+
+        return CodegenHelpers.testCodeGenFor(target, new BlockCodeGenerator(data), basedir);
+    });
+
     function doMergeJSON(filename: string, original: any, changed: any, last: any | null = null) {
         const merged = target.mergeFile(
             {
@@ -59,7 +67,7 @@ describe('blocks', () => {
                   }
         );
 
-        return JSON.parse(merged.content);
+        return JSON.parse(merged.content.toString());
     }
 
     describe('Can merge files: package.json', () => {

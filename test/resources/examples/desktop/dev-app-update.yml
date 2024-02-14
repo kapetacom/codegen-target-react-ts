@@ -1,0 +1,4 @@
+provider: github
+owner: github-owner
+repo: repo-name
+releaseType: release

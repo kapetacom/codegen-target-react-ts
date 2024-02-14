@@ -1,0 +1,286 @@
+{
+    "name": "@kapeta/desktop-app",
+    "version": "0.0.1",
+    "main": "src/main/index.ts",
+    "license": "MIT",
+    "title": "Cool Todo App",
+    "description": "This is a cool app for simple todo tasks",
+    "homepage": "https://example.com",
+    "author": {
+        "email": "support@example.com",
+        "name": "kapeta",
+        "url": "https://example.com"
+    },
+    "scripts": {
+        "prepare:hosts": "node -r ts-node/register ./.erb/scripts/prepare-hosts.ts",
+        "build": "concurrently \"npm run build:main\" \"npm run build:renderer\"",
+        "build:main": "cross-env NODE_ENV=production TS_NODE_TRANSPILE_ONLY=true webpack --config ./.erb/configs/webpack.config.main.prod.ts",
+        "build:renderer": "cross-env NODE_ENV=production TS_NODE_TRANSPILE_ONLY=true webpack --config ./.erb/configs/webpack.config.renderer.prod.ts",
+        "postinstall": "ts-node .erb/scripts/check-native-dep.js && electron-builder install-app-deps && npm run dev:dll",
+        "lint:eslint": "cross-env NODE_ENV=development eslint src/ --ext .js,.jsx,.ts,.tsx",
+        "lint:tsc": "tsc --noEmit && tsc --noEmit --project src/renderer/tsconfig.json",
+        "lint": "npm run lint:eslint && npm run lint:tsc",
+        "package": "ts-node ./.erb/scripts/clean.js dist && npm run build && electron-builder build --publish never",
+        "package:win": "ts-node ./.erb/scripts/clean.js dist && npm run build && electron-builder build --win --publish never",
+        "package:mac": "ts-node ./.erb/scripts/clean.js dist && npm run build && electron-builder build --mac --publish never",
+        "package:linux": "ts-node ./.erb/scripts/clean.js dist && npm run build && electron-builder build --linux --publish never",
+        "rebuild": "electron-rebuild --parallel --types prod,dev,optional --module-dir release/app",
+        "dev:dll": "cross-env NODE_ENV=development TS_NODE_TRANSPILE_ONLY=true webpack --config ./.erb/configs/webpack.config.renderer.dev.dll.ts",
+        "start:dev": "npm run prepare:hosts && cross-env PORT=8080 ts-node ./.erb/scripts/check-port-in-use.js && cross-env PORT=8080 npm run start:renderer",
+        "start:main": "cross-env NODE_ENV=development electronmon -r ts-node/register/transpile-only .",
+        "start:preload": "cross-env NODE_ENV=development TS_NODE_TRANSPILE_ONLY=true webpack --config ./.erb/configs/webpack.config.preload.dev.ts",
+        "start:renderer": "cross-env NODE_ENV=development TS_NODE_TRANSPILE_ONLY=true webpack serve --config ./.erb/configs/webpack.config.renderer.dev.ts",
+        "format": "prettier --write .",
+        "msw:init": "msw init",
+        "recalculate-hash": "node scripts/recalculate-hash.js"
+    },
+    "lint-staged": {
+        "*.json,.{eslintrc,prettierrc}": [
+            "prettier --ignore-path .eslintignore --parser json --write"
+        ],
+        "*.{css,scss}": [
+            "prettier --ignore-path .eslintignore --single-quote --write"
+        ],
+        "*.{html,md,yml}": [
+            "prettier --ignore-path .eslintignore --single-quote --write"
+        ]
+    },
+    "prettier": "@kapeta/prettier-config",
+    "dependencies": {
+        "electron-debug": "^3.2.0",
+        "electron-log": "^5.0.0",
+        "electron-updater": "^6.1.4",
+        "fix-path": "^4.0.0",
+        "hazardous": "^0.3.0",
+        "@kapeta/sdk-config": "^2",
+        "@kapeta/sdk-rest": "^1.1.1",
+        "@kapeta/sdk-rest-client": "^3.2.1"
+    },
+    "devDependencies": {
+        "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+        "@electron/notarize": "^2.1.0",
+        "@electron/rebuild": "^3.3.0",
+        "@pmmmwh/react-refresh-webpack-plugin": "^0.5.7",
+        "@svgr/webpack": "^6.3.1",
+        "@teamsupercell/typings-for-css-modules-loader": "^2.5.1",
+        "@types/node": "18.7.6",
+        "@types/react": "^18.0.17",
+        "@types/react-dom": "^18.0.6",
+        "@types/react-test-renderer": "^18.0.0",
+        "@types/terser-webpack-plugin": "^5.0.4",
+        "@types/webpack-bundle-analyzer": "^4.4.2",
+        "@typescript-eslint/eslint-plugin": "^5.33.1",
+        "@typescript-eslint/parser": "^5.33.1",
+        "browserslist-config-erb": "^0.0.3",
+        "chalk": "^4.1.2",
+        "concurrently": "^7.3.0",
+        "cross-env": "^7.0.3",
+        "css-loader": "^6.7.1",
+        "css-minimizer-webpack-plugin": "^4.0.0",
+        "detect-port": "^1.3.0",
+        "electron": "^27.0.3",
+        "electron-builder": "^24.6.4",
+        "electron-devtools-installer": "^3.2.0",
+        "electronmon": "^2.0.2",
+        "eslint": "^8.22.0",
+        "eslint-config-airbnb-base": "^15.0.0",
+        "eslint-config-erb": "^4.0.6",
+        "eslint-import-resolver-typescript": "^3.4.1",
+        "eslint-import-resolver-webpack": "^0.13.2",
+        "eslint-plugin-compat": "^4.0.2",
+        "eslint-plugin-import": "^2.26.0",
+        "eslint-plugin-jest": "^26.8.3",
+        "eslint-plugin-jsx-a11y": "^6.6.1",
+        "eslint-plugin-promise": "^6.0.0",
+        "eslint-plugin-react": "^7.30.1",
+        "eslint-plugin-react-hooks": "^4.6.0",
+        "@kapeta/eslint-config": "^0.7.0",
+        "html-webpack-plugin": "^5.5.0",
+        "identity-obj-proxy": "^3.0.0",
+        "less": "^4.1.3",
+        "less-loader": "^11.0.0",
+        "lint-staged": "^13.0.3",
+        "mini-css-extract-plugin": "^2.6.1",
+        "path-browserify": "^1.0.1",
+        "prettier": "^2.8.4",
+        "react": ">=18",
+        "react-dom": ">=18",
+        "react-refresh": "^0.14.0",
+        "react-test-renderer": "^18.2.0",
+        "sass": "^1.54.4",
+        "sass-loader": "^13.0.2",
+        "style-loader": "^3.3.1",
+        "swr": "^2.2.0",
+        "terser-webpack-plugin": "^5.3.5",
+        "ts-jest": "^28.0.8",
+        "ts-loader": "^9.3.1",
+        "ts-node": "^10.9.1",
+        "tsconfig-paths-webpack-plugin": "^4.0.0",
+        "typescript": "^5.2.2",
+        "webpack": "^5.74.0",
+        "webpack-bundle-analyzer": "^4.5.0",
+        "webpack-cli": "^4.10.0",
+        "webpack-dev-server": "^4.10.0",
+        "webpack-merge": "^5.8.0",
+        "@kapeta/sdk-config": "^2",
+        "@kapeta/sdk-web-rest-client": "^2.1",
+        "copy-webpack-plugin": "^11.0.0",
+        "msw": "^2.0.6"
+    },
+    "build": {
+        "productName": "CoolTodoApp",
+        "appId": "com.example.CoolTodoApp",
+        "asar": true,
+        "asarUnpack": "**\\*.{node,dll}",
+        "files": [
+            "dist",
+            "node_modules",
+            "package.json"
+        ],
+        "generateUpdatesFilesForAllChannels": true,
+        "afterSign": ".erb/scripts/notarize.js",
+        "mac": {
+            "forceCodeSigning": true,
+            "category": "public.app-category.developer-tools",
+            "target": [
+                {
+                    "target": "default",
+                    "arch": [
+                        "arm64",
+                        "x64"
+                    ]
+                }
+            ],
+            "type": "distribution",
+            "hardenedRuntime": true,
+            "entitlements": "assets/entitlements.mac.plist",
+            "entitlementsInherit": "assets/entitlements.mac.plist",
+            "gatekeeperAssess": false
+        },
+        "dmg": {
+            "background": "assets/DMG_Background.png",
+            "iconSize": 80,
+            "window": {
+                "x": 500,
+                "y": 500,
+                "width": 544,
+                "height": 340
+            },
+            "contents": [
+                {
+                    "x": 172,
+                    "y": 141
+                },
+                {
+                    "x": 372,
+                    "y": 141,
+                    "type": "link",
+                    "path": "/Applications"
+                }
+            ]
+        },
+        "win": {
+            "target": [
+                "nsis"
+            ],
+            "signingHashAlgorithms": [
+                "sha256"
+            ]
+        },
+        "linux": {
+            "target": [
+                "AppImage"
+            ],
+            "category": "Development",
+            "maintainer": "support@example.com"
+        },
+        "appImage": {
+            "desktop": "assets/linux.desktopfile"
+        },
+        "directories": {
+            "app": "release/app",
+            "buildResources": "assets",
+            "output": "release/build"
+        },
+        "extraResources": [
+            "./assets/**"
+        ],
+        "publish": [
+            {
+                "provider": "github",
+                "owner": "github-owner",
+                "repo": "repo-name",
+                "releaseType": "release"
+            },
+            {
+                "provider": "github",
+                "owner": "github-owner",
+                "repo": "app-desktop-builder",
+                "releaseType": "release"
+            }
+        ],
+        "protocols": [
+            {
+                "name": "cool-todo-app",
+                "schemes": [
+                    "cool-todo-app"
+                ]
+            }
+        ]
+    },
+    "release": {
+        "plugins": [
+            "@semantic-release/commit-analyzer",
+            "@semantic-release/release-notes-generator",
+            [
+                "@semantic-release/changelog",
+                {
+                    "changelogFile": "CHANGELOG.md"
+                }
+            ],
+            "@semantic-release/npm",
+            [
+                "@semantic-release/npm",
+                {
+                    "pkgRoot": "./release/app/"
+                }
+            ],
+            "@semantic-release/github",
+            [
+                "@semantic-release/git",
+                {
+                    "assets": [
+                        "CHANGELOG.md",
+                        "package.json",
+                        "package-lock.json",
+                        "release/app/package.json",
+                        "release/app/package-lock.json"
+                    ],
+                    "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+                }
+            ]
+        ],
+        "branches": [
+            "production",
+            {
+                "name": "master",
+                "prerelease": "beta",
+                "channel": "beta"
+            }
+        ]
+    },
+    "devEngines": {
+        "node": ">=14.x",
+        "npm": ">=7.x"
+    },
+    "electronmon": {
+        "patterns": [
+            "!**/**",
+            "src/main/**"
+        ],
+        "logLevel": "quiet"
+    },
+    "msw": {
+        "workerDirectory": "src/mocks"
+    }
+}

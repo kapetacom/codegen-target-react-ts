@@ -1,0 +1,7 @@
+dist/*
+.erb/
+.husky/
+release/*
+node_modules/*
+CHANGELOG.md
+package-lock.json

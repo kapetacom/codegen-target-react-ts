@@ -13,11 +13,12 @@
         "url": "{{string (authorDomain)}}"
     },
     "scripts": {
+        "prepare:hosts": "node -r ts-node/register ./.erb/scripts/prepare-hosts.ts",
         "build": "concurrently \"npm run build:main\" \"npm run build:renderer\"",
         "build:main": "cross-env NODE_ENV=production TS_NODE_TRANSPILE_ONLY=true webpack --config ./.erb/configs/webpack.config.main.prod.ts",
         "build:renderer": "cross-env NODE_ENV=production TS_NODE_TRANSPILE_ONLY=true webpack --config ./.erb/configs/webpack.config.renderer.prod.ts",
         "postinstall": "ts-node .erb/scripts/check-native-dep.js && electron-builder install-app-deps && npm run dev:dll",
-        "lint:eslint": "cross-env NODE_ENV=development eslint . --ext .js,.jsx,.ts,.tsx",
+        "lint:eslint": "cross-env NODE_ENV=development eslint src/ --ext .js,.jsx,.ts,.tsx",
         "lint:tsc": "tsc --noEmit && tsc --noEmit --project src/renderer/tsconfig.json",
         "lint": "npm run lint:eslint && npm run lint:tsc",
         "package": "ts-node ./.erb/scripts/clean.js dist && npm run build && electron-builder build --publish never",
@@ -26,12 +27,13 @@
         "package:linux": "ts-node ./.erb/scripts/clean.js dist && npm run build && electron-builder build --linux --publish never",
         "rebuild": "electron-rebuild --parallel --types prod,dev,optional --module-dir release/app",
         "dev:dll": "cross-env NODE_ENV=development TS_NODE_TRANSPILE_ONLY=true webpack --config ./.erb/configs/webpack.config.renderer.dev.dll.ts",
-        "start:dev": "cross-env PORT=8080 ts-node ./.erb/scripts/check-port-in-use.js && cross-env PORT=8080 npm run start:renderer",
+        "start:dev": "npm run prepare:hosts && cross-env PORT=8080 ts-node ./.erb/scripts/check-port-in-use.js && cross-env PORT=8080 npm run start:renderer",
         "start:main": "cross-env NODE_ENV=development electronmon -r ts-node/register/transpile-only .",
         "start:preload": "cross-env NODE_ENV=development TS_NODE_TRANSPILE_ONLY=true webpack --config ./.erb/configs/webpack.config.preload.dev.ts",
         "start:renderer": "cross-env NODE_ENV=development TS_NODE_TRANSPILE_ONLY=true webpack serve --config ./.erb/configs/webpack.config.renderer.dev.ts",
         "format": "prettier --write .",
-        "recalculate-hash": "node src/scripts/recalculate-hash.js"
+        "msw:init": "msw init",
+        "recalculate-hash": "node scripts/recalculate-hash.js"
     },
     "lint-staged": {
         "*.json,.{eslintrc,prettierrc}": [
@@ -50,7 +52,12 @@
         "electron-log": "^5.0.0",
         "electron-updater": "^6.1.4",
         "fix-path": "^4.0.0",
-        "hazardous": "^0.3.0"
+        "hazardous": "^0.3.0",
+        "@kapeta/sdk-config": "^2"
+        {{#consumes 'kapeta/resource-type-rest-client'}},
+        "@kapeta/sdk-rest": "^1.1.1",
+        "@kapeta/sdk-rest-client": "^3.2.1",
+        {{/consumes}}
     },
     "devDependencies": {
         "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
@@ -90,6 +97,7 @@
         "eslint-plugin-promise": "^6.0.0",
         "eslint-plugin-react": "^7.30.1",
         "eslint-plugin-react-hooks": "^4.6.0",
+        "@kapeta/eslint-config": "^0.7.0",
         "html-webpack-plugin": "^5.5.0",
         "identity-obj-proxy": "^3.0.0",
         "less": "^4.1.3",
@@ -119,15 +127,13 @@
         "webpack-merge": "^5.8.0",
         "@kapeta/sdk-config": "^2"
         {{#consumes 'kapeta/resource-type-rest-client'}},
-            "@kapeta/sdk-rest": "^1.0.1",
-            "@kapeta/sdk-rest-client": "^3.2",
             "@kapeta/sdk-web-rest-client": "^2.1",
             "copy-webpack-plugin": "^11.0.0",
             "msw": "^2.0.6"
         {{/consumes}}
     },
     "build": {
-        "productName": "@{{pascalCase (desktopName)}}",
+        "productName": "{{pascalCase (desktopName)}}",
         "appId": "com.example.{{pascalCase (desktopName)}}",
         "asar": true,
         "asarUnpack": "**\\*.{node,dll}",
@@ -282,7 +288,7 @@
 
     {{#consumes 'kapeta/resource-type-rest-client'}},
         "msw": {
-            "workerDirectory": "src/mocks/.generated",
+            "workerDirectory": "src/mocks",
         }
     {{/consumes}}
 }
