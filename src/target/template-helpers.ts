@@ -41,7 +41,7 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
             return [];
         }
 
-        return parsedEntities as DSLData[];
+        return parsedEntities;
     }
 
     const resolvePath = function (path: string, options: HelperOptions) {
@@ -77,6 +77,42 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
     });
 
     engine.registerHelper('path', resolvePath);
+
+    const isFrontend = parseKapetaUri(context.kind).fullName === 'kapeta/block-type-frontend';
+
+    engine.registerHelper('isFrontend', function (this: any, options: HelperOptions) {
+        return isFrontend ? options.fn(this) : options.inverse(this);
+    });
+
+    engine.registerHelper('isDesktop', function (this: any, options: HelperOptions) {
+        return !isFrontend ? options.fn(this) : options.inverse(this);
+    });
+
+    engine.registerHelper('backendBasePath', () => {
+        return isFrontend ? 'src/server' : 'src/main';
+    });
+
+    engine.registerHelper('frontendBasePath', () => {
+        return isFrontend ? 'src/browser' : 'src/renderer';
+    });
+
+    engine.registerHelper('desktopName', () => {
+        return context.metadata.title ?? context.metadata.name;
+    });
+
+    engine.registerHelper('desktopDescription', () => {
+        return context.metadata.description ?? '';
+    });
+
+    engine.registerHelper('authorEmail', () => {
+        return context.metadata.email ?? 'support@example.com';
+    });
+    engine.registerHelper('authorName', () => {
+        return context.metadata.authorName ?? parseKapetaUri(context.metadata.name).handle;
+    });
+    engine.registerHelper('authorDomain', () => {
+        return context.metadata.domain ?? 'https://example.com';
+    });
 
     engine.registerHelper('mswpath', (path: string) => {
         // Replace all request parameters like e.g {id} with :id

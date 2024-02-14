@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name={{pascalCase (desktopName)}}
+Comment={{desktopDescription}}
+Exec={{pascalCase (desktopName)}}.AppImage
+Icon=com.example.{{pascalCase (desktopName)}}
+Keywords=
+StartupNotify=true
+Terminal=false

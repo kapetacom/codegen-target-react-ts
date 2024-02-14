@@ -1,4 +1,4 @@
-//#FILENAME:src/server/.eslintrc.cjs:create-only
+//#FILENAME:{{backendBasePath}}/.eslintrc.cjs:create-only
 module.exports = {
     extends: ['@kapeta/eslint-config'],
     env: {

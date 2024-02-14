@@ -1,4 +1,5 @@
-//#FILENAME:src/browser/.generated/clients/{{controller-name this}}Client.ts:write-always
+{{#isFrontend}}
+//#FILENAME:{{frontendBasePath}}/.generated/clients/{{controller-name this}}Client.ts:write-always
 //
 // GENERATED SOURCE - DO NOT EDIT
 //
@@ -110,3 +111,4 @@ export class {{controller-name this}}Client extends RestClient {
 
 {{/methods}}
 }
+{{/isFrontend}}

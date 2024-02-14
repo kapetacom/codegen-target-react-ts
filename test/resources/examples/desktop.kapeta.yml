@@ -1,0 +1,128 @@
+kind: kapeta/block-type-desktop:local
+metadata:
+  name: kapeta/desktop-app
+  visibility: private
+  title: Cool Todo App
+  description: This is a cool app for simple todo tasks
+spec:
+  entities:
+    source:
+      type: kaplang
+      version: 1.11.2
+      value: |-
+        type Entity {
+            id: string
+            name: string
+        }
+        enum Tags {
+            TAG1,TAG2
+        }
+        
+        enum TaskState {
+            PENDING,DONE
+        }
+        
+        type Task {
+            id:string
+
+            state:TaskState
+
+            created?:Date
+
+            views?:integer
+
+            stars?:float
+
+            numberList:double[]
+
+            // Age of the task
+            age:integer
+
+            metadata:Map<string,string>
+
+            tags:Set<Tags>
+        }
+        
+        enum TestState {
+            OK,TWO
+        }
+
+        MyType {
+            id:string
+
+            state:TestState
+        }
+  providers: []
+  consumers:
+    - kind: kapeta/resource-type-rest-client:1.0.12
+      metadata:
+        name: tasks
+      spec:
+        source:
+          type: kapeta-dsl
+          value: |-
+            // Add task for user
+            @POST("/tasks/{userId}/{id}")
+            addTask(@Path userId:string, @Path id:string,@Query filter?:string,@Body task:Task):Task
+            
+            // Mark task as done
+            @POST("/tasks/{id}/done")
+            markAsDone(@Path id:string,@Header headers?:any, @Body metadata:Map<string,string>, @Query tags?:Set<Tags>):void
+            
+            // Delete task
+            @DELETE("/tasks/{id}")
+            removeTask(@Path id:string):void
+            
+            controller Lists('/lists') {
+              // Add list
+              @POST("/{id}")
+              addList(@Path id:string):void
+            
+              // Delete list
+              @DELETE("/{id}")
+              removeList(@Path id:string):void
+            }
+    - kind: kapeta/resource-type-rest-client:1.1.1
+      metadata:
+        name: backend
+      spec:
+        port:
+          name: rest
+          type: rest
+        methods:
+          getEntity:
+            responseType:
+              ref: Entity
+            method: GET
+            path: /{id}
+            arguments:
+              id:
+                type: string
+                transport: PATH
+                argument: id
+                optional: false
+        source:
+          type: kaplang
+          version: 1.11.2
+          value: |-
+            @GET("/{id}")
+            getEntity(@Path id:string):Entity
+  target:
+    kind: kapeta/language-target-react-ts:local
+  configuration:
+    types:
+      - type: dto
+        name: Config
+        properties:
+          name:
+            type: string
+            secret: false
+            required: false
+            global: false
+    source:
+      type: kaplang
+      version: 1.11.2
+      value: |-
+        type Config {
+            name?: string
+        }

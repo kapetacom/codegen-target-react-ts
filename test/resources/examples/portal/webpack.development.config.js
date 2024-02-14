@@ -99,12 +99,7 @@ if (devMode) {
     config.plugins.unshift(new webpack.HotModuleReplacementPlugin(), new ReactRefreshWebpackPlugin());
     config.plugins.push(
         new CopyWebpackPlugin({
-            patterns: [
-                {
-                    from: Path.resolve(__dirname, 'src/mocks/.generated/mockServiceWorker.js'),
-                    to: 'mockServiceWorker.js',
-                },
-            ],
+            patterns: [{ from: Path.resolve(__dirname, 'src/mocks/mockServiceWorker.js'), to: 'mockServiceWorker.js' }],
         })
     );
 } else {

@@ -1,0 +1,27 @@
+{
+    "name": "@{{lowercase data.metadata.name}}",
+    "version": "0.0.1",
+    "productName": "{{pascalCase (desktopName)}}",
+    "description": "{{string (desktopDescription)}}",
+    "homepage": "{{string (authorDomain)}}",
+    "main": "./dist/main/main.js",
+    "type": "commonjs",
+    "license": "MIT",
+    "author": {
+        "email": "{{string (authorEmail)}}",
+        "name": "{{string (authorName)}}",
+        "url": "{{string (authorDomain)}}"
+    },
+    "scripts": {
+        "rebuild": "node -r ts-node/register ../../.erb/scripts/electron-rebuild.js",
+        "postinstall": "npm run rebuild && npm run link-modules",
+        "link-modules": "node -r ts-node/register ../../.erb/scripts/link-modules.ts"
+    },
+    "dependencies": {
+        "@kapeta/sdk-config": "^2"
+        {{#consumes 'kapeta/resource-type-rest-client'}},
+            "@kapeta/sdk-rest-client": "^3.2",
+            "@kapeta/sdk-rest": "^1.0.1"
+        {{/consumes}}
+    }
+}

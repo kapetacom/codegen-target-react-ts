@@ -1,6 +1,7 @@
 {{#switch type}}
     {{#case 'controller'}}
         {{#kaplang-reader-rest-controller}}
+            {{> dsl/rest-client/desktop.restclient.ts.hbs}}
             {{> dsl/rest-client/browser.restclient.ts.hbs}}
             {{> dsl/rest-client/mocks.api.handlers.hbs}}
             {{> dsl/rest-client/server.restclient.ts.hbs}}

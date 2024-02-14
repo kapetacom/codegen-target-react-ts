@@ -1,0 +1,3 @@
+{{> kapeta/block-type-frontend/gitignore}}
+release/app/dist
+config/hosts.development.json

@@ -3,9 +3,8 @@
  * SPDX-License-Identifier: MIT
  */
 
-import { format, Target, Template, TypeLike } from '@kapeta/codegen-target';
+import { format, Target, GeneratedAsset, GeneratedFile, SourceFile } from '@kapeta/codegen-target';
 import Path from 'path';
-import { GeneratedAsset, GeneratedFile, SourceFile } from '@kapeta/codegen';
 import { exec } from '@kapeta/nodejs-process';
 import { mergeDevcontainers } from './target/merge-devcontainers';
 import { mergePackageJson } from './target/merge-package';

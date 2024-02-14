@@ -1,4 +1,5 @@
-//#FILENAME:src/server/.generated/proxies/rest/{{type data.metadata.name}}-routes.ts:write-always
+{{#isFrontend}}
+//#FILENAME:{{backendBasePath}}/.generated/proxies/rest/{{type data.metadata.name}}-routes.ts:write-always
 //
 // GENERATED SOURCE - DO NOT EDIT
 //
@@ -12,3 +13,5 @@ export const create{{type data.metadata.name}}Router = async (provider: ConfigPr
 
     return router;
 }
+
+{{/isFrontend}}
