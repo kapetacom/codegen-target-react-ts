@@ -31,7 +31,6 @@ describe('blocks', () => {
         return CodegenHelpers.testCodeGenFor(target, new BlockCodeGenerator(data), basedir);
     });
 
-
     test('desktop', async () => {
         const basedir = Path.resolve(__dirname, '../resources/examples/desktop');
         const data = require('../resources/examples/desktop.kapeta.yml') as BlockDefinition;
