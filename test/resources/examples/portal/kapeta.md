@@ -38,48 +38,52 @@ In dev mode the web pages are served from memory and will be automatically rebui
 For react components and styles it also supports hot-reloading whenever possible.
 
 ### Templates
-There are a few templates that is being used when rendering the main HTML page. The default ones
-contains the bare minimum - but you can override them by providing a map of template functions in
-```src/server/index.ts```:
+The templates are managed via [express template engine](https://expressjs.com/en/guide/using-template-engines.html).
+In short, express needs to know where the views live, and which renderer to use.
 
-**Note**: You shouldn't use the response object to send the response - instead you should return the rendered HTML as a string.
-The response object is only there to allow you to access ```res.locals``` and similar values other middleware.
+Make sure to include all parameters in the template, otherwise the block will not work as expected.
 
 ```typescript
-import type { Request, Response } from 'express';
-import type { MainTemplateParams } from '@kapeta/sdk-server';
+// Set up webpack middleware and render methods
+const DIST_DIR = Path.resolve(__dirname, "../dist");
+const webpackConfig = require("../webpack.development.config");
+server.configureFrontend(DIST_DIR, webpackConfig);
 
-server.configureAssets(BASE_DIR, webpackConfig, {
-    renderMain(req: Request, res: Response, params: MainTemplateParams): string {
-        return `<!doctype html>
-            <html lang="en-US">
-              <head>
-                <title>My awesome website</title>
-                <meta charset="utf-8" />
-                <base href="${params.baseUrl}" />
-                ${params.styles}
-              </head>
-              <body>
-                ${params.scripts}
-              </body>
-            </html>`
+// Set up templating
+const hbs = createHandlebars({
+    extname: '.hbs',
+    defaultLayout: false,
+    helpers: {
+        // Recommended helper to serialize values in handlebars
+        toJSON: (obj: any) => JSON.stringify(obj),
     },
+});
+server.express().engine('handlebars', hbs.engine);
+server.express().set('views', Path.resolve(__dirname, "../templates"));
+server.express().set('view engine', 'handlebars');
+
+server.get('/', async (req, res, next) => {
+    // render the main template e.g. templates/main.hbs
+    await server.renderPage('main');
 });
 ```
 
-The full list of templates are:
+Template parameters include:
+
+- `baseURL` usually sets the HTML [base tag](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base) in the template
+- `scripts` is a list of `<script>` tags to load the app JS bundle.
+- `styles` is a list of `<style>` tags to load the app CSS bundle.
+
+
+There are a few templates helpers that is being used when rendering the main HTML page to render assets.
+The default ones contains the bare minimum - but you can override them by providing a map of template
+functions in ```src/server/index.ts```. The full list of templates are:
+
 ```typescript
 import type { Request, Response } from 'express';
 import type { MainTemplateParams } from '@kapeta/sdk-server';
 
 interface Templates {
-    /**
-     * Renders main html template. Receives params with baseUrl, styles and scripts.
-     *
-     * All of them should be rendered as-is, without any escaping for the renderer to work.
-     */
-    renderMain(req: Request, res: Response, params: MainTemplateParams): string;
-
     /**
      * Renders script link - used in both dev and prod mode
      */
@@ -89,11 +93,6 @@ interface Templates {
      * Renders stylesheet link - only used in prod mode
      */
     renderStylesheet(req: Request, res: Response, src: string): string;
-
-    /**
-     * Renders inline style - only used in dev mode
-     */
-    renderInlineStyle(req: Request, res: Response, style: string): string;
 }
 ```
 You can provide 1 or more of these templates to override the default ones.
