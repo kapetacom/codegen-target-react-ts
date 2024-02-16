@@ -3,9 +3,8 @@
     "compilerOptions": {
         "outDir": "./node",
         "declaration": true,
-        "esModuleInterop": true,
-        "resolveJsonModule": true,
+        "esModuleInterop": true
     },
-    "exclude": ["node_modules", "web", "node"],
+    "exclude": ["node_modules", "web", "node", "src/web/**/*"],
     "include": ["src/**/*.ts"]
 }
