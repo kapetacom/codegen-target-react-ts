@@ -13,7 +13,7 @@ spec:
     workingDir: /workspace
     healthcheck: 'wget --no-verbose --tries=1 --spider "http://localhost:80/.kapeta/health" || exit 1'
     handlers:
-      onCreate: /workspace/scripts/start-dev.sh
+      onCreate: sh /workspace/scripts/start-dev.sh
     Env:
       - NPM_CONFIG_PROGRESS=false
       - NPM_CONFIG_LOGLEVEL=verbose
