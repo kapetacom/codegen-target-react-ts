@@ -40,7 +40,7 @@ runApp(async (configProvider: ConfigProvider) => {
     server.express().use(<express.ErrorRequestHandler>((err: unknown, _req, res, _next) => {
         console.error(err);
         if (err && typeof err === 'object') {
-            res.status(('statusCode' in err && err.statusCode || 'status' in err && err.status || 500) as number);
+            res.status((('statusCode' in err && err.statusCode) || ('status' in err && err.status) || 500) as number);
         }
         res.renderPage('main', { error: err });
     }));
