@@ -35,7 +35,7 @@
         "@tsconfig/create-react-app": "^2.0.1",
         "@kapeta/sdk-proxy-route": "^2.1.1",
         "express": "^4.17.1",
-        "express-handlebars": "^5.3.3"
+        "express-handlebars": "^6.0.6"
     },
     "devDependencies": {
         "@types/react": "^18.0.27",
