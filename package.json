@@ -65,7 +65,7 @@
     },
     "scripts": {
         "prepublishOnly": "npm run test && npm run build",
-        "build:web": "NODE_ENV=production webpack",
+        "build:web": "set NODE_ENV=production && webpack",
         "build:dist": "tsc",
         "build": "npm run build:dist && npm run build:web",
         "start": "npm run watch",
