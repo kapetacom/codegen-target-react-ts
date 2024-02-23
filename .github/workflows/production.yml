@@ -16,7 +16,7 @@ jobs:
         id: checkout
         with:
           fetch-depth: 0
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         id: setup-node
       - name: Install dependencies
         run: npm install
