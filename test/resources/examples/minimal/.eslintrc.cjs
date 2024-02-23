@@ -1,4 +1,5 @@
 module.exports = {
+    root: true,
     extends: ['@kapeta/eslint-config'],
     env: {
         node: true,
