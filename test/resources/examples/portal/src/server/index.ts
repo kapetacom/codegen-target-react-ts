@@ -31,15 +31,17 @@ runApp(async (configProvider: ConfigProvider) => {
     server.use(await createRoutes(configProvider));
 
     // Add a catch-all route to render the main template
-    server.use(async (req, res, next) => {
+    server.use((req, res, next) => {
         // render the main template e.g. templates/main.hbs
-        await res.renderPage('main');
+        res.renderPage('main');
     });
 
     // Add app error handler
-    server.express().use(<express.ErrorRequestHandler>((err, _req, res, _next) => {
+    server.express().use(<express.ErrorRequestHandler>((err: unknown, _req, res, _next) => {
         console.error(err);
-        res.status(err?.statusCode || err?.status || 500);
+        if (err && typeof err === 'object') {
+            res.status((('statusCode' in err && err.statusCode) || ('status' in err && err.status) || 500) as number);
+        }
         res.renderPage('main', { error: err });
     }));
 

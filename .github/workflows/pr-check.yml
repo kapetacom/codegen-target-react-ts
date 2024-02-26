@@ -18,3 +18,22 @@ jobs:
         run: |
           jq package.json -r .main | xargs -I {} test -f {}
       - run: npm run test
+
+  bootstrap:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: https://registry.npmjs.org/
+      - run: npm install
+        working-directory: ./test/resources/examples/portal
+      # Test is somehow optional?
+      - run: npm run --if-present test
+        working-directory: ./test/resources/examples/portal
+
+      - run: npm run lint
+        working-directory: ./test/resources/examples/portal
+      - run: npm run build
+        working-directory: ./test/resources/examples/portal
