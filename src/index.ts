@@ -22,6 +22,11 @@ export default class ReactTSTarget extends Target {
         return engine;
     }
     protected _postProcessCode(filename: string, code: string): string {
+        // Skip processing handlebars due to it stripping <DOCTYPE>
+        // https://github.com/prettier/prettier/issues/15220
+        if (filename.endsWith('.hbs')) {
+            return code;
+        }
         return format(filename, code);
     }
 

@@ -1,13 +1,14 @@
+#FILENAME:src/templates/main.hbs:create-only
 <!DOCTYPE html>
 <html lang="en-US">
     <head>
         <title>My site</title>
         <meta charset="utf-8" />
-        <base href="{{{baseUrl}}}" />
+        <base href="\{{{baseUrl}}}" />
         <link rel="shortcut icon" type="image/svg+xml" href="/assets/images/favicon.svg" />
-        {{{params.styles}}}
+        \{{{params.styles}}}
     </head>
     <body>
-        {{{params.scripts}}}
+        \{{{params.scripts}}}
     </body>
 </html>
