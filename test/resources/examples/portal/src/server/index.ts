@@ -33,6 +33,9 @@ runApp(async (configProvider: ConfigProvider) => {
             toJSON: (obj: any) => JSON.stringify(obj),
         },
     });
+
+    // "fix" the type of the engine to be compatible with express types
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises
     server.express().engine('hbs', hbs.engine);
     server.express().set('views', Path.resolve(__dirname, '../templates'));
     server.express().set('view engine', 'hbs');
