@@ -34,7 +34,7 @@ runApp(async (configProvider: ConfigProvider) => {
         },
     });
     server.express().engine('hbs', hbs.engine);
-    server.express().set('views', Path.resolve(__dirname, "../templates"));
+    server.express().set('views', Path.resolve(__dirname, '../templates'));
     server.express().set('view engine', 'hbs');
 
     // Serve static files from the assets directory
