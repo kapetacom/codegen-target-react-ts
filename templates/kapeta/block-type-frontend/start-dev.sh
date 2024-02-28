@@ -13,4 +13,3 @@ if [ "$KAPETA_ENVIRONMENT_TYPE" = "docker" ]; then
 else
   npm run start:dev
 fi
-
