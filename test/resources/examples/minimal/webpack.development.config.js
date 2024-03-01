@@ -7,8 +7,7 @@ const AssetsPlugin = require('assets-webpack-plugin');
 
 const PAGES = require('./webpack.pages.js');
 
-const HotMiddlewareScript =
-    'webpack-hot-middleware/client?path=__webpack_hmr&timeout=20000&dynamicPublicPath=true&reload=true';
+const HotMiddlewareScript = 'webpack-hot-middleware/client?path=__webpack_hmr&timeout=20000&reload=true';
 
 const devMode = process.env.NODE_ENV === 'development';
 
