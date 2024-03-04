@@ -11,6 +11,9 @@ const BASE_DIR = Path.resolve(__dirname, '../../');
 // The directory where the output of the build is stored
 const DIST_DIR = Path.resolve(BASE_DIR, './dist');
 
+// The directory where the public files are stored
+const PUBLIC_DIR = Path.resolve(BASE_DIR, './public');
+
 // The directory where the static assets are stored
 const ASSETS_DIR = Path.resolve(BASE_DIR, './assets');
 
@@ -39,6 +42,9 @@ runApp(async (configProvider: ConfigProvider) => {
     server.express().engine('hbs', hbs.engine);
     server.express().set('views', Path.resolve(__dirname, '../templates'));
     server.express().set('view engine', 'hbs');
+
+    // Serve static files from the public directory in the root of the server
+    server.express().use('/', express.static(PUBLIC_DIR));
 
     // Serve static files from the assets directory
     server.express().use('/assets', express.static(ASSETS_DIR));
