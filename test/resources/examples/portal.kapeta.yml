@@ -120,3 +120,8 @@ spec:
 
             state:TestState
         }
+
+        type Node {
+            value: integer
+            children: Node[]
+        }
