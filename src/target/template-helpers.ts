@@ -11,6 +11,7 @@ import {
     DataTypeReader,
     DSLData,
     DSLEntity,
+    DSLEntityType,
     DSLReferenceResolver,
     DSLType,
     RESTControllerReader,
@@ -145,6 +146,7 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
         const entities = getParsedEntities();
         const resolver = new DSLReferenceResolver();
         const referencesEntities = resolver.resolveReferencesFrom([arg], entities);
+        const name = arg.type !== DSLEntityType.COMMENT ? arg.name : '';
 
         if (referencesEntities.length === 0) {
             return '';
@@ -154,6 +156,8 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
 
         return Template.SafeString(
             referencesEntities
+                // skip importing self
+                .filter((entity) => entity.name !== name)
                 .map((entity) => {
                     const native = DataTypeReader.getNative(entity);
                     if (native) {
