@@ -10,11 +10,12 @@ import {
     asComplexType,
     DataTypeReader,
     DSLData,
+    DSLDataType,
+    DSLDataTypeProperty,
     DSLEntity,
     DSLEntityType,
     DSLReferenceResolver,
     DSLType,
-    RESTControllerReader,
     TypescriptWriter,
     ucFirst,
 } from '@kapeta/kaplang-core';
@@ -174,6 +175,7 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
         const entities = getParsedEntities();
         const resolver = new DSLReferenceResolver();
         const referencesEntities = resolver.resolveReferencesFrom([arg], entities);
+        const name = arg.type !== DSLEntityType.COMMENT ? arg.name : '';
 
         if (referencesEntities.length === 0) {
             return '';
@@ -183,6 +185,8 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
 
         return Template.SafeString(
             referencesEntities
+                // skip importing self
+                .filter((entity) => entity.name !== name)
                 .map((entity) => {
                     const native = DataTypeReader.getNative(entity);
                     if (native) {
@@ -209,9 +213,38 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
     engine.registerHelper('typescript-config', (entity: DSLData) => {
         const writer = new TypescriptWriter();
 
+        // Rename the entity and its properties to add the Config suffix
+        // Recursive checking needed for in case the entity is recursive
+        const renameEntityAndProps = (e: DSLData): DSLData => {
+            const original = e.name;
+            const newName = e.name + 'Config';
+
+            function renameRecursive(prop: DSLDataTypeProperty): DSLDataTypeProperty {
+                if (typeof prop.type === 'object') {
+                    if (prop.type.name === original) {
+                        prop.type.name = newName;
+                    }
+                    return {
+                        ...prop,
+                        properties: prop.properties?.map(renameRecursive),
+                    };
+                }
+                return prop;
+            }
+            if (e.type !== DSLEntityType.DATATYPE) {
+                return e;
+            }
+
+            return {
+                ...e,
+                name: newName,
+                properties: e.properties?.map(renameRecursive),
+            };
+        };
+
         try {
             // All config entities are postfixed with Config
-            const copy = { ...entity, name: entity.name + 'Config' };
+            const copy = renameEntityAndProps(entity);
             return Template.SafeString(writer.write([copy]));
         } catch (e) {
             console.warn('Failed to write entity', entity);

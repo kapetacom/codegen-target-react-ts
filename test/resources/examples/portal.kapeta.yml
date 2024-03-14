@@ -125,3 +125,20 @@ spec:
             value: integer
             children: Node[]
         }
+  configuration:
+    types:
+      - type: dto
+        name: Recursive
+        properties:
+          children:
+            ref: Recursive[]
+            secret: false
+            required: true
+            global: false
+    source:
+      type: kaplang
+      version: 1.11.2
+      value: |-
+        type Recursive {
+        	children: Recursive[]
+        }
