@@ -12,7 +12,6 @@ export const mergePackageJson = (
 ): GeneratedFile => {
     // We can merge the dependencies and scripts into existing package.json without overwriting
     // the existing user adjusted content
-
     const target = JSON.parse(sourceFile.content);
     const newContent = JSON.parse(newFile.content.toString());
     const lastContent = lastFile ? JSON.parse(lastFile.content.toString()) : null;
@@ -24,13 +23,13 @@ export const mergePackageJson = (
         target.devDependencies = {};
     }
 
-    addNewOrUnchanged(target.dependencies, newContent.dependencies, lastContent?.dependencies ?? null);
-    addNewOrUnchanged(target.devDependencies, newContent.devDependencies, lastContent?.devDependencies ?? null);
+    addNewOrUnchanged(target.dependencies, newContent.dependencies || {}, lastContent?.dependencies ?? null);
+    addNewOrUnchanged(target.devDependencies, newContent.devDependencies || {}, lastContent?.devDependencies ?? null);
 
     if (!target.scripts) {
         target.scripts = {};
     }
-    addNewOrUnchanged(target.scripts, newContent.scripts, lastContent?.scripts ?? null);
+    addNewOrUnchanged(target.scripts, newContent.scripts || {}, lastContent?.scripts ?? null);
     addNewOrUnchanged(target, newContent, lastContent);
 
     return {

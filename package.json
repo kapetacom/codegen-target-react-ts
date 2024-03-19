@@ -70,7 +70,7 @@
         "build": "npm run build:dist && npm run build:web",
         "start": "npm run watch",
         "watch": "NODE_ENV=development webpack --watch",
-        "test": "jest --testMatch '<rootDir>/test/**/*.test.ts'",
+        "test": "jest --testMatch '<rootDir>/test/**/*.test.ts' --testMatch '<rootDir>/src/**/*.test.ts'",
         "test:update": "FORCE_GENERATE=true npm run -s test",
         "format": "prettier --write .",
         "lint": "tsc --noEmit && eslint src/**/*.ts"
