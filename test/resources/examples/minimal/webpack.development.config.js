@@ -44,7 +44,7 @@ const config = {
     output: {
         path: Path.join(__dirname, 'dist'),
         filename: '[name].[contenthash].bundle.js',
-        publicPath: '/dist/',
+        publicPath: 'dist/',
     },
     entry: entries,
     devtool: devMode ? 'inline-source-map' : false,
