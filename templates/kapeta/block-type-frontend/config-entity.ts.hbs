@@ -1,5 +1,6 @@
 {{#kaplang-config data.spec.configuration.source}}
     //#FILENAME:{{backendBasePath}}/.generated/config/{{type name}}Config.ts:write-always
+    {{ai-type 'config'}}
     import Config from "@kapeta/sdk-config";
     {{#kaplang-has-reference this 'Instance'}}
         import { InstanceValue } from "@kapeta/sdk-config";

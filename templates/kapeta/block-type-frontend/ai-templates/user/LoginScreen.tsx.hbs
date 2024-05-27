@@ -1,0 +1,102 @@
+#FILENAME:src/browser/screens/LoginScreen.tsx:write-never
+{{ai-type 'web-screen'}}
+{{#ai-comment}}
+    This is a screen component that allows users to sign in to the application.
+
+    Suggested route: /login
+{{/ai-comment}}
+import React, { useState, useCallback } from 'react';
+import { Container, TextField, Button, Typography, Link as MuiLink, Grid } from '@mui/material';
+import { Link as RouterLink } from 'react-router-dom';
+
+{{#ai-comment}}
+    Import entities from the following path: '../../.generated/entities'
+    For example:
+    import { User } from '../../.generated/entities/User';
+{{/ai-comment}}
+
+{{#ai-comment}}
+    Import API client hooks from the following path: '../.generated/clients'
+    For example:
+    import { useUserClient } from '../.generated/clients/UserClient';
+{{/ai-comment}}
+
+export const LoginScreen: React.FC = () => {
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+
+    /**
+     * STORM-AI: Add constants for the API client hooks
+     */
+
+    const handleSubmit: React.FormEventHandler = useCallback((event) => {
+        event.preventDefault();
+        /**
+         * STORM-AI: Use the right API client and call the right method that authenticates the user
+         * and navigate to the main screen
+         */
+    }, []);
+
+    {{#raw}}
+    return (
+        <Container component="main" maxWidth="xs">
+            <Typography component="h1" variant="h5">
+                Sign in
+            </Typography>
+
+            <form onSubmit={handleSubmit}>
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="username"
+                    label="Username"
+                    name="username"
+                    autoComplete="username"
+                    autoFocus
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                />
+
+                <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    name="password"
+                    label="Password"
+                    type="password"
+                    id="password"
+                    autoComplete="current-password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                />
+
+                <Button type="submit" fullWidth variant="contained" color="primary">
+                    Sign In
+                </Button>
+            </form>
+
+            <Grid container justifyContent="flex-end" style={{ marginTop: '10px' }}>
+                {/**
+                 * STORM-AI: If the app does not have a "Forgot password?" screen, delete this Grid item
+                 */}
+                <Grid item>
+                    <MuiLink component={RouterLink} to="/forgot-password" variant="body2">
+                        Forgot password?
+                    </MuiLink>
+                </Grid>
+                {/**
+                 * STORM-AI: If the app does not have a "Sign Up" screen, delete this Grid item
+                 */}
+                <Grid item>
+                    <MuiLink component={RouterLink} to="/signup" variant="body2" style={{ marginLeft: '15px' }}>
+                        Sign Up
+                    </MuiLink>
+                </Grid>
+            </Grid>
+        </Container>
+    );
+    {{/raw}}
+};

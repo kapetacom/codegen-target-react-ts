@@ -1,4 +1,5 @@
 #FILENAME:kapeta.md:write-always
+{{ai-type 'documentation'}}
 # Kapeta Readme
 
 This file contains some structural information about the block.

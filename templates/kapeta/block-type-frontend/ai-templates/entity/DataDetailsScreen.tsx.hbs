@@ -1,0 +1,144 @@
+#FILENAME:src/browser/screens/DataDetailsScreen.tsx:write-never
+{{ai-type 'web-screen'}}
+{{#ai-comment}}
+This is a screen component that displays the details of a data item.
+You will rename the component and filename to the name of the data item followed by "DetailsScreen".
+
+Suggested route: /{resourceName}/:id where {resourceName} is the name of the data item.
+{{/ai-comment}}
+
+import React, { useEffect, useState } from 'react';
+import {
+    Container,
+    Button,
+    Typography,
+    Paper,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow,
+    CircularProgress,
+    Grid,
+} from '@mui/material';
+import { useParams, Link as RouterLink } from 'react-router-dom';
+
+{{#ai-comment}}
+    Import entities from the following path: '../../.generated/entities'
+    For example:
+    import { Customer } from '../../.generated/entities/Customer';
+{{/ai-comment}}
+
+{{#ai-comment}}
+    Import API client hooks from the following path: '../.generated/clients'
+    For example:
+    import { useCustomersCustomerClient } from '../.generated/clients/CustomersCustomerClient';
+{{/ai-comment}}
+
+export const DataDetailsScreen = () => {
+    const { id } = useParams<{ id: string }>();
+
+    /**
+     * STORM-AI: Add constants for the API client hooks
+     */
+
+    /**
+     * STORM-AI: Replace unknown with the type of the data type
+     */
+    const [data, setData] = useState<unknown | null>(null);
+    const [loading, setLoading] = useState<boolean>(true);
+    useEffect(() => {
+        const fetchDataAsync = async () => {
+            try {
+                /**
+                 * STORM-AI: Use the right API client and call the right method that fetches the data.
+                 * Then set the data to the state.
+                 */
+            } catch (error) {
+                console.error('Failed to fetch data:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        void fetchDataAsync();
+    }, [id]);
+
+    if (loading) {
+        return (
+            <Container component="main">
+                <CircularProgress />
+            </Container>
+        );
+    }
+
+    if (!data) {
+        return (
+            <Container component="main">
+                <Typography component="h1" variant="h5" gutterBottom>
+                    {/**
+                     * STORM-AI: Add a title here that says that the data is not found
+                     */}
+                </Typography>
+            </Container>
+        );
+    }
+
+    const detailFields: Record<string, string>[] = [
+        /**
+         * STORM-AI: Add the fields that you want to display in the details screen
+         */
+    ];
+
+    {{#raw}}
+    return (
+        <Container component="main">
+            <Typography component="h1" variant="h5" gutterBottom>
+                {/**
+                 * STORM-AI: Replace this comment with the title of the screen
+                 */}
+            </Typography>
+
+            <TableContainer component={Paper}>
+                <Table>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>Field</TableCell>
+                            <TableCell>Value</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {detailFields.map((field) => (
+                            <TableRow key={String(field.key)}>
+                                <TableCell>{field.label}</TableCell>
+                                <TableCell>{field.value}</TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </TableContainer>
+
+            <Grid container justifyContent="space-between" sx=&#123;{ mt: '10px' }}>
+                {/**
+                 * STORM-AI: If the API has a delete method, use this button to perform the delete action. Otherwise, remove it.
+                 */}
+                <Grid item>
+                    <Button variant="contained" color="error">
+                        Delete
+                    </Button>
+                </Grid>
+
+                {/**
+                 * STORM-AI: If the API has an edit method, use this link to navigate to the edit screen. Otherwise, remove it.
+                 */}
+                <Grid item>
+                    <Button component={RouterLink} to={`/resources/:id/edit`} variant="contained" color="primary">
+                        Edit
+                    </Button>
+                </Grid>
+            </Grid>
+        </Container>
+    );
+    {{/raw}}
+};

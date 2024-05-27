@@ -1,0 +1,131 @@
+#FILENAME:src/browser/screens/DataListScreen.tsx:write-never
+{{ai-type 'web-screen'}}
+{{#ai-comment}}
+    This is a screen component that displays a list of data items.
+    You will rename the component and filename to the name of the data item followed by "ListScreen".
+    Choose the most relevant columns to display in the table.
+    Avoid displaying sensitive information in the table.
+    Avoid showing multi-line text in the table.
+
+    Suggested route: /{resourceName} where {resourceName} is the name of the data item.
+{{/ai-comment}}
+import React, { useEffect, useMemo, useCallback } from 'react';
+import {
+    Container,
+    Typography,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow,
+    Paper,
+} from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+
+{{#ai-comment}}
+    Import entities from the following path: '../../.generated/entities'
+    For example:
+    import { Customer } from '../../.generated/entities/Customer';
+{{/ai-comment}}
+
+{{#ai-comment}}
+    Import API client hooks from the following path: '../.generated/clients'
+    For example:
+    import { useCustomersCustomerClient } from '../.generated/clients/CustomersCustomerClient';
+{{/ai-comment}}
+
+type Column<T> = {
+    /**
+     * The label of the column that will be displayed in the table header
+     */
+    label: string;
+    /**
+     * The key of the property in the data object that will be displayed in the table
+     */
+    key: keyof T;
+};
+
+export const DataListScreen: React.FC = () => {
+    const navigate = useNavigate();
+
+    /**
+     * STORM-AI: Add constants for the API client hooks
+     */
+
+    /**
+     * STORM-AI: Rename data and setData with appropriate names related to the fetched resource
+     */
+    const [data, setData] = React.useState<[]>([]);
+    useEffect(() => {
+        const fetchDataAsync = async () => {
+            /**
+             * STORM-AI: Use the right API client and call the right method that fetches the data.
+             * Then set the data to the state.
+             */
+        };
+
+        void fetchDataAsync();
+    }, []);
+
+    const handleRowClick = useCallback((id: string) => {
+        /**
+         * STORM-AI: Use navigate to redirect to the right screen
+         */
+    }, []);
+
+    /**
+     * STORM-AI: Replace any with the type of the item
+     */
+    const columns = useMemo<Column<any>[]>(
+        () => [
+            /**
+             * STORM-AI: Add the columns that you want to display in the table
+             */
+        ],
+        []
+    );
+
+    /**
+     * STORM-AI: Replace any with the type of the item
+     */
+    const getRowId = useCallback((item: any): string => {
+        /**
+         * STORM-AI: Return a unique identifier of the item
+         */
+        return '';
+    }, []);
+
+    {{#raw}}
+    return (
+        <Container component="main">
+            <Typography component="h1" variant="h5" gutterBottom>
+                {/**
+                 * STORM-AI: Replace this comment with the title of the screen
+                 */}
+            </Typography>
+
+            <TableContainer component={Paper}>
+                <Table>
+                    <TableHead>
+                        <TableRow>
+                            {columns.map((column) => (
+                                <TableCell key={String(column.key)}>{column.label}</TableCell>
+                            ))}
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {data.map((item) => (
+                            <TableRow key={getRowId(item)} hover onClick={() => handleRowClick(getRowId(item))}>
+                                {columns.map((column) => (
+                                    <TableCell key={String(column.key)}>{item[column.key]}</TableCell>
+                                ))}
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </TableContainer>
+        </Container>
+    );
+    {{/raw}}
+};
