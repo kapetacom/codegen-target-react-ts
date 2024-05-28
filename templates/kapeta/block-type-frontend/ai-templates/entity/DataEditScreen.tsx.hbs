@@ -1,0 +1,136 @@
+#FILENAME:src/browser/screens/DataEditScreen.tsx:write-never
+{{ai-type 'web-screen'}}
+{{#ai-comment}}
+    This is a screen component that allows users to edit the details of a data item.
+    You will rename the component and filename to the name of the data item followed by "EditScreen".
+
+    Suggested route: /{resourceName}/:id/edit where {resourceName} is the name of the data item.
+{{/ai-comment}}
+
+import React, { useEffect, useState, useCallback } from 'react';
+import { Container, TextField, Button, Typography, CircularProgress, Grid, Paper } from '@mui/material';
+import { useParams, useNavigate } from 'react-router-dom';
+
+{{#ai-comment}}
+    Import entities from the following path: '../../.generated/entities'
+    For example:
+    import { Customer } from '../../.generated/entities/Customer';
+{{/ai-comment}}
+
+{{#ai-comment}}
+    Import API client hooks from the following path: '../.generated/clients'
+    For example:
+    import { useCustomersCustomerClient } from '../.generated/clients/CustomersCustomerClient';
+{{/ai-comment}}
+
+type Resource = {
+    id: string;
+    [key: string]: any;
+};
+
+export const DataEditScreen: React.FC = () => {
+    const { id } = useParams<{ id: string }>();
+    const navigate = useNavigate();
+
+    /**
+     * STORM-AI: Add constants for the API client hooks
+     */
+
+    /**
+     * STORM-AI: Change variable name "data" from data to the specific resource name
+     */
+    const [data, setData] = useState<Resource | null>(null);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [formValues, setFormValues] = useState<{ [key: string]: string }>({});
+
+    // Fetch the resource
+    useEffect(() => {
+        const fetchDataAsync = async () => {
+            try {
+                /**
+                 * STORM-AI: Use the right API client and call the right method that fetches the data.
+                 * Then set the data to the data state and the formValues state.
+                 */
+            } catch (error) {
+                console.error('Failed to fetch data:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        void fetchDataAsync();
+    }, [id]);
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setFormValues((prevValues) => ({
+            ...prevValues,
+            [name]: value,
+        }));
+    };
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        try {
+            /**
+             * STORM-AI: Use the right API client and call the right method that updates the data.
+             * Then navigate to the detail screen for this resource.
+             */
+        } catch (error) {
+            console.error('Failed to update data:', error);
+        }
+    };
+
+    if (loading) {
+        return (
+            <Container component="main">
+                <CircularProgress />
+            </Container>
+        );
+    }
+
+    if (!data) {
+        return (
+            <Container component="main">
+                <Typography component="h1" variant="h5" gutterBottom>
+                    {/**
+                     * STORM-AI: Add a title here that says that the data is not found
+                     */}
+                </Typography>
+            </Container>
+        );
+    }
+    {{#raw}}
+    return (
+        <Container component="main">
+            <Typography component="h1" variant="h5" gutterBottom>
+                {/**
+                 * STORM-AI: Replace this comment with the title of the screen
+                 */}
+            </Typography>
+
+            <Paper style={{ padding: '16px' }}>
+                <form onSubmit={() => handleSubmit}>
+                    {Object.keys(formValues).map((key) => (
+                        <TextField
+                            key={key}
+                            variant="outlined"
+                            margin="normal"
+                            fullWidth
+                            id={key}
+                            label={key}
+                            name={key}
+                            value={formValues[key]}
+                            onChange={handleInputChange}
+                        />
+                    ))}
+
+                    <Button type="submit" fullWidth variant="contained" color="primary">
+                        Save
+                    </Button>
+                </form>
+            </Paper>
+        </Container>
+    );
+    {{/raw}}
+};

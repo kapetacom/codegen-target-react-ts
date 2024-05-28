@@ -1,0 +1,8 @@
+{{#ai-context}}
+//#FILENAME:STORM.md:write-never
+{{ai-type 'instructions'}}
+- You are coding Typescript using the React UI framework
+- When calling async functions, you must use the `await` keyword
+- If calling async functions in a react hook, use the useAsync and useAsyncRetry hooks from the `react-use` library
+- Whenever doing async operations like loading, saving or sending data, show a loading indicator to the user
+{{/ai-context}}

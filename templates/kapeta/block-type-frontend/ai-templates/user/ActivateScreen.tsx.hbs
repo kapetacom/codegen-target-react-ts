@@ -1,0 +1,33 @@
+#FILENAME:src/browser/screens/ActivateScreen.tsx:write-never
+{{ai-type 'web-screen'}}
+{{#ai-comment}}
+This is a screen component that displays a message to the user that their account has been activated.
+
+Suggested route: /activate
+{{/ai-comment}}
+import React from 'react';
+import { Container, Button, Typography } from '@mui/material';
+import { Link as RouterLink } from 'react-router-dom';
+
+export const ActivateScreen: React.FC = () => {
+    {{#raw}}
+    return (
+        <Container component="main" maxWidth="xs">
+            <Typography component="h1" variant="h5">
+                Account Activated!
+            </Typography>
+
+            <Button
+                    component={RouterLink}
+                    to="/login"
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                    style={{ marginTop: '20px' }}
+            >
+                Go to Login
+            </Button>
+        </Container>
+    );
+    {{/raw}}
+};

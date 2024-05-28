@@ -12,7 +12,7 @@ export interface Task {
     stars?: number;
     numberList: number[];
     /**
-     *  Age of the task
+     * Age of the task
      */
     age: number;
     metadata: { [key: string]: string };

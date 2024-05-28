@@ -1,4 +1,5 @@
 //#FILENAME:tsconfig.json:create-only
+{{ai-type 'documentation'}}
 {
   "extends": "@tsconfig/create-react-app/tsconfig.json",
   "include": ["src/**/*.ts", "src/**/*.tsx"],

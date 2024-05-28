@@ -1,4 +1,5 @@
 //#FILENAME:src/globals.d.ts:create-only
+{{ai-type 'documentation'}}
 // Type definitions for image imports
 declare module '*.jpg' {
     const content: string;
