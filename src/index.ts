@@ -50,26 +50,26 @@ export default class ReactTSTarget extends Target {
         return new Promise((resolve) => {
             this.runCmd(targetDir, 'npm', ['install'])
                 .then((result) => {
-                    if (result.status !== 'ok') {
+                    if (!result.valid) {
                         return result;
                     }
                     console.log('npm install completed successfully.');
                     return this.runCmd(targetDir, 'npm', ['run', 'lint']); // Chain to next step
                 })
                 .then((result) => {
-                    if (result.status !== 'ok') {
+                    if (!result.valid) {
                         return result;
                     }
                     console.log('npm run lint completed successfully.');
                     return this.runCmd(targetDir, 'npm', ['run', 'build']); // Chain to next step
                 })
                 .then((result) => {
-                    if (result.status !== 'ok') {
+                    if (!result.valid) {
                         resolve(result);
                         return;
                     }
                     console.log("npm run compile completed successfully.");
-                    resolve({ status: 'ok', error: ''});
+                    resolve({ valid: true, error: ''});
                 })
                 .catch(error => resolve(error));
         });
@@ -95,10 +95,10 @@ export default class ReactTSTarget extends Target {
             childProcess.on('close', (code) => {
                 if (code !== 0) {
                     console.log(`${command} exited with code ${code}`);
-                    resolve({status: "error", error: Buffer.concat(chunks).toString()});
+                    resolve({valid: false, error: Buffer.concat(chunks).toString()});
                 } else {
                     console.log(`${command} OK`);
-                    resolve({status: "ok", error: ''});
+                    resolve({valid: true, error: ''});
                 }
             });
         });
