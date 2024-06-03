@@ -49,15 +49,25 @@ export default class ReactTSTarget extends Target {
 
         return new Promise((resolve) => {
             this.runCmd(targetDir, 'npm', ['install'])
-                .then(() => {
+                .then((result) => {
+                    if (result.status !== 'ok') {
+                        return result;
+                    }
                     console.log('npm install completed successfully.');
                     return this.runCmd(targetDir, 'npm', ['run', 'lint']); // Chain to next step
                 })
-                .then(() => {
+                .then((result) => {
+                    if (result.status !== 'ok') {
+                        return result;
+                    }
                     console.log('npm run lint completed successfully.');
                     return this.runCmd(targetDir, 'npm', ['run', 'build']); // Chain to next step
                 })
-                .then(() => {
+                .then((result) => {
+                    if (result.status !== 'ok') {
+                        resolve(result);
+                        return;
+                    }
                     console.log("npm run compile completed successfully.");
                     resolve({ status: 'ok', error: ''});
                 })
