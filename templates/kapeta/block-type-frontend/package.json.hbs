@@ -1,5 +1,4 @@
 //#FILENAME:package.json:merge
-{{ai-type 'project-file'}}
 {
   "name": "@{{lowercase data.metadata.name}}",
   "version": "0.0.1",
@@ -98,6 +97,13 @@
         {{#consumes 'kapeta/resource-type-web-*'}},
             "@kapeta/sdk-web-microfrontend-frame": "^1"
         {{/consumes}}
+
+        {{#ai-context}},
+            "@mui/icons-material": "^5.15.10",
+            "@mui/material": "^5.15.10",
+            "@emotion/react": "^11.11.3",
+            "@emotion/styled": "^11.11.0"
+        {{/ai-context}}
     }
     {{#consumes 'kapeta/resource-type-rest-client'}},
         "msw": {
