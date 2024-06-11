@@ -155,20 +155,19 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
 
         const base: string = options.hash.base ?? '.';
 
-        return Template.SafeString(
-            referencesEntities
-                // skip importing self
-                .filter((entity) => entity.name !== name)
-                .map((entity) => {
-                    const native = DataTypeReader.getNative(entity);
-                    if (native) {
-                        return `import { ${entity.name} } from "${native}";`;
-                    }
+        const imports = referencesEntities
+            // skip importing self if type is datatype - ok in controllers
+            .filter(arg.type === DSLEntityType.DATATYPE ? (entity) => entity.name !== name : () => true)
+            .map((entity) => {
+                const native = DataTypeReader.getNative(entity);
+                if (native) {
+                    return `import { ${entity.name} } from "${native}";`;
+                }
 
-                    return `import { ${ucFirst(entity.name)} } from '${base}/${ucFirst(entity.name)}';`;
-                })
-                .join('\n')
-        );
+                return `import { ${ucFirst(entity.name)} } from '${base}/${ucFirst(entity.name)}';`;
+            })
+            .join('\n');
+        return Template.SafeString(imports);
     });
 
     engine.registerHelper('typescript-imports-config', function (arg: DSLEntity, options: HelperOptions) {
