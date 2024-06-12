@@ -12,6 +12,8 @@ import { addTemplateHelpers, HandleBarsType } from './target/template-helpers';
 import {spawn} from "child_process";
 import {ValidationResult} from "@kapeta/codegen";
 
+const LANGUAGE = "typescript";
+
 export default class ReactTSTarget extends Target {
     constructor(options?: any) {
         super(options, Path.resolve(__dirname, '../'));
@@ -73,6 +75,10 @@ export default class ReactTSTarget extends Target {
                 })
                 .catch(error => resolve(error));
         });
+    }
+
+    language(): string {
+        return LANGUAGE;
     }
 
     private runCmd(targetDir: string, command: string, args: string[]): Promise<ValidationResult> {
