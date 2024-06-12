@@ -45,14 +45,14 @@ export class BackendClient extends RestClient {
      * HTTP: GET /{id}
      */
     async getEntity(id: string): Promise<Entity | null> {
-        const result = await this.$execute<Entity>('GET', '/{id}', [
+        const _result = await this.$execute<Entity>('GET', '/{id}', [
             { name: 'id', value: id, transport: 'PATH', typeName: 'string' },
         ]);
 
-        if (result === null) {
+        if (_result === null) {
             return null;
         }
-        return result as Entity;
+        return _result as Entity;
     }
 
     /**

@@ -72,7 +72,7 @@ export async function create{{controller-name this}}Client(configProvider:Config
         {{/arguments}}
         ):Promise<{{returnType returnType}}{{#ifValueType returnType}}|null{{/ifValueType}}> {
 
-        {{#ifValueType returnType}}const result = {{/ifValueType}}await this.$execute(
+        {{#ifValueType returnType}}const _result = {{/ifValueType}}await this.$execute(
         '{{string method}}',
         '{{string (path path base=../path)}}',
         [
@@ -88,10 +88,10 @@ export async function create{{controller-name this}}Client(configProvider:Config
         );
 
         {{#ifValueType returnType}}
-            if (result === null) {
+            if (_result === null) {
             return null;
             }
-            return result as {{returnType returnType}};
+            return _result as {{returnType returnType}};
         {{/ifValueType}}
         }
 

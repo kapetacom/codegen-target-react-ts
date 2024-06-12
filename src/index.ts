@@ -50,7 +50,7 @@ export default class ReactTSTarget extends Target {
         console.log('Validating React Typescript project');
 
         return new Promise((resolve) => {
-            this.runCmd(targetDir, 'npm', ['install'])
+            this.runCmd(targetDir, 'npm', ['install', '--include', 'dev'])
                 .then((result) => {
                     if (!result.valid) {
                         return result;

@@ -42,14 +42,14 @@ export class UsersGroupsClient extends RestClient {
      * HTTP: GET /api/rest/users/groups/
      */
     async getAll(pageable: Pageable): Promise<string[] | null> {
-        const result = await this.$execute<string[]>('GET', '/groups/', [
+        const _result = await this.$execute<string[]>('GET', '/groups/', [
             { name: 'pageable', value: pageable, transport: 'QUERY', typeName: 'Pageable' },
         ]);
 
-        if (result === null) {
+        if (_result === null) {
             return null;
         }
-        return result as string[];
+        return _result as string[];
     }
 
     /**

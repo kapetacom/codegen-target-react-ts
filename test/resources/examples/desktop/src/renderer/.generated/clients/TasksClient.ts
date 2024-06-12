@@ -48,17 +48,17 @@ export class TasksClient extends RestClient {
      * HTTP: POST /tasks/{userId}/{id}
      */
     async addTask(userId: string, id: string, task: Task, filter?: string): Promise<Task | null> {
-        const result = await this.$execute<Task>('POST', '/tasks/{userId}/{id}', [
+        const _result = await this.$execute<Task>('POST', '/tasks/{userId}/{id}', [
             { name: 'userId', value: userId, transport: 'PATH', typeName: 'string' },
             { name: 'id', value: id, transport: 'PATH', typeName: 'string' },
             { name: 'task', value: task, transport: 'BODY', typeName: 'Task' },
             { name: 'filter', value: filter, transport: 'QUERY', typeName: 'string' },
         ]);
 
-        if (result === null) {
+        if (_result === null) {
             return null;
         }
-        return result as Task;
+        return _result as Task;
     }
 
     /**
