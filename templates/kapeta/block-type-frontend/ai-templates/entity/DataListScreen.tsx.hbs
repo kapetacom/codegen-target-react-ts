@@ -23,17 +23,7 @@ import {
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
-{{#ai-comment}}
-    Import entities from the following path: '../../.generated/entities'
-    For example:
-    import { Customer } from '../../.generated/entities/Customer';
-{{/ai-comment}}
-
-{{#ai-comment}}
-    Import API client hooks from the following path: '../.generated/clients'
-    For example:
-    import { useCustomersCustomerClient } from '../.generated/clients/CustomersCustomerClient';
-{{/ai-comment}}
+{{> helpers/dsl-imports.hbs}}
 
 type Column<T> = {
     /**

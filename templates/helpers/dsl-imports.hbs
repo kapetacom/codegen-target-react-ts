@@ -1,0 +1,25 @@
+{{#ai-context}}
+    /**
+    * STORM-AI: Below you'll find all the available entities already imported. Remove the imports that are not needed in your implementation.
+    */
+    {{#kaplang-types context.spec.entities.source}}
+        {{#kaplang-render this}}
+            import { {{type name}} } from '../../.generated/entities/{{type name}}';
+        {{/kaplang-render}}
+    {{/kaplang-types}}
+{{/ai-context}}
+
+
+{{#ai-context}}
+    /**
+    * STORM-AI: Below you'll find all the available API clients already imported. Remove the imports that are not needed in your implementation.
+    */
+    {{#consumers-of-type 'kapeta/resource-type-rest-client'}}
+        {{#kaplang-rest-methods spec.source namespace=metadata.name}}
+        {{#kaplang-reader-rest-controller}}
+            import { use{{controller-name this}}Client } from '../.generated/clients/{{controller-name this}}Client';
+        {{/kaplang-reader-rest-controller}}
+        {{/kaplang-rest-methods}}
+
+    {{/consumers-of-type}}
+{{/ai-context}}

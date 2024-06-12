@@ -9,17 +9,7 @@ import React, { useState, useCallback } from 'react';
 import { Container, TextField, Button, Typography, Link as MuiLink, Grid } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 
-{{#ai-comment}}
-    Import entities from the following path: '../../.generated/entities'
-    For example:
-    import { User } from '../../.generated/entities/User';
-{{/ai-comment}}
-
-{{#ai-comment}}
-    Import API client hooks from the following path: '../.generated/clients'
-    For example:
-    import { useUserClient } from '../.generated/clients/UserClient';
-{{/ai-comment}}
+{{> helpers/dsl-imports.hbs}}
 
 export const LoginScreen: React.FC = () => {
     const [username, setUsername] = useState('');
