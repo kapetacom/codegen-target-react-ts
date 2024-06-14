@@ -8,7 +8,7 @@
 {{/ai-comment}}
 
 import React, { useEffect, useState, useCallback } from 'react';
-import { Container, TextField, Button, Typography, CircularProgress, Grid, Paper } from '@mui/material';
+import { Container, Box, TextField, Button, Typography, CircularProgress, Grid, Paper } from '@mui/material';
 import { useParams, useNavigate } from 'react-router-dom';
 
 {{> helpers/dsl-imports.hbs}}
@@ -92,20 +92,31 @@ export const DataEditScreen: React.FC = () => {
     }
     {{#raw}}
     return (
-        <Container component="main">
-            <Typography component="h1" variant="h5" gutterBottom>
+        <Container component="main" sx=&#123;\{ p: 3 }}>
+            <Typography component="h1" variant="h5" sx=&#123;\{ mb: 4 }}>
                 {/**
                  * STORM-AI: Replace this comment with the title of the screen
                  */}
             </Typography>
 
             <Paper style={{ padding: '16px' }}>
-                <form onSubmit={() => handleSubmit}>
+                <Box
+                    component="form"
+                    onSubmit={handleSubmit}
+                    sx=&#123;{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'center',
+                        alignItems: 'flex-start',
+                        gap: 2,
+                        mt: 1,
+                    }}
+                >
                     {Object.keys(formValues).map((key) => (
                         <TextField
                             key={key}
                             variant="outlined"
-                            margin="normal"
+                            margin="none"
                             fullWidth
                             id={key}
                             label={key}
@@ -115,10 +126,10 @@ export const DataEditScreen: React.FC = () => {
                         />
                     ))}
 
-                    <Button type="submit" fullWidth variant="contained" color="primary">
+                    <Button type="submit" variant="contained" color="primary">
                         Save
                     </Button>
-                </form>
+                </Box>
             </Paper>
         </Container>
     );

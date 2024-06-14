@@ -12,7 +12,6 @@ import { Link as RouterLink } from 'react-router-dom';
 {{> helpers/dsl-imports.hbs}}
 
 export const SignupScreen: React.FC = () => {
-    const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -29,26 +28,27 @@ export const SignupScreen: React.FC = () => {
 
     {{#raw}}
     return (
-        <Container component="main" maxWidth="xs">
+         <Container
+            component="main"
+            maxWidth="xs"
+            sx=&#123;\{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'flex-start',
+                justifyContent: 'center',
+                height: '100vh',
+                bgcolor: 'background.paper',
+            }}
+        >
             <Typography component="h1" variant="h5">
                 Sign Up
             </Typography>
 
-            <form onSubmit={handleSubmit}>
-                <TextField
-                    variant="outlined"
-                    margin="normal"
-                    required
-                    fullWidth
-                    id="username"
-                    label="Username"
-                    name="username"
-                    autoComplete="username"
-                    autoFocus
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                />
+            <Typography variant="body2" sx=&#123;\{ fontSize: '0.875rem', marginBottom: 2, color: 'text.disabled' }}>
+                Get started for free
+            </Typography>
 
+            <form onSubmit={handleSubmit} style={{ width: '100%' }}>
                 <TextField
                     variant="outlined"
                     margin="normal"
@@ -76,12 +76,12 @@ export const SignupScreen: React.FC = () => {
                     onChange={(e) => setPassword(e.target.value)}
                 />
 
-                <Button type="submit" fullWidth variant="contained" color="primary">
+                <Button type="submit" fullWidth variant="contained" color="primary" size="large" sx=&#123;\{ mt: 2, mb: 2 }}>
                     Sign Up
                 </Button>
             </form>
 
-            <Grid container justifyContent="flex-end" style={{ marginTop: '10px' }}>
+            <Grid container justifyContent="flex-start">
                 <Grid item>
                     <MuiLink component={RouterLink} to="/login" variant="body2">
                         Login
