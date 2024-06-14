@@ -12,7 +12,18 @@ import { Link as RouterLink } from 'react-router-dom';
 export const ActivateScreen: React.FC = () => {
     {{#raw}}
     return (
-        <Container component="main" maxWidth="xs">
+        <Container
+            component="main"
+            maxWidth="xs"
+            sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'flex-start',
+                justifyContent: 'center',
+                height: '100vh',
+                bgcolor: 'background.paper',
+            }}
+        >
             <Typography component="h1" variant="h5">
                 Account Activated!
             </Typography>

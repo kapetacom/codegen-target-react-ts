@@ -12,7 +12,7 @@ import { Link as RouterLink } from 'react-router-dom';
 {{> helpers/dsl-imports.hbs}}
 
 export const LoginScreen: React.FC = () => {
-    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     /**
@@ -29,24 +29,39 @@ export const LoginScreen: React.FC = () => {
 
     {{#raw}}
     return (
-        <Container component="main" maxWidth="xs">
+        <Container
+            component="main"
+            maxWidth="xs"
+            sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'flex-start',
+                justifyContent: 'center',
+                height: '100vh',
+                bgcolor: 'background.paper',
+            }}
+        >
             <Typography component="h1" variant="h5">
-                Sign in
+                Log In
             </Typography>
 
-            <form onSubmit={handleSubmit}>
+            <Typography variant="body2" sx={{ fontSize: '0.875rem', marginBottom: 2, color: 'text.disabled' }}>
+                Welcome back
+            </Typography>
+
+            <form onSubmit={handleSubmit} style={{ width: '100%' }}>
                 <TextField
                     variant="outlined"
                     margin="normal"
                     required
                     fullWidth
-                    id="username"
-                    label="Username"
-                    name="username"
-                    autoComplete="username"
+                    id="email"
+                    label="Email"
+                    name="email"
+                    autoComplete="email"
                     autoFocus
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                 />
 
                 <TextField
@@ -63,12 +78,12 @@ export const LoginScreen: React.FC = () => {
                     onChange={(e) => setPassword(e.target.value)}
                 />
 
-                <Button type="submit" fullWidth variant="contained" color="primary">
+                <Button type="submit" fullWidth variant="contained" color="primary" size="large" sx={{ mt: 2, mb: 2 }}>
                     Sign In
                 </Button>
             </form>
 
-            <Grid container justifyContent="flex-end" style={{ marginTop: '10px' }}>
+            <Grid container justifyContent="flex-end">
                 {/**
                  * STORM-AI: If the app does not have a "Forgot password?" screen, delete this Grid item
                  */}
