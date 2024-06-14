@@ -31,7 +31,7 @@ export const SignupScreen: React.FC = () => {
          <Container
             component="main"
             maxWidth="xs"
-            sx={{
+            sx=&#123;\{
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'flex-start',
@@ -44,7 +44,7 @@ export const SignupScreen: React.FC = () => {
                 Sign Up
             </Typography>
 
-            <Typography variant="body2" sx={{ fontSize: '0.875rem', marginBottom: 2, color: 'text.disabled' }}>
+            <Typography variant="body2" sx=&#123;\{ fontSize: '0.875rem', marginBottom: 2, color: 'text.disabled' }}>
                 Get started for free
             </Typography>
 
@@ -76,7 +76,7 @@ export const SignupScreen: React.FC = () => {
                     onChange={(e) => setPassword(e.target.value)}
                 />
 
-                <Button type="submit" fullWidth variant="contained" color="primary" size="large" sx={{ mt: 2, mb: 2 }}>
+                <Button type="submit" fullWidth variant="contained" color="primary" size="large" sx=&#123;\{ mt: 2, mb: 2 }}>
                     Sign Up
                 </Button>
             </form>
