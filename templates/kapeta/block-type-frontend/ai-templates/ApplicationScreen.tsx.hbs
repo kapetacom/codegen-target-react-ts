@@ -1,0 +1,73 @@
+#FILENAME:src/browser/screens/ApplicationScreen.tsx:write-never
+{{ai-type 'web-screen'}}
+{{#ai-comment}}
+    This is a component that displays the main application layout with a left sidebar and a main content area.
+{{/ai-comment}}
+import React, { useMemo } from 'react';
+import { Box, Drawer, List, ListItem, ListItemButton, ListItemText } from '@mui/material';
+import { Link as RouterLink, Outlet } from 'react-router-dom';
+
+const drawerWidth = 240;
+
+type MenuItem = {
+    label: string;
+    path: string;
+};
+
+export const ApplicationScreen = () => {
+    const menuItems = useMemo<MenuItem[]>(() => {
+        return [
+            {{#ai-comment}}
+                Add a menu item here for each screen that should be accessible from the sidebar.
+            {{/ai-comment}}
+        ];
+    }, []);
+
+    return (
+        <Box
+            sx=&#123;\{
+                width: '100%',
+                height: '100%',
+                display: 'flex',
+            }}
+        >
+            <Drawer
+                sx=&#123;\{
+                    width: drawerWidth,
+                    flexShrink: 0,
+                    '& .MuiDrawer-paper': {
+                        width: drawerWidth,
+                        boxSizing: 'border-box',
+                    },
+                }}
+                variant="permanent"
+                anchor="left"
+            >
+                <Box sx=&#123;\{ overflow: 'auto' }}>
+                    <List>
+                        {menuItems.map((item) => (
+                            <ListItem key={item.label} disablePadding>
+                                <ListItemButton component={RouterLink} to={item.path}>
+                                    <ListItemText primary={item.label} />
+                                </ListItemButton>
+                            </ListItem>
+                        ))}
+                    </List>
+                </Box>
+            </Drawer>
+            <Box
+                component="main"
+                sx=&#123;\{
+                    flexGrow: 1,
+                    bgcolor: 'background.default',
+                    p: 3,
+                    display: 'flex',
+                    width: '100%',
+                    height: '100%',
+                }}
+            >
+                <Outlet />
+            </Box>
+        </Box>
+    );
+};
