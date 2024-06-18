@@ -1,0 +1,38 @@
+//#FILENAME:src/browser/routes.tsx:create-only
+{{ai-type 'web-router'}}
+import React from "react";
+
+{{#ai-comment}}
+
+Import the screen components and add routes for each. For example:
+
+import { LoginScreen } from './screens/LoginScreen';
+import { SignupScreen } from './screens/SignupScreen';
+import { DashboardScreen } from './screens/DashboardScreen';
+import { ApplicationScreen } from './screens/ApplicationScreen';
+
+Implement the routes as an array of objects for react-router-dom data routers, e.g. below:
+{{/ai-comment}}
+export const routes = [
+  {
+    path: "/login",
+    element: <LoginScreen />,
+  },
+  {
+    path: "/signup",
+    element: <SignupScreen />,
+  },
+  {
+    path: "/",
+    // shell component for the authenticated part of the app
+    element: <ApplicationScreen />,
+    children: [
+      // routes for the authenticated part of the app, usually anything thats not signup or login
+      {
+        path: '',
+        index: true,
+        element: <DashboardScreen />
+      },
+    ],
+  },
+];
