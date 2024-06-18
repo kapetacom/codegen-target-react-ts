@@ -2,24 +2,19 @@
 {{ai-type 'web-screen'}}
 {{#ai-comment}}
     This is a screen component that displays a list of data items.
-    You will rename the component and filename to the name of the data item followed by "ListScreen".
-    Choose the most relevant columns to display in the table.
-    Avoid displaying sensitive information in the table.
-    Avoid showing multi-line text in the table.
-
-    Suggested route: /{resourceName} where {resourceName} is the name of the data item.
+    You will rename the component and filename to the name of the data item followed by "Screen".
 {{/ai-comment}}
 import React, { useEffect, useMemo, useCallback } from 'react';
 import {
-    Container,
-    Typography,
+    Box,
+    Paper,
     Table,
     TableBody,
     TableCell,
     TableContainer,
     TableHead,
     TableRow,
-    Paper,
+    Typography,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
@@ -39,56 +34,58 @@ type Column<T> = {
 export const DataListScreen: React.FC = () => {
     const navigate = useNavigate();
 
-    /**
-     * STORM-AI: Add constants for the API client hooks
-     */
+    {{#ai-comment}}
+        Add constants for the API client hooks
+    {{/ai-comment}}
 
-    /**
-     * STORM-AI: Rename data and setData with appropriate names related to the fetched resource
-     */
+    {{#ai-comment}}
+        Rename data and setData with appropriate names related to the fetched resource
+    {{/ai-comment}}
     const [data, setData] = React.useState<[]>([]);
     useEffect(() => {
         const fetchDataAsync = async () => {
-            /**
-             * STORM-AI: Use the right API client and call the right method that fetches the data.
-             * Then set the data to the state.
-             */
+            {{#ai-comment}}
+                Use the right API client and call the right method that fetches the data.
+                Then set the data to the state.
+            {{/ai-comment}}
         };
 
         void fetchDataAsync();
     }, []);
 
     const handleRowClick = useCallback((id: string) => {
-        /**
-         * STORM-AI: Use navigate to redirect to the right screen
-         */
+        {{#ai-comment}}
+            Use navigate to redirect to the right screen
+        {{/ai-comment}}
     }, []);
 
-    /**
-     * STORM-AI: Replace any with the type of the item
-     */
+    {{#ai-comment}}
+        Replace any with the type of the item
+    {{/ai-comment}}
     const columns = useMemo<Column<any>[]>(
         () => [
-            /**
-             * STORM-AI: Add the columns that you want to display in the table
-             */
+            {{#ai-comment}}
+                Add the most relevant columns to display in the table.
+                Avoid displaying sensitive information in the table.
+                Avoid showing multi-line text in the table.
+            {{/ai-comment}}
         ],
         []
     );
 
-    /**
-     * STORM-AI: Replace any with the type of the item
-     */
+    {{#ai-comment}}
+        Replace any with the type of the item
+    {{/ai-comment}}
     const getRowId = useCallback((item: any): string => {
-        /**
-         * STORM-AI: Return a unique identifier of the item
-         */
+        {{#ai-comment}}
+            Return a unique identifier of the item
+        {{/ai-comment}}
         return '';
     }, []);
 
     {{#raw}}
     return (
-        <Container component="main" sx=&#123;\{ p: 3 }}>
+        <Box sx=&#123;\{ width: '100%', height: '100%' }}>
             <Typography component="h1" variant="h5" sx=&#123;\{ mb: 4 }}>
                 {/**
                  * STORM-AI: Replace this comment with the title of the screen
@@ -115,7 +112,7 @@ export const DataListScreen: React.FC = () => {
                     </TableBody>
                 </Table>
             </TableContainer>
-        </Container>
+        </Box>
     );
     {{/raw}}
 };

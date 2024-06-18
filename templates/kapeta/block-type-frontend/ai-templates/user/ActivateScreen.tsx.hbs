@@ -1,9 +1,7 @@
 #FILENAME:src/browser/screens/ActivateScreen.tsx:write-never
 {{ai-type 'web-screen'}}
 {{#ai-comment}}
-This is a screen component that displays a message to the user that their account has been activated.
-
-Suggested route: /activate
+    This is a screen component that displays a message to the user that their account has been activated.
 {{/ai-comment}}
 import React from 'react';
 import { Container, Button, Typography } from '@mui/material';
@@ -22,6 +20,7 @@ export const ActivateScreen: React.FC = () => {
                 justifyContent: 'center',
                 height: '100vh',
                 bgcolor: 'background.paper',
+                padding: 2,
             }}
         >
             <Typography component="h1" variant="h5">
