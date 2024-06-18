@@ -70,24 +70,29 @@ export const DataEditScreen: React.FC = () => {
     };
 
     if (loading) {
+        {{#raw}}
         return (
             <Box sx=&#123;\{ width: '100%', height: '100%' }}>
                 <CircularProgress />
             </Box>
         );
+        {{/raw}}
     }
 
     if (!data) {
+        {{#raw}}
         return (
             <Box sx=&#123;\{ width: '100%', height: '100%' }}>
                 <Typography component="h1" variant="h5" gutterBottom>
-                    {{#ai-comment}}
-                        Add a title here that says that the data is not found
-                    {{/ai-comment}}
+                    {/**
+                     * STORM-AI: Add a title here that says that the data is not found
+                     */}
                 </Typography>
             </Box>
         );
+        {{/raw}}
     }
+    
     {{#raw}}
     return (
         <Box sx=&#123;\{ width: '100%', height: '100%' }}>

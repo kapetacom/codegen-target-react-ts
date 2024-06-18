@@ -27,11 +27,12 @@ export const theme = createTheme({
 
 export const MainPage = () => {
     const router = createBrowserRouter(routes);
+    {{#raw}}
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
             <GlobalStyles
-                styles={{
+                styles=&#123;{
                     html: { height: '100%', width: '100%' },
                     body: { height: '100%', width: '100%' },
                     '.application-container': { height: '100%', width: '100%' },
@@ -40,11 +41,14 @@ export const MainPage = () => {
             <RouterProvider router={router} />
         </ThemeProvider>
     );
+    {{/raw}}
 };
-{{else}}
+{{/ai-context}}
+
+{{#non-ai-only}}
 export const {{type data.metadata.name}}Page = () => {
     return (
         <div>{{data.metadata.name}}</div>
     );
 };
-{{/ai-context}}
+{{/non-ai-only}}

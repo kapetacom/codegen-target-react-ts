@@ -55,23 +55,27 @@ export const DataDetailsScreen = () => {
     }, [id]);
 
     if (loading) {
+        {{#raw}}
         return (
             <Box>
                 <CircularProgress />
             </Box>
         );
+        {{/raw}}
     }
 
     if (!data) {
+        {{#raw}}
         return (
             <Box>
                 <Typography component="h1" variant="h5" sx=&#123;\{ mb: 4 }}>
-                    {{#ai-comment}}
-                        Add a title here that says that the data is not found
-                    {{/ai-comment}}
+                    {/**
+                     * STORM-AI: Add a title here that says that the data is not found
+                     */}
                 </Typography>
             </Box>
         );
+        {{/raw}}
     }
 
     const detailFields: Record<string, string>[] = [
