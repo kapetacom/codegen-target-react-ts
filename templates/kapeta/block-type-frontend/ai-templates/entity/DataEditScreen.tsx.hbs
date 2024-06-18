@@ -3,8 +3,6 @@
 {{#ai-comment}}
     This is a screen component that allows users to edit the details of a data item.
     You will rename the component and filename to the name of the data item followed by "EditScreen".
-
-    Suggested route: /{resourceName}/:id/edit where {resourceName} is the name of the data item.
 {{/ai-comment}}
 
 import React, { useEffect, useState, useCallback } from 'react';
@@ -22,13 +20,13 @@ export const DataEditScreen: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
 
-    /**
-     * STORM-AI: Add constants for the API client hooks
-     */
+    {{#ai-comment}}
+        Add constants for the API client hooks
+    {{/ai-comment}}
 
-    /**
-     * STORM-AI: Change variable name "data" from data to the specific resource name
-     */
+    {{#ai-comment}}
+        Change variable name "data" from data to the specific resource name
+    {{/ai-comment}}
     const [data, setData] = useState<Resource | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [formValues, setFormValues] = useState<{ [key: string]: string }>({});
@@ -37,10 +35,10 @@ export const DataEditScreen: React.FC = () => {
     useEffect(() => {
         const fetchDataAsync = async () => {
             try {
-                /**
-                 * STORM-AI: Use the right API client and call the right method that fetches the data.
-                 * Then set the data to the data state and the formValues state.
-                 */
+                {{#ai-comment}}
+                    Use the right API client and call the right method that fetches the data.
+                    Then set the data to the data state and the formValues state.
+                {{/ai-comment}}
             } catch (error) {
                 console.error('Failed to fetch data:', error);
             } finally {
@@ -62,37 +60,42 @@ export const DataEditScreen: React.FC = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            /**
-             * STORM-AI: Use the right API client and call the right method that updates the data.
-             * Then navigate to the detail screen for this resource.
-             */
+            {{#ai-comment}}
+                Use the right API client and call the right method that updates the data.
+                Then navigate to the detail screen for this resource.
+            {{/ai-comment}}
         } catch (error) {
             console.error('Failed to update data:', error);
         }
     };
 
     if (loading) {
+        {{#raw}}
         return (
-            <Container component="main">
+            <Box sx=&#123;\{ width: '100%', height: '100%' }}>
                 <CircularProgress />
-            </Container>
+            </Box>
         );
+        {{/raw}}
     }
 
     if (!data) {
+        {{#raw}}
         return (
-            <Container component="main">
+            <Box sx=&#123;\{ width: '100%', height: '100%' }}>
                 <Typography component="h1" variant="h5" gutterBottom>
                     {/**
                      * STORM-AI: Add a title here that says that the data is not found
                      */}
                 </Typography>
-            </Container>
+            </Box>
         );
+        {{/raw}}
     }
+    
     {{#raw}}
     return (
-        <Container component="main" sx=&#123;\{ p: 3 }}>
+        <Box sx=&#123;\{ width: '100%', height: '100%' }}>
             <Typography component="h1" variant="h5" sx=&#123;\{ mb: 4 }}>
                 {/**
                  * STORM-AI: Replace this comment with the title of the screen
@@ -131,7 +134,7 @@ export const DataEditScreen: React.FC = () => {
                     </Button>
                 </Box>
             </Paper>
-        </Container>
+        </Box>
     );
     {{/raw}}
 };

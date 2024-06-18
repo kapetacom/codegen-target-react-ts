@@ -3,41 +3,36 @@
 {{#ai-comment}}
     This is a screen component that displays a message to the user that the screen is not implemented yet.
     You will rename the component and filename to the name of the screen followed by "Screen".
-
-
-    Suggested routes - but choose something that is meaningful for the application:
-    - /dashboard
-    - /settings
-    - /profile
-    - /about
-    - /contact
-    - /search
-    - /toc
-    - /privacy
-    - / (for home screen)
 {{/ai-comment}}
 import React from 'react';
-import { Alert, Typography } from '@mui/material';
-/**
- * STORM-AI: Do not import any API clients in this component
- */
+import { Box, Typography } from '@mui/material';
+{{#ai-comment}}
+    Do not import anything else in this file.
+{{/ai-comment}}
 
 export const FallbackScreen = () => {
     {{#raw}}
     return (
-        <>
-            <Typography variant="h1">
+        <Box
+            sx=&#123;\{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'flex-start',
+                height: '100%',
+                width: '100%',
+            }}
+        >
+            <Typography variant="h5">
                 {/**
                  * STORM-AI: Replace this comment with the title of the screen
                  */}
             </Typography>
-            <Typography variant="body1">
+            <Typography variant="body2" sx=&#123;\{ fontSize: '0.875rem', color: 'text.disabled' }}>
                 {/**
                  * STORM-AI: Replace this comment with the description of the screen
                  */}
             </Typography>
-            <Alert severity="error">Not implemented yet</Alert>
-        </>
+        </Box>
     );
     {{/raw}}
 };

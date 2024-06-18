@@ -2,8 +2,6 @@
 {{ai-type 'web-screen'}}
 {{#ai-comment}}
     This is a screen component that allows users to sign up to the application.
-
-    Suggested route: /signup
 {{/ai-comment}}
 import React, { useState, useCallback } from 'react';
 import { Container, TextField, Button, Typography, Link as MuiLink, Grid } from '@mui/material';
@@ -15,15 +13,15 @@ export const SignupScreen: React.FC = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    /**
-     * STORM-AI: Add constants for the API client hooks
-     */
+    {{#ai-comment}}
+        Add constants for the API client hooks
+    {{/ai-comment}}
 
     const handleSubmit: React.FormEventHandler = useCallback((event) => {
         event.preventDefault();
-        /**
-         * STORM-AI: Use the right API client and call the right method that registers the user
-         */
+        {{#ai-comment}}
+            Use the right API client and call the right method that registers the user
+        {{/ai-comment}}
     }, []);
 
     {{#raw}}
@@ -38,6 +36,7 @@ export const SignupScreen: React.FC = () => {
                 justifyContent: 'center',
                 height: '100vh',
                 bgcolor: 'background.paper',
+                padding: 2,
             }}
         >
             <Typography component="h1" variant="h5">

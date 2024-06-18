@@ -3,13 +3,11 @@
 {{#ai-comment}}
 This is a screen component that displays the details of a data item.
 You will rename the component and filename to the name of the data item followed by "DetailsScreen".
-
-Suggested route: /{resourceName}/:id where {resourceName} is the name of the data item.
 {{/ai-comment}}
 
 import React, { useEffect, useState } from 'react';
 import {
-    Container,
+    Box,
     Button,
     Typography,
     Paper,
@@ -22,29 +20,30 @@ import {
     CircularProgress,
     Grid,
 } from '@mui/material';
-import { useParams, Link as RouterLink } from 'react-router-dom';
+import { useParams, Link as RouterLink, useNavigate } from 'react-router-dom';
 
 {{> helpers/dsl-imports.hbs}}
 
 export const DataDetailsScreen = () => {
     const { id } = useParams<{ id: string }>();
 
-    /**
-     * STORM-AI: Add constants for the API client hooks
-     */
+    {{#ai-comment}}
+        Add constants for the API client hooks
+    {{/ai-comment}}
 
-    /**
-     * STORM-AI: Replace unknown with the type of the data type
-     */
+    {{#ai-comment}}
+        Replace unknown with the type of the data type
+    {{/ai-comment}}
     const [data, setData] = useState<unknown | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
+
     useEffect(() => {
         const fetchDataAsync = async () => {
             try {
-                /**
-                 * STORM-AI: Use the right API client and call the right method that fetches the data.
-                 * Then set the data to the state.
-                 */
+                {{#ai-comment}}
+                    Use the right API client and call the right method that fetches the data.
+                    Then set the data to the state.
+                {{/ai-comment}}
             } catch (error) {
                 console.error('Failed to fetch data:', error);
             } finally {
@@ -56,35 +55,39 @@ export const DataDetailsScreen = () => {
     }, [id]);
 
     if (loading) {
+        {{#raw}}
         return (
-            <Container component="main">
+            <Box>
                 <CircularProgress />
-            </Container>
+            </Box>
         );
+        {{/raw}}
     }
 
     if (!data) {
+        {{#raw}}
         return (
-            <Container component="main">
-                <Typography component="h1" variant="h5" gutterBottom>
+            <Box>
+                <Typography component="h1" variant="h5" sx=&#123;\{ mb: 4 }}>
                     {/**
                      * STORM-AI: Add a title here that says that the data is not found
                      */}
                 </Typography>
-            </Container>
+            </Box>
         );
+        {{/raw}}
     }
 
     const detailFields: Record<string, string>[] = [
-        /**
-         * STORM-AI: Add the fields that you want to display in the details screen
-         */
+        {{#ai-comment}}
+            Add the fields that you want to display in the details screen
+        {{/ai-comment}}
     ];
 
     {{#raw}}
     return (
-        <Container component="main">
-            <Typography component="h1" variant="h5" gutterBottom>
+        <Box sx=&#123;\{ width: '100%', height: '100%' }}>
+            <Typography component="h1" variant="h5" sx=&#123;\{ mb: 4 }}>
                 {/**
                  * STORM-AI: Replace this comment with the title of the screen
                  */}
@@ -109,7 +112,7 @@ export const DataDetailsScreen = () => {
                 </Table>
             </TableContainer>
 
-            <Grid container justifyContent="space-between" sx=&#123;\{ mt: '10px' }}>
+            <Grid container justifyContent="space-between" sx=&#123;\{ mt: 2 }}>
                 {/**
                  * STORM-AI: If the API has a delete method, use this button to perform the delete action. Otherwise, remove it.
                  */}
@@ -128,7 +131,7 @@ export const DataDetailsScreen = () => {
                     </Button>
                 </Grid>
             </Grid>
-        </Container>
+        </Box>
     );
     {{/raw}}
 };

@@ -2,29 +2,27 @@
 {{ai-type 'web-screen'}}
 {{#ai-comment}}
     This is a screen component that allows users to sign in to the application.
-
-    Suggested route: /login
 {{/ai-comment}}
 import React, { useState, useCallback } from 'react';
 import { Container, TextField, Button, Typography, Link as MuiLink, Grid } from '@mui/material';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
 {{> helpers/dsl-imports.hbs}}
 
 export const LoginScreen: React.FC = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
-    /**
-     * STORM-AI: Add constants for the API client hooks
-     */
+    {{#ai-comment}}
+        Add constants for the API client hooks
+    {{/ai-comment}}
+    const navigate = useNavigate();
 
     const handleSubmit: React.FormEventHandler = useCallback((event) => {
         event.preventDefault();
-        /**
-         * STORM-AI: Use the right API client and call the right method that authenticates the user
-         * and navigate to the main screen
-         */
+        {{#ai-comment}}
+            Use the right API client and call the right method that authenticates the user
+            Then navigate to the main screen
+        {{/ai-comment}}
     }, []);
 
     {{#raw}}
@@ -39,6 +37,7 @@ export const LoginScreen: React.FC = () => {
                 justifyContent: 'center',
                 height: '100vh',
                 bgcolor: 'background.paper',
+                padding: 2,
             }}
         >
             <Typography component="h1" variant="h5">
@@ -85,19 +84,19 @@ export const LoginScreen: React.FC = () => {
 
             <Grid container justifyContent="flex-end">
                 {/**
+                 * STORM-AI: If the app does not have a "Sign Up" screen, delete this Grid item
+                 */}
+                <Grid item>
+                    <MuiLink component={RouterLink} to="/signup" variant="body2" sx=&#123;\{ marginRight: 2 }}>
+                        Create account
+                    </MuiLink>
+                </Grid>
+                {/**
                  * STORM-AI: If the app does not have a "Forgot password?" screen, delete this Grid item
                  */}
                 <Grid item>
                     <MuiLink component={RouterLink} to="/forgot-password" variant="body2">
                         Forgot password?
-                    </MuiLink>
-                </Grid>
-                {/**
-                 * STORM-AI: If the app does not have a "Sign Up" screen, delete this Grid item
-                 */}
-                <Grid item>
-                    <MuiLink component={RouterLink} to="/signup" variant="body2" style={{ marginLeft: '15px' }}>
-                        Sign Up
                     </MuiLink>
                 </Grid>
             </Grid>

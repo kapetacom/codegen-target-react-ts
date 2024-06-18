@@ -1,18 +1,54 @@
 //#FILENAME:{{frontendBasePath}}/pages/{{snakeCase data.metadata.name}}/{{type data.metadata.name}}Page.tsx:create-only
 {{ai-type 'web-page'}}
 import React from 'react';
+{{#ai-context}}
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { routes } from '../../routes';
+import { ThemeOptions, ThemeProvider, createTheme, CssBaseline, GlobalStyles } from '@mui/material';
+{{/ai-context}}
 
 /*
-The root component of the {{type data.metadata.name}} page.
+ * The root component of the {{type data.metadata.name}} page.
+ * 
+ * This is where you add your own components and logic.
+ */
 
-This is where you add your own components and logic.
+{{#ai-context}}
+export const theme = createTheme({
+    palette: {
+        primary: {
+            main: '#651FFF',
+        },
+        secondary: {
+            main: '#f50057',
+        },
+    },
+} satisfies ThemeOptions);
 
-*/
+export const MainPage = () => {
+    const router = createBrowserRouter(routes);
+    {{#raw}}
+    return (
+        <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <GlobalStyles
+                styles=&#123;{
+                    html: { height: '100%', width: '100%' },
+                    body: { height: '100%', width: '100%' },
+                    '.application-container': { height: '100%', width: '100%' },
+                }}
+            />
+            <RouterProvider router={router} />
+        </ThemeProvider>
+    );
+    {{/raw}}
+};
+{{/ai-context}}
 
-
+{{#non-ai-only}}
 export const {{type data.metadata.name}}Page = () => {
-
     return (
         <div>{{data.metadata.name}}</div>
     );
 };
+{{/non-ai-only}}
