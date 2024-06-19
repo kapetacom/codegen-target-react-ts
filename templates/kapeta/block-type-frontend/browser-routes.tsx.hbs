@@ -1,19 +1,18 @@
-//#FILENAME:src/browser/routes.tsx:create-only
+//#FILENAME:src/browser/routes.tsx:write-never
 {{ai-type 'web-router'}}
 import React from "react";
 
 {{#ai-comment}}
-
-Import the screen components and add routes for each. For example:
+Import all the screens from the input and add to the routes object below.
+{{/ai-comment}}
 
 import { LoginScreen } from './screens/LoginScreen';
 import { SignupScreen } from './screens/SignupScreen';
 import { DashboardScreen } from './screens/DashboardScreen';
 import { ApplicationScreen } from './screens/ApplicationScreen';
 
-Implement the routes as an array of objects for react-router-dom data routers, e.g. below:
-{{/ai-comment}}
 export const routes = [
+  // STORM-AI: Remove routes for screens that dont exist
   {
     path: "/login",
     element: <LoginScreen />,
@@ -23,16 +22,21 @@ export const routes = [
     element: <SignupScreen />,
   },
   {
+    path: "/forgot-password",
+    element: <ForgotPasswordScreen />,
+  },
+  {
     path: "/",
-    // shell component for the authenticated part of the app
+    // STORM-AI: Use the shell component for the authenticated part of the app
     element: <ApplicationScreen />,
     children: [
-      // routes for the authenticated part of the app, usually anything thats not signup or login
+      // STORM-AI: routes for the authenticated part of the app, usually anything thats not signup or login
       {
         path: '',
         index: true,
         element: <DashboardScreen />
       },
+      // STORM-AI: Add more routes here
     ],
   },
 ];
