@@ -7,5 +7,6 @@ import React from 'react';
  */
 
 export const MyPagePage = () => {
+    // Replace this with something more suitable for your page
     return <div>MyPage</div>;
 };
