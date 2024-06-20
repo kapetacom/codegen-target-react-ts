@@ -22,7 +22,7 @@
     "homepage": "https://github.com/kapetacom/codegen-target-react-ts#readme",
     "prettier": "@kapeta/prettier-config",
     "dependencies": {
-        "@kapeta/codegen-target": "^1.8.1",
+        "@kapeta/codegen-target": "^1.8.3",
         "@kapeta/kaplang-core": "^1.16.0",
         "@kapeta/nodejs-process": "^1.2.0",
         "@kapeta/nodejs-utils": "^0.1.3",
