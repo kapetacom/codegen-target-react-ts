@@ -1,0 +1,7 @@
+//AI-TYPE:documentation
+
+{
+    "extends": "@tsconfig/create-react-app/tsconfig.json",
+    "include": ["src/**/*.ts", "src/**/*.tsx"],
+    "exclude": ["node_modules", "dist"]
+}
