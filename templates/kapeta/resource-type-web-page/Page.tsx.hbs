@@ -27,7 +27,7 @@ export const theme = createTheme({
 
 export const MainPage = () => {
     const router = createBrowserRouter(routes);
-    {{#raw}}
+    {{{{raw}}}}
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
@@ -41,15 +41,15 @@ export const MainPage = () => {
             <RouterProvider router={router} />
         </ThemeProvider>
     );
-    {{/raw}}
+    {{{{/raw}}}}
 };
 {{/ai-context}}
 
 {{#non-ai-only}}
 export const {{type data.metadata.name}}Page = () => {
-    {{#raw}}
+    {{{{raw}}}}
     // Replace this with something more suitable for your page
-    {{/raw}}
+    {{{{/raw}}}}
     return (
         <div>{{data.metadata.name}}</div>
     );

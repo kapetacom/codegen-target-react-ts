@@ -11,7 +11,7 @@ import { Box, Typography } from '@mui/material';
 {{/ai-comment}}
 
 export const FallbackScreen = () => {
-    {{#raw}}
+    {{{{raw}}}}
     return (
         <Box
             sx=&#123;\{
@@ -34,5 +34,5 @@ export const FallbackScreen = () => {
             </Typography>
         </Box>
     );
-    {{/raw}}
+    {{{{/raw}}}}
 };
