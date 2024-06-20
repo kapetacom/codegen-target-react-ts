@@ -1,6 +1,6 @@
 {{#ai-context}}
     /**
-    * STORM-AI: Below you'll find all the available entities already imported. Remove the imports that are not needed in your implementation.
+    * STORM-AI: Below you'll find all the available entities. No other entities are available in this scope.
     */
     {{#kaplang-types context.spec.entities.source}}
         {{#kaplang-render this}}
@@ -12,7 +12,7 @@
 
 {{#ai-context}}
     /**
-    * STORM-AI: Below you'll find all the available API clients already imported. Remove the imports that are not needed in your implementation.
+    * STORM-AI: Below you'll find all the available API clients. No other API clients are available in this scope.
     */
     {{#consumers-of-type 'kapeta/resource-type-rest-client'}}
         {{#kaplang-rest-methods spec.source namespace=metadata.name}}
