@@ -31,6 +31,16 @@ describe('blocks', () => {
         return CodegenHelpers.testCodeGenFor(target, new BlockCodeGenerator(data), basedir);
     });
 
+    test.only('ai', async () => {
+        const basedir = Path.resolve(__dirname, '../resources/examples/ai');
+        const data = require('../resources/examples/portal.kapeta.yml') as BlockDefinition;
+        const codegen = new BlockCodeGenerator(data);
+        codegen.withOption('AIContext', 'storm');
+        const aiTarget = new Target({ AIContext: 'storm' });
+
+        return CodegenHelpers.testCodeGenFor(aiTarget, codegen, basedir);
+    });
+
     test('desktop', async () => {
         const basedir = Path.resolve(__dirname, '../resources/examples/desktop');
         const data = require('../resources/examples/desktop.kapeta.yml') as BlockDefinition;
