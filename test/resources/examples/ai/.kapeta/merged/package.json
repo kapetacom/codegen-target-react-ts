@@ -39,9 +39,7 @@
         "@kapeta/sdk-rest-client": "^3.2",
         "@kapeta/sdk-rest": "^1.0.1",
         "@kapeta/sdk-redis": "^1.1.2",
-        "redis": "^4",
-        "react-use": "^17.5.0",
-        "react-router-dom": "^6.2.1"
+        "redis": "^4"
     },
     "devDependencies": {
         "@types/react": "^18.0.27",
@@ -72,6 +70,7 @@
         "mini-css-extract-plugin": "^2.7.6",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
+        "react-router-dom": "^6.23.1",
         "eslint": "^8.52.0",
         "eslint-config-prettier": "^8.8.0",
         "prettier": "^2.8.8",
@@ -85,7 +84,6 @@
         "@mui/material": "^5.15.10",
         "@emotion/react": "^11.11.3",
         "@emotion/styled": "^11.11.0",
-        "react-router-dom": "^6.23.1",
         "react-use": "^17.5.0"
     },
     "msw": {
