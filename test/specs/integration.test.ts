@@ -31,7 +31,7 @@ describe('blocks', () => {
         return CodegenHelpers.testCodeGenFor(target, new BlockCodeGenerator(data), basedir);
     });
 
-    test.only('ai', async () => {
+    test('ai', async () => {
         const basedir = Path.resolve(__dirname, '../resources/examples/ai');
         const data = require('../resources/examples/portal.kapeta.yml') as BlockDefinition;
         const codegen = new BlockCodeGenerator(data);
