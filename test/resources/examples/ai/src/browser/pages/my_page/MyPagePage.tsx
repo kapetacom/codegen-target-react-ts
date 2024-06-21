@@ -28,7 +28,7 @@ export const MyPagePage = () => {
         <ThemeProvider theme={theme}>
             <CssBaseline />
             <GlobalStyles
-                styles=&#123;{
+                styles={{
                     html: { height: '100%', width: '100%' },
                     body: { height: '100%', width: '100%' },
                     '.application-container': { height: '100%', width: '100%' },
