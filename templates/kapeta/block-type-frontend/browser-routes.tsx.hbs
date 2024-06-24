@@ -4,11 +4,12 @@ import React from "react";
 
 {{#ai-comment}}
 Import all the screens from the input and add to the routes object below.
+Remove imports that are not used or don't exist.
 {{/ai-comment}}
 
 import { LoginScreen } from './screens/LoginScreen';
 import { SignupScreen } from './screens/SignupScreen';
-import { DashboardScreen } from './screens/DashboardScreen';
+import { ForgotPasswordScreen } from './screens/ForgotPasswordScreen';
 import { ApplicationScreen } from './screens/ApplicationScreen';
 
 export const routes = [
@@ -27,15 +28,15 @@ export const routes = [
   },
   {
     path: "/",
-    // STORM-AI: Use the shell component for the authenticated part of the app
+    // STORM-AI: Always use ApplicationScreen as the root screen here
     element: <ApplicationScreen />,
     children: [
-      // STORM-AI: routes for the authenticated part of the app, usually anything thats not signup or login
       {
-        path: '',
-        index: true,
-        element: <DashboardScreen />
+        "path": "",
+        // STORM-AI: Add the screen with the "/" path here instead of the dummy element
+        "element": <p>home</p>
       },
+      // STORM-AI: routes for the authenticated part of the app, usually anything thats not signup or login
       // STORM-AI: Add more routes here
     ],
   },
