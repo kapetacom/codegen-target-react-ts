@@ -3,5 +3,10 @@
 {
   "extends": "@tsconfig/create-react-app/tsconfig.json",
   "include": ["src/**/*.ts", "src/**/*.tsx"],
+{{#ai-context}}
+  "compilerOptions": {
+    "strict": false,
+  },
+{{/ai-context}}
   "exclude": ["node_modules","dist"]
 }
