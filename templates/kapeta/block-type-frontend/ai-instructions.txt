@@ -5,4 +5,6 @@
 - When calling async functions, you must use the `await` keyword
 - If calling async functions in a react hook, use the useAsync and useAsyncRetry hooks from the `react-use` library
 - Whenever doing async operations like loading, saving or sending data, show a loading indicator to the user
+- Always use named exports for components, functions and hooks
+- The component name should be the same as the file name
 {{/ai-context}}
