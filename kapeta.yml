@@ -7,7 +7,15 @@ metadata:
 spec:
   icon:
     type: url
-    value: https://storage.googleapis.com/kapeta-public-cdn/icons/react.svg
+    value: https://storage.googleapis.com/kapeta-public-cdn/icons/themed/react.svg
+  # The branded icons works pretty well for both light and dark themes
+  icons:
+    - type: url
+      value: https://storage.googleapis.com/kapeta-public-cdn/icons/themed/react.svg
+      theme: light
+    - type: url
+      value: https://storage.googleapis.com/kapeta-public-cdn/icons/themed/react.svg
+      theme: dark
   local:
     image: node:20
     workingDir: /workspace
